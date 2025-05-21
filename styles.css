@@ -2564,4 +2564,130 @@ iframe.instagram-media {
 .footer-section {
     margin-top: 2rem;
     margin-bottom: 1rem;
+}
+
+/* Accessibility Improvements - Fix contrast issues */
+.text-primary-accent {
+  color: #008579; /* Darker shade of the primary accent for better contrast */
+}
+
+.dark .text-primary-accent {
+  color: #00ccc0; /* Lighter shade in dark mode for better contrast */
+}
+
+/* Improve contrast ratios for backgrounds and text */
+.bg-primary-accent {
+  background-color: #007f73; /* Slightly darker for better contrast with white text */
+}
+
+.text-text-secondary {
+  color: #505050; /* Darker gray for better contrast on light backgrounds */
+}
+
+.dark .text-text-secondary {
+  color: #b8b8b8; /* Lighter gray for better contrast on dark backgrounds */
+}
+
+/* Improve link and button focus states for accessibility */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid #008579;
+  outline-offset: 2px;
+}
+
+.dark a:focus, .dark button:focus, .dark input:focus, .dark select:focus, .dark textarea:focus {
+  outline: 2px solid #00ccc0;
+}
+
+/* Improve contrast for hover states */
+.hover\:text-primary-accent:hover {
+  color: #006a60; /* Darker on hover for better distinction */
+}
+
+.dark .hover\:text-primary-accent:hover {
+  color: #00e6d9; /* Lighter on hover in dark mode */
+}
+
+/* Improve contrast for toggle buttons */
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #007f73; /* Better contrast ratio */
+}
+
+.dark .toggle-switch input:checked + .toggle-slider {
+  background-color: #00ccc0; /* Better contrast in dark mode */
+}
+
+/* Better contrast for card backgrounds */
+.bg-white {
+  background-color: #ffffff;
+}
+
+.dark .bg-white {
+  background-color: #1a1a1a; /* Darker background in dark mode for better contrast */
+}
+
+/* Ensure sufficient contrast for placeholders */
+::placeholder {
+  color: #6b6b6b; /* Darker placeholder for better contrast */
+}
+
+.dark ::placeholder {
+  color: #a0a0a0; /* Lighter placeholder in dark mode for better contrast */
+}
+
+/* Ensure text is legible on gradient backgrounds */
+.bg-gradient-to-br, .bg-gradient-to-r, .bg-gradient-to-tl {
+  position: relative;
+}
+
+.bg-gradient-to-br:before, .bg-gradient-to-r:before, .bg-gradient-to-tl:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1); /* Add slight overlay for better text contrast */
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dark .bg-gradient-to-br:before, .dark .bg-gradient-to-r:before, .dark .bg-gradient-to-tl:before {
+  background-color: rgba(255, 255, 255, 0.05); /* Different overlay for dark mode */
+}
+
+/* Improve visual indication for interactive elements */
+button, a, input[type="button"], input[type="submit"] {
+  transition: all 0.2s ease-in-out;
+}
+
+button:active, a:active, input[type="button"]:active, input[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+/* Skip to content link for keyboard navigation */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+  background: #ffffff;
+  color: #007f73;
+  padding: 1rem;
+  border: 2px solid #007f73;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.skip-to-content:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* Ensure form labels have sufficient contrast */
+label {
+  color: #303030;
+  font-weight: 500;
+}
+
+.dark label {
+  color: #e0e0e0;
 } 
