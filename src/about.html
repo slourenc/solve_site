@@ -32,7 +32,12 @@
     <link rel="stylesheet" href="../styles.css">
 
     <style>
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
         /* More pronounced focus for accessibility */
         *:focus-visible {
             outline: 3px solid #00A99D !important; /* Using primary-accent */
@@ -136,7 +141,7 @@
                     mirror: true,
                     anchorPlacement: 'top-bottom',
                     startEvent: 'DOMContentLoaded',
-                    delay: 100
+                    delay: 0
                 });
             }
             
