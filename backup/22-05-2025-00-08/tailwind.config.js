@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-accent': '#3939ff',
-        'primary-accent-hover': '#2020e0',
+        'primary-accent': '#00A99D',
+        'primary-accent-hover': '#00877A',
         'background-light': '#F7FAFC',
         'background-medium': '#EBF8FF',
         'background-dark': '#1A202C',
