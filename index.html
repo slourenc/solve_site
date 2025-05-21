@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' node_modules/font-awesome/fonts/; connect-src 'self'; media-src 'self' https://storage.googleapis.com; frame-src 'self' https://www.google.com https://www.instagram.com;">
     <title>Solve. | Premium Shoe Cleaning Services in Lisbon</title>
     <meta name="description" content="Professional shoe cleaning services in Lisbon. Give your sneakers a new life with our expert cleaning techniques.">
     
@@ -23,15 +24,15 @@
     <!-- Alpine JS Core -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
     
-    <!-- AOS Animations -->
-    <link href="node_modules/aos/dist/aos.css" rel="stylesheet">
-    <script src="node_modules/aos/dist/aos.js"></script>
+    <!-- AOS Animations - Using CDN instead of node_modules -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     
     <!-- AOS Fix for transition-delay errors -->
     <link href="aos-fix.css" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
+    <!-- Font Awesome - using local version from node_modules -->
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -113,20 +114,24 @@
                 document.documentElement.setAttribute('data-theme', savedTheme);
             } else if (prefersDark) {
                 document.documentElement.setAttribute('data-theme', 'dark');
-        }
+            }
         
             // Initialize AOS animations with fixed values for transition delays
-            AOS.init({
-                duration: 800,
-                once: false,
-                offset: 100,
-                easing: 'ease-in-out',
-                delay: 0, // Fixed delay to avoid parsing issues
-                anchorPlacement: 'top-bottom',
-                useClassNames: false,
-                disableMutationObserver: false,
-                throttleDelay: 100
-            });
+            try {
+                AOS.init({
+                    duration: 800,
+                    once: false,
+                    offset: 100,
+                    easing: 'ease-in-out',
+                    delay: 0, // Fixed delay to avoid parsing issues
+                    anchorPlacement: 'top-bottom',
+                    useClassNames: false,
+                    disableMutationObserver: false,
+                    throttleDelay: 100
+                });
+            } catch (e) {
+                console.warn('AOS initialization failed:', e);
+            }
             
             // Language switching logic
             const userLang = navigator.language || navigator.userLanguage;
@@ -1057,7 +1062,7 @@
                             style="border:0; min-height: 400px;" 
                             allowfullscreen="" 
                             loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
+                            referrerpolicy="no-referrer"
                             title="Google Maps location of Solve store in Lisbon"
                             aria-label="Map showing Solve's location in Lisbon">
                         </iframe>
@@ -1231,16 +1236,24 @@
         // Make sure Alpine.js and its plugins are properly initialized
         document.addEventListener('DOMContentLoaded', () => {
             // Enhanced AOS animations with proper settings
-            AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: false,
-                mirror: true,
-                anchorPlacement: 'top-bottom',
-                startEvent: 'DOMContentLoaded',
-                // Using single numeric values for delay instead of expressions
-                delay: 100
-            });
+            try {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: false,
+                    mirror: true,
+                    anchorPlacement: 'top-bottom',
+                    startEvent: 'DOMContentLoaded',
+                    // Using single numeric values for delay instead of expressions
+                    delay: 100
+                });
+            } catch (e) {
+                console.warn('AOS initialization failed:', e);
+                // Try to process data-aos elements manually if AOS fails
+                document.querySelectorAll('[data-aos]').forEach(el => {
+                    el.classList.add('aos-animate');
+                });
+            }
             
             // Set up all navigation link hover effects
             const navLinks = document.querySelectorAll('.fancy-nav-item');
