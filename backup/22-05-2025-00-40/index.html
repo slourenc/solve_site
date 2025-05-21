@@ -98,7 +98,7 @@
     <link rel="stylesheet" href="styles.css">
 
     <style>
-        /* Enhanced navigation */
+        /* Fix header contrast in both light and dark themes */
         .fancy-nav-item {
             position: relative;
             font-weight: 500;
@@ -111,7 +111,7 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background-color: #3939ff;
+            background-color: var(--primary-accent);
             transition: width 0.3s ease;
         }
         
@@ -119,7 +119,7 @@
             width: 100%;
         }
         
-        /* Animations */
+        /* More animation enhancements */
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
@@ -130,7 +130,7 @@
             100% { transform: translateY(0px); }
         }
         
-        /* Footer spacing */
+        /* Fix footer spacing */
         .footer-section {
             margin-top: 2rem;
             margin-bottom: 1rem;
@@ -151,10 +151,16 @@
     </style>
 
     <script>
-        // Initialize language
+        // Initialize theme from local storage
         document.addEventListener('DOMContentLoaded', () => {
-            // Set light theme as default
-            document.documentElement.setAttribute('data-theme', 'light');
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } else if (prefersDark) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
         
             // Initialize AOS animations with fixed values for transition delays
             try {
@@ -186,6 +192,21 @@
             }
         });
         
+        // Theme toggling function - now explicitly handles transitions
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update all toggles
+            const toggles = document.querySelectorAll('.dark-mode-toggle input[type="checkbox"]');
+            toggles.forEach(toggle => {
+                toggle.checked = newTheme === 'dark';
+            });
+        }
+        
         // Language toggle function
         function setLanguage(lang) {
             document.documentElement.setAttribute('data-lang', lang);
@@ -204,7 +225,7 @@
         }
     </script>
 </head>
-<body class="bg-background-light text-text-primary font-sans antialiased">
+<body class="bg-background-light text-text-primary font-sans antialiased dark:bg-background-dark dark:text-text-inverse">
 
     <!-- Header -->
     <header id="home" class="shadow-md sticky top-0 z-50 header-bg">
@@ -265,7 +286,12 @@
                         EN
                     </button>
                 </div>
-
+                <div class="dark-mode-toggle ml-4" title="Toggle Dark Mode">
+                    <label class="toggle-switch">
+                            <input type="checkbox" onclick="toggleTheme()">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
             </div>
 
             <!-- Mobile Menu Button -->
@@ -283,7 +309,12 @@
                         EN
                     </button>
                 </div>
-
+                <div class="dark-mode-toggle mr-3" title="Toggle Dark Mode">
+                    <label class="toggle-switch">
+                            <input type="checkbox" onclick="toggleTheme()">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
                 <button id="mobile-menu-button" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path class="mobile-menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -330,7 +361,7 @@
     <!-- Main Content -->
     <main x-data>
         <!-- Fixed Social Media Bar -->
-        <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-2 p-2 bg-white  bg-opacity-80  backdrop-blur-sm rounded-l-lg shadow-lg transition-colors duration-300">
+        <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-2 p-2 bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-80 backdrop-blur-sm rounded-l-lg shadow-lg transition-colors duration-300">
             <a href="https://www.instagram.com/kolabclean/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
@@ -383,7 +414,7 @@
             <div class="video-bg-container">
                 <div class="video-overlay" style="background: linear-gradient(45deg, rgba(57, 57, 255, 0.95), rgba(32, 32, 224, 0.9))"></div>
                 <video autoplay muted loop playsinline class="video-bg">
-                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                    <source src="https://player.vimeo.com/external/370331493.hd.mp4?s=e744441e6c9b699d43a0feefeaa5da3875250ec7&profile_id=175" type="video/mp4">
                 </video>
             </div>
             
@@ -694,7 +725,7 @@
         </section>
 
         <!-- Pricing Section -->
-        <section id="pricing" class="py-16 md:py-24 px-6 bg-background-light">
+        <section id="pricing" class="py-16 md:py-24 px-6 bg-background-light dark:bg-background-dark">
             <div class="container mx-auto">
                 <div 
                     class="opacity-0 translate-y-4 transition-all duration-700 ease-out"
@@ -706,7 +737,7 @@
                     </h2>
                 </div>
                 <div 
-                    class="max-w-2xl mx-auto bg-white  p-8 md:p-10 rounded-xl shadow-xl opacity-0 scale-95 transition-all duration-500 ease-out delay-200"
+                    class="max-w-2xl mx-auto bg-white dark:bg-background-dark p-8 md:p-10 rounded-xl shadow-xl opacity-0 scale-95 transition-all duration-500 ease-out delay-200"
                     x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
                     :class="{ 'opacity-100 !scale-100': shown }">
                     <ul class="space-y-5">
@@ -716,7 +747,7 @@
                                     <span class="lang-pt">Limpeza Standard</span>
                                     <span class="lang-en">Standard Clean</span>
                                 </span>
-                                <p class="text-sm text-text-secondary  mt-1">
+                                <p class="text-sm text-text-secondary dark:text-gray-300 mt-1">
                                     <span class="lang-pt">Exterior, Solas, Atacadores</span>
                                     <span class="lang-en">Exterior, Sole, Laces</span>
                                 </p>
@@ -729,7 +760,7 @@
                                     <span class="lang-pt">Limpeza Extra</span>
                                     <span class="lang-en">Extra Clean</span>
                                 </span>
-                                <p class="text-sm text-text-secondary  mt-1">
+                                <p class="text-sm text-text-secondary dark:text-gray-300 mt-1">
                                     <span class="lang-pt">+ Interior, Palmilhas, Higienização, Pintura Parcial</span>
                                     <span class="lang-en">+ Interior, Insoles, Sanitation, Partial Painting</span>
                                 </p>
@@ -742,7 +773,7 @@
                                     <span class="lang-pt">Limpeza Premium</span>
                                     <span class="lang-en">Premium Clean</span>
                                 </span>
-                                <p class="text-sm text-text-secondary  mt-1">
+                                <p class="text-sm text-text-secondary dark:text-gray-300 mt-1">
                                     <span class="lang-pt">+ Pintura Completa e Restauração</span>
                                     <span class="lang-en">+ Full Painting and Restoration</span>
                                 </p>
@@ -761,12 +792,12 @@
                                     <span class="lang-pt">Materiais</span>
                                     <span class="lang-en">Materials</span>
                                 </h4>
-                                <p class="text-sm text-text-secondary ">
+                                <p class="text-sm text-text-secondary dark:text-gray-300">
                                     <span class="lang-pt">Camurça/Nubuck:</span>
                                     <span class="lang-en">Suede/Nubuck:</span>
                                     +10€
                                 </p>
-                                <p class="text-sm text-text-secondary ">
+                                <p class="text-sm text-text-secondary dark:text-gray-300">
                                     <span class="lang-pt">Branqueamento de Solas:</span>
                                     <span class="lang-en">Sole Whitening:</span>
                                     +5€
@@ -777,17 +808,17 @@
                                     <span class="lang-pt">Urgência</span>
                                     <span class="lang-en">Urgency</span>
                                 </h4>
-                                <p class="text-sm text-text-secondary ">
+                                <p class="text-sm text-text-secondary dark:text-gray-300">
                                     <span class="lang-pt">5 Dias Úteis:</span>
                                     <span class="lang-en">5 Business Days:</span>
                                     +5€
                                 </p>
-                                <p class="text-sm text-text-secondary ">
+                                <p class="text-sm text-text-secondary dark:text-gray-300">
                                     <span class="lang-pt">48 Horas:</span>
                                     <span class="lang-en">48 Hours:</span>
                                     +10€
                                 </p>
-                                <p class="text-sm text-text-secondary ">
+                                <p class="text-sm text-text-secondary dark:text-gray-300">
                                     <span class="lang-pt">24 Horas:</span>
                                     <span class="lang-en">24 Hours:</span>
                                     +20€
@@ -795,7 +826,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-sm text-text-secondary  mt-6 text-center">
+                    <p class="text-sm text-text-secondary dark:text-gray-300 mt-6 text-center">
                         <span class="lang-pt">Prazo normal de entrega: 10 dias úteis.</span>
                         <span class="lang-en">Standard service time: 10 business days.</span>
                     </p>
@@ -816,16 +847,16 @@
         </section>
 
         <!-- Before/After Section -->
-        <section id="before-after" class="py-20 md:py-28 px-6 bg-gradient-to-br from-background-light via-white to-purple-50 overflow-hidden">
+        <section id="before-after" class="py-20 md:py-28 px-6 bg-gradient-to-br from-background-light via-white to-purple-50 dark:from-background-dark dark:via-background-dark dark:to-purple-900/20 overflow-hidden">
         <div class="container mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                     <span class="text-primary-accent font-semibold text-sm uppercase tracking-wider px-4 py-1 rounded-full bg-primary-accent/10 inline-block">RESULTADOS INCRÍVEIS</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary ">
+                    <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary dark:text-white">
                         <span class="lang-pt">Antes & <span class="text-primary-accent">Depois</span></span>
                         <span class="lang-en">Before & <span class="text-primary-accent">After</span></span>
                     </h2>
                     <div class="w-20 h-1 bg-gradient-to-r from-primary-accent to-purple-500 mx-auto mb-6 rounded-full"></div>
-                    <p class="text-text-secondary  text-lg max-w-2xl mx-auto">
+                    <p class="text-text-secondary dark:text-gray-300 text-lg max-w-2xl mx-auto">
                         <span class="lang-pt">Vê os nossos resultados mais impressionantes. Transformações reais!</span>
                         <span class="lang-en">Check out our most impressive results. Real transformations!</span>
                     </p>
@@ -962,16 +993,16 @@
         </section>
 
         <!-- Visit Us / Location Section -->
-        <section id="visit-us" class="py-20 md:py-28 px-6 bg-gradient-to-br from-background-light to-blue-50">
+        <section id="visit-us" class="py-20 md:py-28 px-6 bg-gradient-to-br from-background-light to-blue-50 dark:from-background-dark dark:via-background-dark dark:to-blue-900/20">
             <div class="container mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                     <span class="text-primary-accent font-semibold text-sm uppercase tracking-wider px-4 py-1 rounded-full bg-primary-accent/10 inline-block">LOCALIZAÇÃO</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary ">
+                    <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary dark:text-white">
                         <span class="lang-pt">Visite a Nossa <span class="text-primary-accent">Loja</span></span>
                         <span class="lang-en">Visit Our <span class="text-primary-accent">Store</span></span>
                     </h2>
                     <div class="w-20 h-1 bg-gradient-to-r from-primary-accent to-blue-400 mx-auto mb-6 rounded-full"></div>
-                    <p class="text-text-secondary  text-lg max-w-2xl mx-auto">
+                    <p class="text-text-secondary dark:text-gray-300 text-lg max-w-2xl mx-auto">
                         <span class="lang-pt">Estamos convenientemente localizados em Lisboa para cuidar dos seus ténis.</span>
                         <span class="lang-en">We're conveniently located in Lisbon to take care of your kicks.</span>
                     </p>
@@ -979,12 +1010,12 @@
 
                 <div class="grid md:grid-cols-2 gap-10">
                     <!-- Location Info -->
-                    <div class="bg-white  rounded-2xl p-8 md:p-10 shadow-xl overflow-hidden relative" data-aos="fade-right" data-aos-delay="100">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-10 shadow-xl overflow-hidden relative" data-aos="fade-right" data-aos-delay="100">
                         <!-- Decorative accent element -->
                         <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200 to-transparent rounded-bl-full opacity-30 z-0"></div>
                         
                         <div class="relative z-10">
-                            <h3 class="text-2xl font-bold mb-6 text-text-primary ">
+                            <h3 class="text-2xl font-bold mb-6 text-text-primary dark:text-white">
                                 <span class="lang-pt">Encontre-nos Em</span>
                                 <span class="lang-en">Find Us At</span>
                             </h3>
@@ -997,12 +1028,12 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-semibold text-text-primary  mb-1">
+                                    <h4 class="text-lg font-semibold text-text-primary dark:text-white mb-1">
                                         <span class="lang-pt">Endereço</span>
                                         <span class="lang-en">Address</span>
                                     </h4>
-                                    <p class="text-text-secondary ">Avenida das Forças Armadas 51</p>
-                                    <p class="text-text-secondary ">1600-121 Lisboa</p>
+                                    <p class="text-text-secondary dark:text-gray-300">Avenida das Forças Armadas 51</p>
+                                    <p class="text-text-secondary dark:text-gray-300">1600-121 Lisboa</p>
                                 </div>
                             </div>
                             
@@ -1013,15 +1044,15 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-semibold text-text-primary  mb-1">
+                                    <h4 class="text-lg font-semibold text-text-primary dark:text-white mb-1">
                                         <span class="lang-pt">Horário</span>
                                         <span class="lang-en">Hours</span>
                                     </h4>
-                                    <p class="text-text-secondary ">
+                                    <p class="text-text-secondary dark:text-gray-300">
                                         <span class="lang-pt">Terça a Sábado</span>
                                         <span class="lang-en">Tuesday to Saturday</span>
                                     </p>
-                                    <p class="text-text-secondary ">10:30 - 19:00</p>
+                                    <p class="text-text-secondary dark:text-gray-300">10:30 - 19:00</p>
                                 </div>
                             </div>
                             
@@ -1032,14 +1063,14 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-semibold text-text-primary  mb-1">
+                                    <h4 class="text-lg font-semibold text-text-primary dark:text-white mb-1">
                                         <span class="lang-pt">Contacto</span>
                                         <span class="lang-en">Contact</span>
                                     </h4>
-                                    <p class="text-text-secondary ">
+                                    <p class="text-text-secondary dark:text-gray-300">
                                         <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a>
                                     </p>
-                                    <p class="text-text-secondary ">
+                                    <p class="text-text-secondary dark:text-gray-300">
                                         <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a>
                                     </p>
                                 </div>
@@ -1079,39 +1110,39 @@
                 </div>
 
                 <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="400">
-                    <h3 class="text-2xl font-bold mb-6 text-text-primary ">
+                    <h3 class="text-2xl font-bold mb-6 text-text-primary dark:text-white">
                         <span class="lang-pt">Transportes Nas Proximidades</span>
                         <span class="lang-en">Nearby Transportation</span>
                     </h3>
                     <div class="flex flex-wrap justify-center gap-4">
-                        <div class="bg-white  rounded-xl p-4 shadow-md flex items-center">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md flex items-center">
                             <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
                                 M
                             </div>
                             <div class="text-left">
-                                <p class="font-semibold text-text-primary ">Cidade Universitária</p>
-                                <p class="text-text-secondary  text-sm">300m</p>
+                                <p class="font-semibold text-text-primary dark:text-white">Cidade Universitária</p>
+                                <p class="text-text-secondary dark:text-gray-300 text-sm">300m</p>
                             </div>
                         </div>
-                        <div class="bg-white  rounded-xl p-4 shadow-md flex items-center">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md flex items-center">
                             <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
                                 B
                             </div>
                             <div class="text-left">
-                                <p class="font-semibold text-text-primary ">Carris 701, 731, 735</p>
-                                <p class="text-text-secondary  text-sm">100m</p>
+                                <p class="font-semibold text-text-primary dark:text-white">Carris 701, 731, 735</p>
+                                <p class="text-text-secondary dark:text-gray-300 text-sm">100m</p>
                             </div>
                         </div>
-                        <div class="bg-white  rounded-xl p-4 shadow-md flex items-center">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md flex items-center">
                             <div class="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
                                 P
                             </div>
                             <div class="text-left">
-                                <p class="font-semibold text-text-primary ">
+                                <p class="font-semibold text-text-primary dark:text-white">
                                     <span class="lang-pt">Estacionamento</span>
                                     <span class="lang-en">Parking</span>
                                 </p>
-                                <p class="text-text-secondary  text-sm">
+                                <p class="text-text-secondary dark:text-gray-300 text-sm">
                                     <span class="lang-pt">Na rua</span>
                                     <span class="lang-en">Street parking</span>
                                 </p>
@@ -1241,10 +1272,310 @@
         </footer>
     </main>
 
-        <script>        // Performance optimized initialization        document.addEventListener('DOMContentLoaded', () => {            // Enhanced AOS animations with performance optimized settings            try {                AOS.init({                    duration: 800,                    easing: 'ease-in-out',                    once: true, // Changed to true for better performance                    mirror: false, // Simplified                    anchorPlacement: 'top-bottom',                    startEvent: 'DOMContentLoaded',                    delay: 100                });            } catch (e) {                console.warn('AOS initialization failed:', e);                // Apply animations when AOS fails                document.querySelectorAll('[data-aos]').forEach(el => {                    el.classList.add('aos-animate');                });            }                        // Set up navigation link hover effects with better performance            const navLinks = document.querySelectorAll('.fancy-nav-item');            navLinks.forEach(link => {                link.addEventListener('mouseenter', () => {                    link.style.color = '#3939ff'; // Hardcoded color for better performance                });                link.addEventListener('mouseleave', () => {                    link.style.color = '';                });            });                        // Handle the current year display for copyright            const yearElement = document.getElementById('currentYear');            if (yearElement) yearElement.textContent = new Date().getFullYear();                        // Optimized smooth scrolling with fewer event listeners            document.addEventListener('click', (e) => {                const anchor = e.target.closest('a[href^="#"]');                if (anchor) {                    const targetId = anchor.getAttribute('href');                    if (targetId.startsWith('#')) {                        const targetElement = document.querySelector(targetId);                        if (targetElement) {                            e.preventDefault();                            window.scrollTo({                                top: targetElement.offsetTop - 80,                                behavior: 'smooth'                            });                        }                    }                }            });                        // Initialize language button states            const currentLang = document.documentElement.getAttribute('data-lang');            document.querySelectorAll('.lang-btn').forEach(btn => {                if ((btn.textContent.trim() === 'PT' && currentLang === 'pt') ||                    (btn.textContent.trim() === 'EN' && currentLang === 'en')) {                    btn.classList.add('active');                } else {                    btn.classList.remove('active');                }            });                        // Optimize video background handling            const videoElement = document.querySelector('.video-bg');            if (videoElement) {                // Error handling                videoElement.addEventListener('error', () => {                    const container = document.querySelector('.video-bg-container');                    if (container) {                        container.style.backgroundColor = '#3939ff';                        videoElement.style.display = 'none';                    }                });                                // Optimized parallax effect with throttling                let lastScrollTime = 0;                const throttleTime = 20; // Only update every 20ms for better performance                                window.addEventListener('scroll', () => {                    const now = Date.now();                    if (now - lastScrollTime > throttleTime) {                        lastScrollTime = now;                        const scrollY = window.scrollY;                                                if (scrollY < window.innerHeight) {                            videoElement.style.transform = `scale(${1 + scrollY * 0.0005})`;                        }                    }                }, { passive: true }); // Use passive listener for better scrolling performance            }        });    </script>
+    <script>
+        // Make sure Alpine.js and its plugins are properly initialized
+        document.addEventListener('DOMContentLoaded', () => {
+            // Enhanced AOS animations with proper settings
+            try {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: false,
+                    mirror: true,
+                    anchorPlacement: 'top-bottom',
+                    startEvent: 'DOMContentLoaded',
+                    // Using single numeric values for delay instead of expressions
+                    delay: 100
+                });
+            } catch (e) {
+                console.warn('AOS initialization failed:', e);
+                // Try to process data-aos elements manually if AOS fails
+                document.querySelectorAll('[data-aos]').forEach(el => {
+                    el.classList.add('aos-animate');
+                });
+            }
+            
+            // Set up all navigation link hover effects
+            const navLinks = document.querySelectorAll('.fancy-nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.color = 'var(--primary-accent)';
+                });
+                link.addEventListener('mouseleave', () => {
+                    if (!link.classList.contains('active')) {
+                        link.style.color = 'var(--text-primary)';
+                    }
+                });
+            });
+            
+            // Handle the current year display for copyright
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) yearElement.textContent = new Date().getFullYear();
+            
+            // Handle smooth scrolling for anchor links with improved behavior
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            setTimeout(() => {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 80, // Account for header height
+                                    behavior: 'smooth'
+                                });
+                            }, this.closest('.md\\:hidden[x-show]') ? 50 : 0);
+                        }
+                    }
+                });
+            });
+            
+            // Initialize correct state for theme toggle buttons and apply theme
+            const darkModeToggles = document.querySelectorAll('.dark-mode-toggle input[type="checkbox"]');
+            const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || 'light';
+            
+            // Apply saved theme on page load (important for dark mode)
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            // Update toggle states
+            darkModeToggles.forEach(toggle => {
+                toggle.checked = currentTheme === 'dark';
+            });
+            
+            // Make sure all proper dark mode classes are applied
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                document.querySelectorAll('.logo-text-main').forEach(el => {
+                    el.setAttribute('fill', '#ffffff');
+                });
+            } else {
+                document.body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
+                document.querySelectorAll('.logo-text-main').forEach(el => {
+                    el.setAttribute('fill', '#2D3748');
+                });
+            }
+            
+            // Initialize language button states
+                const currentLang = document.documentElement.getAttribute('data-lang');
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if ((btn.textContent.trim() === 'PT' && currentLang === 'pt') ||
+                        (btn.textContent.trim() === 'EN' && currentLang === 'en')) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                }
+            });
+            
+            // Handle video error
+            const videoElement = document.querySelector('.video-bg');
+            if (videoElement) {
+                videoElement.addEventListener('error', () => {
+                    // Handle video error by applying a fallback background
+                    const container = document.querySelector('.video-bg-container');
+                    if (container) {
+                        container.style.backgroundColor = '#00A99D';
+                        videoElement.style.display = 'none';
+                    }
+                });
+            }
+
+            // Modified: Only apply parallax effect to the video background, not the hero content
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const heroSection = document.querySelector('#home');
+                
+                if (heroSection && scrollY < window.innerHeight) {
+                    const videoBg = heroSection.querySelector('.video-bg');
+                    if (videoBg) {
+                        // Subtle parallax effect on video only
+                        videoBg.style.transform = `scale(${1 + scrollY * 0.0005})`;
+                    }
+                }
+                });
+            });
+            
+        // Enhanced theme toggle function to fix dark mode on index
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            // Set theme attribute on HTML element
+            document.documentElement.setAttribute('data-theme', newTheme);
+            
+            // Store in localStorage for persistence
+            localStorage.setItem('theme', newTheme);
+            
+            // Add or remove dark class on body and html (important for dark mode)
+            if (newTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                // Fix logo text color in dark mode
+                document.querySelectorAll('.logo-text-main').forEach(el => {
+                    el.setAttribute('fill', '#ffffff');
+                });
+            } else {
+                document.body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
+                // Reset logo text color in light mode
+                document.querySelectorAll('.logo-text-main').forEach(el => {
+                    el.setAttribute('fill', '#2D3748');
+                });
+            }
+            
+            // Update all toggles
+            const toggles = document.querySelectorAll('.dark-mode-toggle input[type="checkbox"]');
+            toggles.forEach(toggle => {
+                toggle.checked = newTheme === 'dark';
+                    });
+        }
+    </script>
 
     <!-- Instagram Embed Script -->
     <script async src="https://www.instagram.com/embed.js"></script>
-        <script>        // Initialize Instagram embeds properly when loaded        document.addEventListener('DOMContentLoaded', function() {            // Process Instagram embeds when page loads            if (window.instgrm) {                window.instgrm.Embeds.process();            }                        // Add interactive behavior to video overlays with performance optimizations            const videoGroups = document.querySelectorAll('.group');            videoGroups.forEach(group => {                const overlay = group.querySelector('.inset-0');                const iframe = group.querySelector('iframe');                                if (overlay && iframe) {                    // Use event delegation to reduce event listeners                    group.addEventListener('mouseenter', () => {                        overlay.style.opacity = '0';                    });                                        group.addEventListener('mouseleave', () => {                        overlay.style.opacity = '1';                    });                                // Handle click on overlay to focus the iframe - with optimizations                    overlay.addEventListener('click', (e) => {                        e.preventDefault();                        overlay.style.opacity = '0';                        overlay.style.pointerEvents = 'none';                                                // Load Instagram embed script on-demand                        if (!window.instgrm && iframe.src.includes('instagram.com')) {                            const script = document.createElement('script');                            script.async = true;                            script.defer = true;                            script.src = 'https://www.instagram.com/embed.js';                            script.onload = () => window.instgrm?.Embeds.process();                            document.body.appendChild(script);                        } else if (window.instgrm) {                            window.instgrm.Embeds.process();                        }                                                // Focus iframe for better interaction                        iframe.focus();                    });                }            });                        // Use Intersection Observer for lazy loading            const lazyLoadObserver = new IntersectionObserver((entries) => {                entries.forEach(entry => {                    if (entry.isIntersecting) {                        const iframe = entry.target.querySelector('iframe');                                                // Only load Instagram content if it's coming into view                        if (iframe && iframe.src.includes('instagram.com') && window.instgrm) {                            window.instgrm.Embeds.process();                        }                                                // Stop watching this element after it's loaded                        lazyLoadObserver.unobserve(entry.target);                    }                });            }, { threshold: 0.1, rootMargin: '200px' });                        // Observe all containers that need lazy loading            document.querySelectorAll('.group').forEach(container => {                lazyLoadObserver.observe(container);            });        });    </script>
+    <script>
+        // Initialize Instagram embeds properly when loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Process Instagram embeds when page loads
+            if (window.instgrm) {
+                window.instgrm.Embeds.process();
+            }
+            
+            // Add interactive behavior to video overlays
+            const videoGroups = document.querySelectorAll('.group');
+            videoGroups.forEach(group => {
+                const overlay = group.querySelector('.inset-0');
+                const iframe = group.querySelector('iframe');
+                
+                if (overlay && iframe) {
+                    // Enhance hover effect
+                    group.addEventListener('mouseenter', () => {
+                        overlay.style.opacity = '0';
+                    });
+                    
+                    group.addEventListener('mouseleave', () => {
+                        overlay.style.opacity = '1';
+            });
+            
+                    // Handle click on overlay to focus the iframe
+                    overlay.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        overlay.style.opacity = '0';
+                        overlay.style.pointerEvents = 'none';
+                        
+                        // Ensure Instagram embed is properly loaded
+                        if (window.instgrm) {
+                            window.instgrm.Embeds.process();
+                        }
+                        
+                        // Try to focus iframe for better interaction
+                        if (iframe) {
+                            iframe.focus();
+                            
+                            // Add a message to iframe to try to play (may not work due to cross-origin restrictions)
+                            try {
+                                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                            } catch (error) {
+                                console.log('Could not send play command to iframe');
+                            }
+                    }
+                });
+            }
+        });
+        
+            // Re-process Instagram embeds when they become visible due to scrolling
+            const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                    if (entry.isIntersecting && window.instgrm) {
+                        // If the Instagram embed is visible, process it
+                        window.instgrm.Embeds.process();
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe all Instagram embed containers
+            document.querySelectorAll('iframe[src*="instagram.com"]').forEach(embed => {
+                observer.observe(embed.parentNode);
+            });
+            
+            // Check if Instagram embeds loaded properly within a reasonable time
+            setTimeout(checkInstagramEmbeds, 5000); // Check after 5 seconds
+            
+            // Force reprocessing if needed
+            function reprocessInstagramEmbeds() {
+                if (window.instgrm) {
+                    window.instgrm.Embeds.process();
+                } else {
+                    setTimeout(reprocessInstagramEmbeds, 1000); // Try again in 1 second
+                }
+            }
+            
+            // Handle potential Instagram embed failures
+            function checkInstagramEmbeds() {
+                const embeds = document.querySelectorAll('iframe[src*="instagram.com"]');
+                
+                embeds.forEach(embed => {
+                    // Check if the iframe has loaded content properly
+                    const iframeLoaded = embed.complete || 
+                                        (embed.contentDocument && embed.contentDocument.readyState === 'complete');
+        
+                    // If content hasn't loaded properly
+                    if (!iframeLoaded) {
+                        const container = embed.parentNode;
+                        const altImageSrc = "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=500&q=80";
+                        
+                        // Create fallback content
+                        const fallbackContent = document.createElement('div');
+                        fallbackContent.className = "instagram-fallback";
+                        fallbackContent.innerHTML = `
+                            <div class="relative w-full h-full">
+                                <img src="${altImageSrc}" alt="Shoe cleaning preview" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-white p-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-3" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                                        <path d="M12 7.163c-2.672 0-4.838 2.166-4.838 4.837 0 2.672 2.166 4.837 4.838 4.837 2.671 0 4.837-2.165 4.837-4.837 0-2.671-2.166-4.837-4.837-4.837zm0 8.008c-1.75 0-3.169-1.42-3.169-3.171 0-1.749 1.42-3.169 3.169-3.169 1.75 0 3.17 1.42 3.17 3.169 0 1.751-1.42 3.171-3.17 3.171z"/>
+                                        <circle cx="16.95" cy="7.05" r="1.115"/>
+                                    </svg>
+                                    <p class="text-center font-semibold">Instagram content could not be loaded</p>
+                                    <a href="${embed.src.split('embed')[0]}" target="_blank" rel="noopener noreferrer" 
+                                        class="mt-3 bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300 text-white py-2 px-4 rounded-lg">
+                                        View on Instagram
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Replace the iframe with the fallback content
+                        container.replaceChild(fallbackContent, embed);
+                    }
+                });
+            }
+            
+            // Initial attempt to process embeds
+            reprocessInstagramEmbeds();
+            
+            // Lazy load Instagram JS if user interacts with video elements
+            document.querySelectorAll('.group').forEach(group => {
+                group.addEventListener('click', () => {
+                    // Make sure Instagram script is loaded when user interacts
+                    if (!window.instgrm) {
+                        const script = document.createElement('script');
+                        script.async = true;
+                        script.defer = true;
+                        script.src = 'https://www.instagram.com/embed.js';
+                        document.body.appendChild(script);
+                        
+                        script.onload = () => {
+                            if (window.instgrm) {
+                                window.instgrm.Embeds.process();
+                            }
+                        };
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
