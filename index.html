@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self'; connect-src 'self'; media-src 'self' https://storage.googleapis.com; frame-src 'self' https://www.google.com https://www.instagram.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self'; media-src 'self' https://storage.googleapis.com; frame-src 'self' https://www.google.com https://www.instagram.com;">
     <title>Solve. | Premium Shoe Cleaning Services in Lisbon</title>
     <meta name="description" content="Professional shoe cleaning services in Lisbon. Give your sneakers a new life with our expert cleaning techniques.">
     
     <!-- Preconnect to critical domains -->
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://storage.googleapis.com" crossorigin>
     
-    <!-- Preload critical resources including images -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80" crossorigin="anonymous">
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80" crossorigin="anonymous">
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80" crossorigin="anonymous">
+    <!-- Preload critical resources - removed image preloading to prevent warnings -->
     
     <!-- Favicon -->
     <link rel="icon" href="logos/favicon.png" type="image/png">
@@ -89,28 +87,17 @@
         });
     </script>
     
-    <!-- AOS Animations - Using CDN instead of node_modules -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- AOS Animations - Using our fixed custom version -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link href="aos-custom.css" rel="stylesheet">
     
-    <!-- AOS Fix for transition-delay errors -->
-    <link href="aos-fix.css" rel="stylesheet">
-    
-    <!-- Font Awesome - using local version from node_modules -->
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+    <!-- Font Awesome - using CDN instead of local version -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
 
     <style>
-        /* Ensure theme and language transitions are smooth */
-        html {
-            transition: color 0.3s ease, background-color 0.3s ease;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-        }
-        
         /* Fix header contrast in both light and dark themes */
         .fancy-nav-item {
             position: relative;
@@ -160,12 +147,6 @@
                 flex-direction: row;
                 justify-content: space-between;
             }
-        }
-        
-        /* Font smoothing fixes */
-        body {
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
         }
     </style>
 
@@ -886,7 +867,7 @@
                     <div class="overflow-hidden rounded-xl shadow-lg bg-white relative group" data-aos="zoom-in" data-aos-delay="100" data-aos-duration="800">
                         <div class="relative">
                             <!-- Before Image (Default) -->
-                            <img src="https://images.unsplash.com/photo-1621881538090-b2b2be015a20?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                            <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Nike Air Force 1" 
                                  class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
@@ -907,7 +888,7 @@
                     <div class="overflow-hidden rounded-xl shadow-lg bg-white relative group" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="800">
                         <div class="relative">
                             <!-- Before Image (Default) -->
-                            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Adidas Ultra Boost" 
                                  class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
@@ -928,7 +909,7 @@
                     <div class="overflow-hidden rounded-xl shadow-lg bg-white relative group" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="800">
                         <div class="relative">
                             <!-- Before Image (Default) -->
-                            <img src="https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Jordan 1" 
                                  class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
@@ -949,7 +930,7 @@
                     <div class="overflow-hidden rounded-xl shadow-lg bg-white relative group" data-aos="zoom-in" data-aos-delay="400" data-aos-duration="800">
                         <div class="relative">
                             <!-- Before Image (Default) -->
-                            <img src="https://images.unsplash.com/photo-1584735175315-9d5df23be2c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Converse" 
                                  class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
@@ -970,7 +951,7 @@
                     <div class="overflow-hidden rounded-xl shadow-lg bg-white relative group" data-aos="zoom-in" data-aos-delay="500" data-aos-duration="800">
                         <div class="relative">
                             <!-- Before Image (Default) -->
-                            <img src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty New Balance" 
                                  class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
@@ -991,7 +972,7 @@
                     <div class="overflow-hidden rounded-xl shadow-lg bg-white relative group" data-aos="zoom-in" data-aos-delay="600" data-aos-duration="800">
                         <div class="relative">
                             <!-- Before Image (Default) -->
-                            <img src="https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Vans" 
                                  class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
