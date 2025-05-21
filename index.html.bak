@@ -6,49 +6,41 @@
     <title>Solve. | Premium Shoe Cleaning Services in Lisbon</title>
     <meta name="description" content="Professional shoe cleaning services in Lisbon. Give your sneakers a new life with our expert cleaning techniques.">
     
-    <!-- Preconnect to important domains -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://images.unsplash.com">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
     
     <!-- Favicon -->
     <link rel="icon" href="logos/favicon.png" type="image/png">
     
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
-    <!-- Preload critical CSS -->
-    <link rel="preload" href="styles.css" as="style">
+    <!-- Alpine JS Intersect Plugin - Must be loaded BEFORE Alpine core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.13.0/dist/cdn.min.js"></script>
     
-    <!-- Tailwind CSS - Optimized loading -->
+    <!-- Alpine JS Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
+    
+    <!-- AOS Animations -->
+    <link href="node_modules/aos/dist/aos.css" rel="stylesheet">
+    <script src="node_modules/aos/dist/aos.js"></script>
+    
+    <!-- AOS Fix for transition-delay errors -->
+    <link href="aos-fix.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
+    
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Critical inline CSS -->
+
     <style>
-        /* Critical styles for above-the-fold content */
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background-color: #F7FAFC;
-            color: #2D3748;
+        /* Ensure theme and language transitions are smooth */
+        html {
+            transition: color 0.3s ease, background-color 0.3s ease;
         }
         
-        /* Dark mode basics */
-        .dark body {
-            background-color: #1A202C;
-            color: #F7FAFC;
-        }
-        
-        .container { width: 100%; margin-right: auto; margin-left: auto; padding-right: 1rem; padding-left: 1rem; }
-        @media (min-width: 640px) { .container { max-width: 640px; } }
-        @media (min-width: 768px) { .container { max-width: 768px; } }
-        @media (min-width: 1024px) { .container { max-width: 1024px; } }
-        @media (min-width: 1280px) { .container { max-width: 1280px; } }
-        
-        .header-bg { background-color: rgba(255, 255, 255, 0.95); }
-        .dark .header-bg { background-color: rgba(17, 24, 39, 0.95); }
-        
+        /* Fix header contrast in both light and dark themes */
         .fancy-nav-item {
             position: relative;
             font-weight: 500;
@@ -61,17 +53,12 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background-color: #00A99D;
+            background-color: var(--primary-accent);
             transition: width 0.3s ease;
         }
         
         .fancy-nav-item:hover:after {
             width: 100%;
-        }
-        
-        /* Theme transitions */
-        html {
-            transition: color 0.3s ease, background-color 0.3s ease;
         }
         
         /* More animation enhancements */
@@ -85,38 +72,31 @@
             100% { transform: translateY(0px); }
         }
         
-        /* Mobile tap target fixes */
-        @media (max-width: 768px) {
-            /* Ensure all actionable elements are at least 48x48px with proper spacing */
-            .nav-link, button, a, .lang-btn, .toggle-switch, [role="button"], .play-button, 
-            input[type="checkbox"], input[type="radio"], input[type="submit"], input[type="button"] {
-                min-height: 48px;
-                min-width: 48px;
-                padding: 12px;
-                margin: 4px;
-            }
-            
-            /* Fix inline elements with smaller sizes */
-            .lang-toggle button {
-                min-width: 48px;
-                min-height: 48px;
-                padding: 12px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            /* Fixed floating social icons */
-            .fixed .w-10, .fixed .w-12 {
-                min-width: 48px !important;
-                min-height: 48px !important;
+        /* Fix footer spacing */
+        .footer-section {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
+        
+        /* Font smoothing fixes */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
     </style>
-    
-    <!-- Custom Styles - non-critical, load asynchronously -->
-    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="styles.css"></noscript>
 
     <script>
         // Initialize theme from local storage
@@ -131,19 +111,17 @@
         }
         
             // Initialize AOS animations with fixed values for transition delays
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 1000,
-                    once: true, // Changed to true for better performance
-                    offset: 100,
-                    easing: 'ease-in-out',
-                    delay: 0, // Use 0 as base delay and handle specific delays via data-aos-delay attributes
-                    anchorPlacement: 'top-bottom',
-                    useClassNames: false, // Don't add classes for animation state
-                    disableMutationObserver: false,
-                    throttleDelay: 99
-                });
-            }
+            AOS.init({
+                duration: 1000,
+                once: false,
+                offset: 100,
+                easing: 'ease-in-out',
+                delay: 0, // Use 0 as base delay and handle specific delays via data-aos-delay attributes
+                anchorPlacement: 'top-bottom',
+                useClassNames: false, // Don't add classes for animation state
+                disableMutationObserver: false,
+                throttleDelay: 99
+            });
             
             // Language switching logic
             const userLang = navigator.language || navigator.userLanguage;
@@ -337,9 +315,10 @@
             <a href="https://www.instagram.com/kolabclean/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
-                aria-label="Visit our Instagram profile">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
+                aria-label="Visit our Instagram"
+                title="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
                     <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
                 </svg>
@@ -347,18 +326,20 @@
             <a href="#" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
-                aria-label="Visit our Facebook page">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
+                aria-label="Visit our Facebook page"
+                title="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
                 </svg>
             </a>
             <a href="https://wa.me/351910697252" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-green-600 to-green-400 text-white hover:scale-110 transition-all duration-300" 
-                aria-label="Contact us on WhatsApp">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-green-600 to-green-400 text-white hover:scale-110 transition-all duration-300" 
+                aria-label="Contact us on WhatsApp"
+                title="WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                 </svg>
             </a>
@@ -429,7 +410,7 @@
                     
                     <div class="hidden md:block animate-float" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">
                         <div class="w-4/5 mx-auto">
-                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80" alt="Clean sneakers" class="w-full h-auto rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-500 ease-in-out" loading="lazy" fetchpriority="low" />
+                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80" alt="Clean sneakers" class="w-full h-auto rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-500 ease-in-out" />
                         </div>
                     </div>
                 </div>
@@ -484,7 +465,7 @@
                             <div class="relative">
                                 <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10"></div>
                                 <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80" 
-                                     alt="Standard Cleaning" class="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110" loading="lazy" fetchpriority="low" />
+                                     alt="Standard Cleaning" class="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110" />
                                 <div class="absolute top-4 left-4 bg-primary-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wide z-20">
                             <span class="lang-pt">Básico</span>
                             <span class="lang-en">Standard</span>
@@ -522,7 +503,7 @@
                             <div class="relative">
                                 <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10"></div>
                                 <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80" 
-                                     alt="Extra Cleaning" class="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110" loading="lazy" fetchpriority="low" />
+                                     alt="Extra Cleaning" class="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110" />
                                 <div class="absolute top-4 left-4 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wide z-20">
                             <span class="lang-pt">Mais vendido</span>
                             <span class="lang-en">Best seller</span>
@@ -560,7 +541,7 @@
                             <div class="relative">
                                 <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10"></div>
                                 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80" 
-                                     alt="Premium Cleaning" class="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110" loading="lazy" fetchpriority="low" />
+                                     alt="Premium Cleaning" class="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110" />
                                 <div class="absolute top-4 left-4 bg-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wide z-20">
                             <span class="lang-pt">Premium</span>
                             <span class="lang-en">Premium</span>
@@ -851,14 +832,12 @@
                             <!-- Before Image (Default) -->
                             <img src="https://images.unsplash.com/photo-1621881538090-b2b2be015a20?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Nike Air Force 1" 
-                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
                             <!-- After Image (On Hover) -->
                             <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Clean Nike Air Force 1" 
-                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                             
                             <!-- Before/After Badge -->
                             <span class="absolute top-4 left-4 text-white text-xs py-1 px-2 rounded font-bold transition-all duration-300">
@@ -874,14 +853,12 @@
                             <!-- Before Image (Default) -->
                             <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Adidas Ultra Boost" 
-                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
                             <!-- After Image (On Hover) -->
                             <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Clean Adidas Ultra Boost" 
-                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                             
                             <!-- Before/After Badge -->
                             <span class="absolute top-4 left-4 text-white text-xs py-1 px-2 rounded font-bold transition-all duration-300">
@@ -897,14 +874,12 @@
                             <!-- Before Image (Default) -->
                             <img src="https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Jordan 1" 
-                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
                             <!-- After Image (On Hover) -->
                             <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Clean Jordan 1" 
-                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                             
                             <!-- Before/After Badge -->
                             <span class="absolute top-4 left-4 text-white text-xs py-1 px-2 rounded font-bold transition-all duration-300">
@@ -920,14 +895,12 @@
                             <!-- Before Image (Default) -->
                             <img src="https://images.unsplash.com/photo-1584735175315-9d5df23be2c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Converse" 
-                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
                             <!-- After Image (On Hover) -->
                             <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Clean Converse" 
-                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                             
                             <!-- Before/After Badge -->
                             <span class="absolute top-4 left-4 text-white text-xs py-1 px-2 rounded font-bold transition-all duration-300">
@@ -943,14 +916,12 @@
                             <!-- Before Image (Default) -->
                             <img src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty New Balance" 
-                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
                             <!-- After Image (On Hover) -->
                             <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Clean New Balance" 
-                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                             
                             <!-- Before/After Badge -->
                             <span class="absolute top-4 left-4 text-white text-xs py-1 px-2 rounded font-bold transition-all duration-300">
@@ -966,14 +937,12 @@
                             <!-- Before Image (Default) -->
                             <img src="https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Dirty Vans" 
-                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center group-hover:opacity-0 transition-all duration-500" />
                             
                             <!-- After Image (On Hover) -->
                             <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
                                  alt="Clean Vans" 
-                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                 loading="lazy" fetchpriority="low" />
+                                 class="w-full h-64 object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                             
                             <!-- Before/After Badge -->
                             <span class="absolute top-4 left-4 text-white text-xs py-1 px-2 rounded font-bold transition-all duration-300">
@@ -1138,7 +1107,7 @@
                             target="_blank" 
                             rel="noopener noreferrer" 
                             class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
-                            aria-label="Visit our Instagram profile">
+                            aria-label="Visit our Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
                                 <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
@@ -1208,16 +1177,15 @@
                 <div class="border-t border-gray-700 pt-6 flex flex-wrap justify-between items-center">
                     <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> Solve. All rights reserved.</p>
                     <div class="flex items-center space-x-4 mt-4 md:mt-0">
-                        <!-- Footer links -->
-                        <a href="#home" class="text-gray-400 hover:text-white text-sm transition-colors" aria-label="Go to Home section">
+                        <a href="#home" class="text-gray-400 hover:text-white text-sm transition-colors">
                             <span class="lang-pt">Início</span>
                             <span class="lang-en">Home</span>
                         </a>
-                        <a href="#services" class="text-gray-400 hover:text-white text-sm transition-colors" aria-label="Go to Services section">
+                        <a href="#services" class="text-gray-400 hover:text-white text-sm transition-colors">
                             <span class="lang-pt">Serviços</span>
                             <span class="lang-en">Services</span>
                         </a>
-                        <a href="src/contact.html" class="text-gray-400 hover:text-white text-sm transition-colors" aria-label="Go to Contact page">
+                        <a href="src/contact.html" class="text-gray-400 hover:text-white text-sm transition-colors">
                             <span class="lang-pt">Contacto</span>
                             <span class="lang-en">Contact</span>
                         </a>
@@ -1380,42 +1348,14 @@
         }
     </script>
 
-    <!-- Instagram Embed Script - Loaded only when needed -->
+    <!-- Instagram Embed Script -->
+    <script async src="https://www.instagram.com/embed.js"></script>
     <script>
-        // Lazy load Instagram embed script
+        // Initialize Instagram embeds properly when loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Function to load Instagram embed script
-            function loadInstagramScript() {
-                if (!window.instgrm) {
-                    const script = document.createElement('script');
-                    script.async = true;
-                    script.defer = true;
-                    script.src = 'https://www.instagram.com/embed.js';
-                    script.onload = function() {
-                        if (window.instgrm) {
-                            window.instgrm.Embeds.process();
-                        }
-                    };
-                    document.body.appendChild(script);
-                } else {
-                    window.instgrm.Embeds.process();
-                }
-            }
-            
-            // Load Instagram only when the user scrolls near the section
-            const instagramObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        loadInstagramScript();
-                        instagramObserver.disconnect(); // Only load once
-                    }
-                });
-            }, { rootMargin: '200px' });
-            
-            // Observe the section that contains Instagram embeds
-            const beforeAfterSection = document.getElementById('before-after');
-            if (beforeAfterSection) {
-                instagramObserver.observe(beforeAfterSection);
+            // Process Instagram embeds when page loads
+            if (window.instgrm) {
+                window.instgrm.Embeds.process();
             }
             
             // Add interactive behavior to video overlays
@@ -1550,192 +1490,6 @@
                     }
                 });
             });
-        });
-    </script>
-
-    <!-- Google AdSense - Lazy loaded -->
-    <script>
-        // Only load ads when needed
-        window.addEventListener('DOMContentLoaded', () => {
-            // Create an IntersectionObserver to lazy load ads
-            const adObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    // If ad container is near viewport and AdSense not loaded yet
-                    if (entry.isIntersecting && !window.adsbygoogle) {
-                        // Load AdSense script
-                        const script = document.createElement('script');
-                        script.async = true;
-                        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX";
-                        script.crossOrigin = "anonymous";
-                        document.head.appendChild(script);
-                        
-                        // Initialize ads after script loads
-                        script.onload = () => {
-                            document.querySelectorAll('.adsbygoogle').forEach(ad => {
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            });
-                        };
-                        
-                        // Disconnect observer after loading
-                        adObserver.disconnect();
-                    }
-                });
-            }, {
-                rootMargin: '200px' // Load when ad is within 200px of viewport
-            });
-            
-            // Observe the first ad container
-            const firstAd = document.querySelector('.adsbygoogle');
-            if (firstAd) {
-                adObserver.observe(firstAd);
-            }
-        });
-    </script>
-
-    <!-- Alpine JS Intersect Plugin - Must be loaded BEFORE Alpine core -->
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.13.0/dist/cdn.min.js"></script>
-
-    <!-- Alpine JS Core -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
-
-    <!-- Lazy load AOS animations -->
-    <script>
-        // Load AOS only when needed
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create observers for animations
-            const loadAOS = function() {
-                // Create script element
-                const aosScript = document.createElement('script');
-                aosScript.src = "node_modules/aos/dist/aos.js";
-                
-                // Load CSS with script
-                const aosCSS = document.createElement('link');
-                aosCSS.rel = "stylesheet";
-                aosCSS.href = "node_modules/aos/dist/aos.css";
-                
-                // Load the fix CSS
-                const aosFixCSS = document.createElement('link');
-                aosFixCSS.rel = "stylesheet";
-                aosFixCSS.href = "aos-fix.css";
-                
-                // Append to document
-                document.head.appendChild(aosCSS);
-                document.head.appendChild(aosFixCSS);
-                document.body.appendChild(aosScript);
-                
-                // Initialize AOS when script loads
-                aosScript.onload = function() {
-                    AOS.init({
-                        duration: 1000,
-                        once: true,
-                        offset: 100,
-                        easing: 'ease-in-out',
-                        delay: 0,
-                        anchorPlacement: 'top-bottom',
-                        useClassNames: false,
-                        disableMutationObserver: false,
-                        throttleDelay: 99
-                    });
-                };
-            };
-            
-            // User has scrolled or 3 seconds have passed
-            let aosLoaded = false;
-            
-            // Load after short delay or on scroll, whichever comes first
-            const timer = setTimeout(function() {
-                if (!aosLoaded) {
-                    aosLoaded = true;
-                    loadAOS();
-                }
-            }, 3000);
-            
-            // Or load on scroll
-            window.addEventListener('scroll', function() {
-                if (!aosLoaded) {
-                    aosLoaded = true;
-                    clearTimeout(timer);
-                    loadAOS();
-                }
-            }, { once: true });
-        });
-    </script>
-
-    <!-- Font Awesome - loaded asynchronously -->
-    <script>
-        // Load Font Awesome only when needed
-        document.addEventListener('DOMContentLoaded', function() {
-            const faLink = document.createElement('link');
-            faLink.rel = "stylesheet";
-            faLink.href = "node_modules/font-awesome/css/font-awesome.min.css";
-            
-            // Load when user scrolls or after slight delay
-            let faLoaded = false;
-            
-            // Load after delay
-            const timer = setTimeout(function() {
-                if (!faLoaded) {
-                    faLoaded = true;
-                    document.head.appendChild(faLink);
-                }
-            }, 2000);
-            
-            // Or load on scroll
-            window.addEventListener('scroll', function() {
-                if (!faLoaded) {
-                    faLoaded = true;
-                    clearTimeout(timer);
-                    document.head.appendChild(faLink);
-                }
-            }, { once: true });
-        });
-    </script>
-
-    <!-- Lazy Load Images -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Use Intersection Observer to lazy load images
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            const src = img.getAttribute('data-src');
-                            
-                            if (src) {
-                                img.src = src;
-                                img.removeAttribute('data-src');
-                                // Also load srcset if available
-                                const srcset = img.getAttribute('data-srcset');
-                                if (srcset) {
-                                    img.srcset = srcset;
-                                    img.removeAttribute('data-srcset');
-                                }
-                            }
-                            
-                            observer.unobserve(img);
-                        }
-                    });
-                }, {
-                    rootMargin: '200px 0px' // Start loading when image is 200px below viewport
-                });
-                
-                // Apply to all images with data-src
-                document.querySelectorAll('img[data-src]').forEach(img => {
-                    imageObserver.observe(img);
-                });
-                
-                // Find all images with loading="lazy" but no data-src and convert them to use our observer
-                document.querySelectorAll('img[loading="lazy"]:not([data-src])').forEach(img => {
-                    // Don't process SVGs, they're usually tiny
-                    if (img.src && !img.src.endsWith('.svg')) {
-                        const src = img.src;
-                        img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E';
-                        img.setAttribute('data-src', src);
-                        imageObserver.observe(img);
-                    }
-                });
-            }
         });
     </script>
 </body>
