@@ -2548,4 +2548,27 @@ iframe.instagram-media {
   [data-aos] {
     transition-duration: 0.2s;
   }
+}
+
+/* Add styles for mobile menu transitions */
+.mobile-menu-closed {
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+.mobile-menu-open {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  height: auto;
+  overflow: visible;
+}
+
+/* Fix footer spacing */
+.footer-section {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 } 
