@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .logo-text { 
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+      font-size: 45px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    svg {
+      background-color: transparent;
+    }
+  </style>
+  
+  <!-- Dark theme version -->
+  <text x="0" y="42" class="logo-text" fill="#f3f4f6">Solve</text>
+  <text x="118" y="42" class="logo-text" fill="#00C4B3">.</text>
+  <path d="M150 18 Q153 15 156 18 L159 22.5 Q162 19.5 165 22.5 L168 27 Q165 30 168 33 L165 37.5 Q162 40.5 159 37.5 L156 33 Q153 36 150 33 L153 27 Q150 24 153 27 Z" fill="#00C4B3" opacity="0.75" transform="rotate(12 159 27.75)"/>
+</svg> 

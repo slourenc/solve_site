@@ -1,0 +1,106 @@
+/* AOS CSS Fix - Resolves transition-delay parsing errors */
+
+/* Base AOS animations with fixed transition-delay values */
+[data-aos] {
+  transition-property: all;
+  transition-timing-function: ease;
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+
+/* Override problematic transition-delay values with valid ones */
+[data-aos][data-aos-delay="50"] {
+  transition-delay: 0.05s;
+}
+
+[data-aos][data-aos-delay="100"] {
+  transition-delay: 0.1s;
+}
+
+[data-aos][data-aos-delay="150"] {
+  transition-delay: 0.15s;
+}
+
+[data-aos][data-aos-delay="200"] {
+  transition-delay: 0.2s;
+}
+
+[data-aos][data-aos-delay="250"] {
+  transition-delay: 0.25s;
+}
+
+[data-aos][data-aos-delay="300"] {
+  transition-delay: 0.3s;
+}
+
+[data-aos][data-aos-delay="350"] {
+  transition-delay: 0.35s;
+}
+
+[data-aos][data-aos-delay="400"] {
+  transition-delay: 0.4s;
+}
+
+[data-aos][data-aos-delay="450"] {
+  transition-delay: 0.45s;
+}
+
+[data-aos][data-aos-delay="500"] {
+  transition-delay: 0.5s;
+}
+
+[data-aos][data-aos-delay="550"] {
+  transition-delay: 0.55s;
+}
+
+[data-aos][data-aos-delay="600"] {
+  transition-delay: 0.6s;
+}
+
+[data-aos][data-aos-delay="650"] {
+  transition-delay: 0.65s;
+}
+
+[data-aos][data-aos-delay="700"] {
+  transition-delay: 0.7s;
+}
+
+[data-aos][data-aos-delay="750"] {
+  transition-delay: 0.75s;
+}
+
+[data-aos][data-aos-delay="800"] {
+  transition-delay: 0.8s;
+}
+
+[data-aos][data-aos-delay="850"] {
+  transition-delay: 0.85s;
+}
+
+[data-aos][data-aos-delay="900"] {
+  transition-delay: 0.9s;
+}
+
+[data-aos][data-aos-delay="950"] {
+  transition-delay: 0.95s;
+}
+
+[data-aos][data-aos-delay="1000"] {
+  transition-delay: 1s;
+}
+
+[data-aos][data-aos-delay="1500"] {
+  transition-delay: 1.5s;
+}
+
+[data-aos][data-aos-delay="2000"] {
+  transition-delay: 2s;
+}
+
+[data-aos][data-aos-delay="2500"] {
+  transition-delay: 2.5s;
+}
+
+[data-aos][data-aos-delay="3000"] {
+  transition-delay: 3s;
+} 

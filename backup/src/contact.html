@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Contact - Solve.</title>
+    <link href="../styles.css" rel="stylesheet">
+    <!-- Alpine.js Core - Must be loaded before plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js Intersect Plugin -->
+    <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        /* More pronounced focus for accessibility */
+        *:focus-visible {
+            outline: 3px solid #00A99D !important; /* Using primary-accent */
+            outline-offset: 2px !important;
+        }
+        /* Language toggle styles */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+        .lang-btn {
+            padding: 0.25rem 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .lang-btn.active {
+            background-color: #00A99D;
+            color: white;
+        }
+        .lang-btn:not(.active) {
+            background-color: transparent;
+            color: #64748b;
+        }
+        [data-lang="pt"] .lang-en,
+        [data-lang="en"] .lang-pt {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-text-primary font-sans antialiased">
+
+    <!-- Header -->
+    <header x-data="{ mobileMenuOpen: false }" class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html#home" class="flex items-center" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 sm:h-9 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .solve-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text fill-text-primary">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text fill-primary-accent">.</text>
+                    <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="fill-primary-accent opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="../index.html#home" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Home section">
+                    <span class="lang-pt">Início</span>
+                    <span class="lang-en">Home</span>
+                </a>
+                <a href="../index.html#services" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Services section">
+                    <span class="lang-pt">Serviços</span>
+                    <span class="lang-en">Services</span>
+                </a>
+                <a href="../index.html#pricing" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Pricing section">
+                    <span class="lang-pt">Preços</span>
+                    <span class="lang-en">Pricing</span>
+                </a>
+                <a href="./about.html" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to About section">
+                    <span class="lang-pt">Sobre</span>
+                    <span class="lang-en">About</span>
+                </a>
+                <a href="./contact.html" class="text-primary-accent font-medium" aria-label="Go to Contact page">
+                    <span class="lang-pt">Contacto</span>
+                    <span class="lang-en">Contact</span>
+                </a>
+                <a href="../index.html#visit-us" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Location section">
+                    <span class="lang-pt">Localização</span>
+                    <span class="lang-en">Location</span>
+                </a>
+                <div class="lang-toggle">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <div class="lang-toggle mr-3">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false" :aria-expanded="mobileMenuOpen.toString()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden bg-white shadow-xl absolute w-full border-t border-border-ui"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 transform -translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-2">
+            <a href="../index.html#home" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Home section">
+                <span class="lang-pt">Início</span>
+                <span class="lang-en">Home</span>
+            </a>
+            <a href="../index.html#services" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Services section">
+                <span class="lang-pt">Serviços</span>
+                <span class="lang-en">Services</span>
+            </a>
+            <a href="../index.html#pricing" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Pricing section">
+                <span class="lang-pt">Preços</span>
+                <span class="lang-en">Pricing</span>
+            </a>
+            <a href="./about.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to About section">
+                <span class="lang-pt">Sobre</span>
+                <span class="lang-en">About</span>
+            </a>
+            <a href="./contact.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-primary-accent font-medium" aria-label="Go to Contact page">
+                <span class="lang-pt">Contacto</span>
+                <span class="lang-en">Contact</span>
+            </a>
+            <a href="../index.html#visit-us" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Location section">
+                <span class="lang-pt">Localização</span>
+                <span class="lang-en">Location</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main x-data>
+        <!-- Contact Hero Section -->
+        <section class="bg-primary-accent text-text-inverse py-16 md:py-20 px-6 text-center">
+            <div class="container mx-auto">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                    <span class="lang-pt">Contacte-nos</span>
+                    <span class="lang-en">Contact Us</span>
+                </h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto font-light">
+                    <span class="lang-pt">Tem perguntas? Estamos aqui para ajudar.</span>
+                    <span class="lang-en">Have questions? We're here to help.</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Info Section -->
+        <section class="py-16 md:py-24 px-6 bg-background-light">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <!-- Contact Form -->
+                    <div class="bg-white p-8 md:p-10 rounded-xl shadow-lg opacity-0 translate-y-4 transition-all duration-700 ease-out"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-text-primary">
+                            <span class="lang-pt">Envie-nos uma Mensagem</span>
+                            <span class="lang-en">Send Us a Message</span>
+                        </h2>
+                        <form action="#" method="POST">
+                            <div class="mb-5">
+                                <label for="name" class="block mb-2 text-sm font-medium text-text-primary">
+                                    <span class="lang-pt">Nome Completo</span>
+                                    <span class="lang-en">Full Name</span>
+                                </label>
+                                <input type="text" id="name" name="name" required
+                                       class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                       aria-label="Your full name">
+                            </div>
+                            <div class="mb-5">
+                                <label for="email" class="block mb-2 text-sm font-medium text-text-primary">
+                                    <span class="lang-pt">Email</span>
+                                    <span class="lang-en">Email Address</span>
+                                </label>
+                                <input type="email" id="email" name="email" required
+                                       class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                       aria-label="Your email address">
+                            </div>
+                            <div class="mb-5">
+                                <label for="phone" class="block mb-2 text-sm font-medium text-text-primary">
+                                    <span class="lang-pt">Telefone</span>
+                                    <span class="lang-en">Phone Number</span>
+                                </label>
+                                <input type="tel" id="phone" name="phone"
+                                       class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                       aria-label="Your phone number">
+                            </div>
+                            <div class="mb-5">
+                                <label for="subject" class="block mb-2 text-sm font-medium text-text-primary">
+                                    <span class="lang-pt">Assunto</span>
+                                    <span class="lang-en">Subject</span>
+                                </label>
+                                <input type="text" id="subject" name="subject" required
+                                       class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                       aria-label="Message subject">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block mb-2 text-sm font-medium text-text-primary">
+                                    <span class="lang-pt">Mensagem</span>
+                                    <span class="lang-en">Message</span>
+                                </label>
+                                <textarea id="message" name="message" rows="5" required
+                                          class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                          aria-label="Your message"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit"
+                                        tabindex="0"
+                                        class="w-full bg-primary-accent hover:bg-primary-accent-hover text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
+                                    <span class="lang-pt">Enviar Mensagem</span>
+                                    <span class="lang-en">Send Message</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Contact Information and Store Hours -->
+                    <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <div class="mb-12">
+                            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-text-primary">
+                                <span class="lang-pt">Informação de Contacto</span>
+                                <span class="lang-en">Contact Information</span>
+                            </h2>
+                            <div class="space-y-5">
+                                <div class="flex items-start">
+                                    <div class="bg-primary-accent bg-opacity-10 rounded-full p-3 mr-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-lg text-text-primary">
+                                            <span class="lang-pt">Localização</span>
+                                            <span class="lang-en">Location</span>
+                                        </h3>
+                                        <p class="text-text-secondary">Avenida das Forças Armadas 51</p>
+                                        <p class="text-text-secondary">1600-121 Lisboa</p>
+                                        <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" target="_blank" class="text-primary-accent hover:underline inline-block mt-1 text-sm">
+                                            <span class="lang-pt">Ver no Google Maps</span>
+                                            <span class="lang-en">View on Google Maps</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-primary-accent bg-opacity-10 rounded-full p-3 mr-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-lg text-text-primary">
+                                            <span class="lang-pt">Telefone</span>
+                                            <span class="lang-en">Phone</span>
+                                        </h3>
+                                        <p class="text-text-secondary">
+                                            <a href="tel:+351910697252" class="hover:text-primary-accent">+351 910 697 252</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-primary-accent bg-opacity-10 rounded-full p-3 mr-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-lg text-text-primary">Email</h3>
+                                        <p class="text-text-secondary">
+                                            <a href="mailto:cleaning@solve.com" class="hover:text-primary-accent">cleaning@solve.com</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-background-medium p-8 rounded-xl border border-border-ui">
+                            <h2 class="text-xl font-bold mb-5 text-text-primary">
+                                <span class="lang-pt">Horário da Loja</span>
+                                <span class="lang-en">Store Hours</span>
+                            </h2>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Segunda-feira</span>
+                                        <span class="lang-en">Monday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">
+                                        <span class="lang-pt">Fechado</span>
+                                        <span class="lang-en">Closed</span>
+                                    </span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Terça-feira</span>
+                                        <span class="lang-en">Tuesday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Quarta-feira</span>
+                                        <span class="lang-en">Wednesday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Quinta-feira</span>
+                                        <span class="lang-en">Thursday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Sexta-feira</span>
+                                        <span class="lang-en">Friday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Sábado</span>
+                                        <span class="lang-en">Saturday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Domingo</span>
+                                        <span class="lang-en">Sunday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">
+                                        <span class="lang-pt">Fechado</span>
+                                        <span class="lang-en">Closed</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="py-16 md:py-24 px-6 bg-background-medium">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-2xl md:text-3xl font-bold mb-10 text-text-primary text-center">
+                    <span class="lang-pt">Como Nos Encontrar</span>
+                    <span class="lang-en">How to Find Us</span>
+                </h2>
+                <div class="rounded-xl overflow-hidden shadow-xl h-96 opacity-0 scale-95 transition-all duration-700 ease-out"
+                     x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                     :class="{ 'opacity-100 !scale-100': shown }">
+                    <!-- Placeholder for map - In production, this would be replaced with a real map integration -->
+                    <div class="w-full h-full bg-gray-300 flex items-center justify-center relative">
+                        <p class="text-center text-text-secondary">
+                            <span class="lang-pt">Mapa indisponível em modo de demonstração</span>
+                            <span class="lang-en">Map unavailable in demo mode</span>
+                        </p>
+                        <div class="absolute inset-0 bg-primary-accent bg-opacity-5"></div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <p class="text-text-secondary max-w-2xl mx-auto">
+                        <span class="lang-pt">
+                            A nossa loja está localizada na Avenida das Forças Armadas 51, perto do Campo Pequeno. 
+                            Temos fácil acesso por transportes públicos e estacionamento disponível nas proximidades.
+                        </span>
+                        <span class="lang-en">
+                            Our store is located at Avenida das Forças Armadas 51, near Campo Pequeno.
+                            We are easily accessible by public transport and parking is available nearby.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background-dark text-text-inverse py-10 px-6 text-center">
+        <div class="container mx-auto">
+             <a href="../index.html" class="inline-block mb-4" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <style>
+                        .solve-logo-text-footer { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text-footer fill-text-inverse">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text-footer fill-primary-accent">.</text>
+                     <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="fill-primary-accent opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 mb-8 text-left">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Localização</span>
+                        <span class="lang-en">Location</span>
+                    </h3>
+                    <p class="text-text-secondary">Avenida das Forças Armadas 51</p>
+                    <p class="text-text-secondary">1600-121 Lisboa</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Horário</span>
+                        <span class="lang-en">Hours</span>
+                    </h3>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Terça a Sábado</span>
+                        <span class="lang-en">Tuesday to Saturday</span>
+                    </p>
+                    <p class="text-text-secondary">10:30 - 19:00</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Contacto</span>
+                        <span class="lang-en">Contact</span>
+                    </h3>
+                    <p class="text-text-secondary">Email: <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a></p>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Telefone:</span>
+                        <span class="lang-en">Phone:</span>
+                        <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a>
+                    </p>
+                </div>
+            </div>
+            <p class="text-sm text-text-secondary">&copy; <span id="currentYear"></span> Solve. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Make sure Alpine.js and its plugins are properly initialized
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle the current year display for copyright
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) yearElement.textContent = new Date().getFullYear();
+            
+            // Handle smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            setTimeout(() => {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }, this.closest('.md\\:hidden[x-show]') ? 50 : 0);
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Explicitly register Alpine.js Intersect plugin
+        document.addEventListener('alpine:init', () => {
+            // Try multiple ways to get the Intersect plugin
+            if (window.AlpineIntersect) {
+                window.Alpine.plugin(window.AlpineIntersect);
+            } else if (window.Alpine && window.Alpine.directive) {
+                // If the plugin is already loaded but not registered, register the intersect directive manually
+                window.Alpine.directive('intersect', (el, { value, expression, modifiers }, { evaluateLater, cleanup }) => {
+                    const evaluate = evaluateLater(expression);
+                    
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            // If the element is visible
+                            if (modifiers.includes('once')) {
+                                if (entry.isIntersecting) {
+                                    evaluate();
+                                    observer.disconnect();
+                                }
+                            } else {
+                                evaluate(() => {}, { scope: { entry } });
+                            }
+                        });
+                    }, {
+                        threshold: modifiers.includes('threshold.0.3') ? 0.3 : 0.2,
+                        root: modifiers.includes('parent') ? el.parentElement : null,
+                    });
+                    
+                    observer.observe(el);
+                    
+                    cleanup(() => observer.disconnect());
+                });
+            }
+        });
+        
+        // Handle keydown events for elements with tabindex=0
+        const handleKeydownForTabindexGlobal = (event) => {
+             if ((event.key === 'Enter' || event.key === ' ') && event.target.hasAttribute('tabindex') && event.target.getAttribute('tabindex') === '0') {
+                const nonInteractiveTags = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'];
+                if (!nonInteractiveTags.includes(event.target.tagName) && !event.target.isContentEditable) {
+                    event.preventDefault();
+                    event.target.click();
+                }
+            }
+        };
+        document.addEventListener('keydown', handleKeydownForTabindexGlobal);
+    </script>
+</body>
+</html> 

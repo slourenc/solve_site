@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt" data-theme="default">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solve. - Serviço Premium de Limpeza de Calçado</title>
+    <link href="./styles.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%2300A99D' d='M9.87 14.98C9.92 15.12 9.95 15.27 9.95 15.43C9.95 16.3 9.22 17 8.34 17C7.69 17 7.14 16.61 6.9 16.05C5.5 12.88 2.03 11 1 11C1 11 2.7 15.5 7.28 16.32C7.44 16.5 7.83 16.97 8.34 16.97C8.83 16.97 9.25 16.58 9.25 16.1C9.25 15.94 9.21 15.78 9.13 15.64L9.87 14.98Z'/%3E%3Cpath fill='%2300A99D' d='M20.6 10C19.1 10.42 16 11.27 16 13C16 13 17.7 13 19 15C19.38 15.7 19.9 16 20.5 16C21.38 16 22 15.28 22 14.5C22 14.24 21.93 14 21.8 13.8L23 13V10H20.6Z'/%3E%3Cpath fill='%232a2a31' d='M20.43 8H17V16H18V13.08C18.9 12.6 20.6 12 22 12V8.56C21.47 8.22 20.95 8 20.43 8Z'/%3E%3Cpath fill='%232a2a31' d='M13.93 8H11.5L10 8.91L8.5 8H6.07C4.97 8 3.39 8.29 2 9.07L1.45 9.41L3.05 12.22C3.47 10.76 5.71 10.15 6.07 10.15H7.94L10 9.21L12.06 10.15H13.93C14.29 10.15 16.53 10.76 16.95 12.22L18.55 9.41L18 9.07C16.61 8.29 15.03 8 13.93 8Z'/%3E%3C/svg%3E" type="image/svg+xml">
+    <!-- Alpine.js Core - Must be loaded before plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js Intersect Plugin -->
+    <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Swiper for slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+        :root {
+            /* Default theme */
+            --primary-accent: #00A99D;
+            --primary-accent-hover: #008e84;
+            --primary-light: #e6f7f6;
+            --text-primary: #2a2a31;
+            --text-secondary: #64748b;
+            --text-inverse: #ffffff;
+            --background-light: #f8fafc;
+            --background-medium: #f0f4f8;
+            --background-dark: #1f2937;
+            --border-ui: #e2e8f0;
+            --accent-yellow: #FFD700;
+        }
+        
+        /* Blue theme */
+        html[data-theme="blue"] {
+            --primary-accent: #3b82f6;
+            --primary-accent-hover: #2563eb;
+            --primary-light: #dbeafe;
+            --text-primary: #1e293b;
+            --accent-yellow: #FFA500;
+        }
+        
+        /* Purple theme */
+        html[data-theme="purple"] {
+            --primary-accent: #8b5cf6;
+            --primary-accent-hover: #7c3aed;
+            --primary-light: #ede9fe;
+            --text-primary: #2e1065;
+            --accent-yellow: #F0F;
+        }
+        
+        /* Red theme */
+        html[data-theme="red"] {
+            --primary-accent: #ef4444;
+            --primary-accent-hover: #dc2626;
+            --primary-light: #fee2e2;
+            --text-primary: #7f1d1d;
+            --accent-yellow: #FF0;
+        }
+        
+        /* Dark theme */
+        html[data-theme="dark"] {
+            --primary-accent: #10b981;
+            --primary-accent-hover: #059669;
+            --primary-light: #111827;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --background-light: #1f2937;
+            --background-medium: #111827;
+            --background-dark: #030712;
+            --border-ui: #374151;
+            --accent-yellow: #fbbf24;
+        }
+
+        html { scroll-behavior: smooth; }
+        /* More pronounced focus for accessibility */
+        *:focus-visible {
+            outline: 3px solid var(--primary-accent) !important;
+            outline-offset: 2px !important;
+        }
+        /* Subtler focus for elements that are not buttons or inputs (like cards, if made focusable) */
+        div[tabindex="0"]:focus-visible {
+             outline: 2px solid var(--primary-accent) !important;
+             outline-offset: 1px !important;
+        }
+        /* Language toggle styles */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+        .lang-btn {
+            padding: 0.25rem 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .lang-btn.active {
+            background-color: var(--primary-accent);
+            color: white;
+        }
+        .lang-btn:not(.active) {
+            background-color: transparent;
+            color: #64748b;
+        }
+        [data-lang="pt"] .lang-en,
+        [data-lang="en"] .lang-pt {
+            display: none;
+        }
+        
+        /* Enhanced animations */
+        .hover-float {
+            transition: transform 0.3s ease;
+        }
+        .hover-float:hover {
+            transform: translateY(-6px);
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-accent);
+            color: white;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(8deg);
+            box-shadow: 0 5px 15px rgba(0, 169, 157, 0.4);
+        }
+        
+        /* Video background styles */
+        .video-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            opacity: 0.15;
+            object-fit: cover;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(var(--primary-accent-rgb, 0, 169, 157), 0.9) 0%,
+                rgba(var(--primary-accent-hover-rgb, 0, 129, 119), 0.85) 100%
+            );
+        }
+        
+        /* Enhanced card styles */
+        .card-glow {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .card-glow:hover {
+            box-shadow: 0 8px 25px rgba(var(--primary-accent-rgb, 0, 169, 157), 0.25);
+            transform: translateY(-5px);
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-15px) translateX(-50%);}
+            60% {transform: translateY(-7px) translateX(-50%);}
+        }
+        
+        /* Theme selector styles */
+        .theme-selector {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .theme-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-btn:hover, .theme-btn.active {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        
+        .theme-default { background-color: #00A99D; }
+        .theme-blue { background-color: #3b82f6; }
+        .theme-purple { background-color: #8b5cf6; }
+        .theme-red { background-color: #ef4444; }
+        .theme-dark { background-color: #10b981; }
+        
+        /* Instagram slider */
+        .insta-slider {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .swiper-container {
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .swiper-slide {
+            width: 200px;
+            height: 200px;
+            margin-right: 15px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .swiper-slide:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-background-light text-text-primary font-sans antialiased" x-data="{ language: 'pt' }">
+
+    <!-- Header -->
+    <header x-data="{ mobileMenuOpen: false }" class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" class="flex items-center" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 sm:h-9 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .solve-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text fill-text-primary">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text fill-primary-accent">.</text>
+                    <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="fill-primary-accent opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#home" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Home section">
+                    <span class="lang-pt">Início</span>
+                    <span class="lang-en">Home</span>
+                </a>
+                <a href="#services" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Services section">
+                    <span class="lang-pt">Serviços</span>
+                    <span class="lang-en">Services</span>
+                </a>
+                <a href="#how-it-works" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to How It Works section">
+                    <span class="lang-pt">Como Funciona</span>
+                    <span class="lang-en">How It Works</span>
+                </a>
+                <a href="#pricing" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Pricing section">
+                    <span class="lang-pt">Preços</span>
+                    <span class="lang-en">Pricing</span>
+                </a>
+                <a href="src/about.html" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to About section">
+                    <span class="lang-pt">Sobre</span>
+                    <span class="lang-en">About</span>
+                </a>
+                <a href="src/contact.html" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Contact page">
+                    <span class="lang-pt">Contacto</span>
+                    <span class="lang-en">Contact</span>
+                </a>
+                <a href="#visit-us" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Location section">
+                    <span class="lang-pt">Localização</span>
+                    <span class="lang-en">Location</span>
+                </a>
+                <div class="lang-toggle">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <div class="lang-toggle mr-3">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false" :aria-expanded="mobileMenuOpen.toString()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden bg-white shadow-xl absolute w-full border-t border-border-ui"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 transform -translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-2">
+            <a href="#home" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Home section">
+                <span class="lang-pt">Início</span>
+                <span class="lang-en">Home</span>
+            </a>
+            <a href="#services" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Services section">
+                <span class="lang-pt">Serviços</span>
+                <span class="lang-en">Services</span>
+            </a>
+            <a href="#how-it-works" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to How It Works section">
+                <span class="lang-pt">Como Funciona</span>
+                <span class="lang-en">How It Works</span>
+            </a>
+            <a href="#pricing" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Pricing section">
+                <span class="lang-pt">Preços</span>
+                <span class="lang-en">Pricing</span>
+            </a>
+            <a href="src/about.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to About section">
+                <span class="lang-pt">Sobre</span>
+                <span class="lang-en">About</span>
+            </a>
+            <a href="src/contact.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Contact page">
+                <span class="lang-pt">Contacto</span>
+                <span class="lang-en">Contact</span>
+            </a>
+            <a href="#visit-us" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Location section">
+                <span class="lang-pt">Localização</span>
+                <span class="lang-en">Location</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main x-data>
+        <!-- Hero Section -->
+        <section id="home" 
+            class="bg-primary-accent text-text-inverse py-24 md:py-32 px-6 text-center relative overflow-hidden"
+            x-data="{ shown: false }" x-intersect.once="shown = true"
+            :class="{ 'opacity-100': shown }">
+            
+            <!-- Video Background -->
+            <div class="video-bg-container">
+                <div class="video-overlay"></div>
+                <video autoplay muted loop playsinline class="video-bg">
+                    <source src="https://player.vimeo.com/progressive_redirect/playback/795818716/rendition/720p/file.mp4?loc=external&signature=a21610757e8d1c2348a6e36893f2cc3c070e039a474b6e26cc0d94b9f144c383" type="video/mp4">
+                </video>
+            </div>
+            
+            <div class="container mx-auto relative z-10">
+                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight tracking-tight">
+                        <span class="lang-pt">O Teu Calçado.<br class="hidden sm:block"/> <span class="text-accent-yellow">Impecavelmente</span> Limpo.</span>
+                        <span class="lang-en">Your Sneakers.<br class="hidden sm:block"/> <span class="text-accent-yellow">Perfectly</span> Cleaned.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto font-light">
+                        <span class="lang-pt">Dá uma nova vida aos teus ténis com a KOLAB. Cuidamos deles com o carinho e profissionalismo que merecem.</span>
+                        <span class="lang-en">Bring new life to your favorite kicks with KOLAB. We care for them with the attention they deserve.</span>
+                    </p>
+                    <div class="flex justify-center items-center">
+                        <a href="#visit-us"
+                           tabindex="0"
+                           aria-label="Visit our store for shoe cleaning"
+                           class="bg-white text-primary-accent font-bold py-3 px-8 sm:py-4 sm:px-10 rounded-lg shadow-lg hover:bg-background-light transition-all duration-300 ease-in-out text-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75 hover-scale">
+                           <span class="lang-pt">Visitar Loja</span>
+                           <span class="lang-en">Visit Store</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="scroll-indicator text-white absolute bottom-10 left-1/2 transform -translate-x-1/2">
+                    <svg class="w-10 h-10 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-16 md:py-24 px-6 bg-background-light">
+            <div class="container mx-auto">
+                <div 
+                    class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                    :class="{ 'opacity-100 !translate-y-0': shown }" data-aos="fade-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-text-primary">
+                        <span class="lang-pt">Cuida dos Teus Ténis <span class="text-primary-accent">Connosco</span></span>
+                        <span class="lang-en">Care For Your Kicks <span class="text-primary-accent">With Us</span></span>
+                    </h2>
+                    <p class="text-center text-text-secondary text-lg mb-12 md:mb-16 max-w-xl mx-auto">
+                        <span class="lang-pt">Desde uma limpeza rápida até uma restauração total, temos o serviço perfeito para os teus ténis.</span>
+                        <span class="lang-en">From a quick refresh to a full restoration, we have the perfect service for your shoes.</span>
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                    <!-- Service Item 1 -->
+                    <div 
+                        class="bg-white p-8 rounded-xl shadow-lg card-glow opacity-0 scale-90 transition-all duration-500 ease-in-out transform hover:-translate-y-2"
+                        x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                        :class="{ 'opacity-100 !translate-y-0 !scale-100': shown }"
+                        data-aos="zoom-in" data-aos-delay="100">
+                        <div class="text-primary-accent mb-5 relative">
+                            <div class="absolute -top-1 -left-1 bg-yellow-100 rounded-full w-16 h-16 animate-pulse opacity-60"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto relative" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div class="relative bg-primary-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide w-max mx-auto -mt-10 mb-4">
+                            <span class="lang-pt">Básico</span>
+                            <span class="lang-en">Standard</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-text-primary text-center">
+                            <span class="lang-pt">Limpeza Standard</span>
+                            <span class="lang-en">Standard Clean</span>
+                        </h3>
+                        <p class="text-text-secondary text-center">
+                            <span class="lang-pt">Inclui exterior, sola e atacadores. Perfeito para um refresh rápido do desgaste diário.</span>
+                            <span class="lang-en">Includes uppers, midsoles, and laces. Perfect for a quick refresh of everyday wear.</span>
+                        </p>
+                        <p class="text-primary-accent font-bold text-xl text-center mt-4">25€</p>
+                        <div class="mt-5 flex justify-center">
+                            <a href="#pricing" class="text-primary-accent font-medium hover:underline flex items-center hover-scale">
+                                <span class="lang-pt">Ver detalhes</span>
+                                <span class="lang-en">See details</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Service Item 2 -->
+                    <div 
+                        class="bg-white p-8 rounded-xl shadow-lg card-glow opacity-0 scale-90 transition-all duration-500 ease-in-out transform hover:-translate-y-2 delay-150"
+                        x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                        :class="{ 'opacity-100 !translate-y-0 !scale-100': shown }"
+                        data-aos="zoom-in" data-aos-delay="300">
+                        <div class="text-primary-accent mb-5 relative">
+                            <div class="absolute -top-1 -left-1 bg-green-100 rounded-full w-16 h-16 animate-pulse opacity-60"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto relative" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
+                        </div>
+                        <div class="relative bg-primary-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide w-max mx-auto -mt-10 mb-4">
+                            <span class="lang-pt">Mais vendido</span>
+                            <span class="lang-en">Best seller</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-text-primary text-center">
+                            <span class="lang-pt">Limpeza Extra</span>
+                            <span class="lang-en">Extra Clean</span>
+                        </h3>
+                        <p class="text-text-secondary text-center">
+                            <span class="lang-pt">Inclui interior, palmilhas, higienização e pintura parcial para uma renovação completa.</span>
+                            <span class="lang-en">Comprehensive cleaning including insole, lining, sanitizing, and partial painting.</span>
+                        </p>
+                        <p class="text-primary-accent font-bold text-xl text-center mt-4">30€</p>
+                        <div class="mt-5 flex justify-center">
+                            <a href="#pricing" class="text-primary-accent font-medium hover:underline flex items-center hover-scale">
+                                <span class="lang-pt">Ver detalhes</span>
+                                <span class="lang-en">See details</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Service Item 3 -->
+                    <div 
+                        class="bg-white p-8 rounded-xl shadow-lg card-glow opacity-0 scale-90 transition-all duration-500 ease-in-out transform hover:-translate-y-2 delay-300"
+                        x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                        :class="{ 'opacity-100 !translate-y-0 !scale-100': shown }"
+                        data-aos="zoom-in" data-aos-delay="500">
+                        <div class="text-primary-accent mb-5 relative">
+                            <div class="absolute -top-1 -left-1 bg-blue-100 rounded-full w-16 h-16 animate-pulse opacity-60"></div>
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto relative" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.539 1.118l-3.975-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                        </div>
+                        <div class="relative bg-primary-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide w-max mx-auto -mt-10 mb-4">
+                            <span class="lang-pt">Premium</span>
+                            <span class="lang-en">Premium</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-text-primary text-center">
+                            <span class="lang-pt">Limpeza Premium</span>
+                            <span class="lang-en">Premium Clean</span>
+                        </h3>
+                        <p class="text-text-secondary text-center">
+                            <span class="lang-pt">O nosso serviço mais detalhado. Inclui limpeza profunda, pintura total e restauro completo.</span>
+                            <span class="lang-en">Our most detailed service. Includes deep cleaning, full painting, and complete restoration.</span>
+                        </p>
+                        <p class="text-primary-accent font-bold text-xl text-center mt-4">45€</p>
+                        <div class="mt-5 flex justify-center">
+                            <a href="#pricing" class="text-primary-accent font-medium hover:underline flex items-center hover-scale">
+                                <span class="lang-pt">Ver detalhes</span>
+                                <span class="lang-en">See details</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-16 md:py-24 px-6 bg-background-medium relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-accent opacity-5 rounded-full -mr-32 -mt-32"></div>
+            <div class="absolute bottom-0 left-0 w-80 h-80 bg-primary-accent opacity-5 rounded-full -ml-40 -mb-40"></div>
+            
+            <div class="container mx-auto relative z-10">
+                <div 
+                    class="opacity-0 translate-y-4 transition-all duration-700 ease-out"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                    :class="{ 'opacity-100 !translate-y-0': shown }"
+                    data-aos="fade-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-6 md:mb-10 text-text-primary">
+                        <span class="lang-pt">Como <span class="text-primary-accent">Funciona</span></span>
+                        <span class="lang-en">How It <span class="text-primary-accent">Works</span></span>
+                    </h2>
+                    <p class="text-center text-text-secondary text-lg max-w-2xl mx-auto mb-12">
+                        <span class="lang-pt">Dar aos teus ténis uma nova vida não podia ser mais simples. Segue estes passos:</span>
+                        <span class="lang-en">Giving your sneakers new life couldn't be simpler. Follow these steps:</span>
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-12 md:gap-6 text-center relative z-10">
+                    <!-- Step 1 -->
+                    <div 
+                        class="opacity-0 translate-y-6 transition-all duration-500 ease-out delay-100"
+                        x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                        :class="{ 'opacity-100 !translate-y-0': shown }"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-primary-accent text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg relative">
+                            <div class="absolute inset-0 bg-primary-accent rounded-full animate-ping opacity-20"></div>
+                            1
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-text-primary">
+                            <span class="lang-pt">Deixa na Loja</span>
+                            <span class="lang-en">Drop Off</span>
+                        </h3>
+                        <p class="text-text-secondary">
+                            <span class="lang-pt">Passa pela nossa loja na Avenida das Forças Armadas e deixa os teus ténis connosco. Sem complicações!</span>
+                            <span class="lang-en">Visit our store on Avenida das Forças Armadas and leave your sneakers with us. No hassle!</span>
+                        </p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div 
+                        class="opacity-0 translate-y-6 transition-all duration-500 ease-out delay-200"
+                        x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                        :class="{ 'opacity-100 !translate-y-0': shown }"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-primary-accent text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg relative">
+                            <div class="absolute inset-0 bg-primary-accent rounded-full animate-ping opacity-20"></div>
+                            2
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-text-primary">
+                            <span class="lang-pt">Técnicas Avançadas</span>
+                            <span class="lang-en">Expert Techniques</span>
+                        </h3>
+                        <p class="text-text-secondary">
+                            <span class="lang-pt">A nossa equipa utiliza processos especializados e produtos de alta qualidade para transformar o teu calçado.</span>
+                            <span class="lang-en">Our team uses specialized processes and high-quality products to transform your footwear.</span>
+                        </p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div 
+                        class="opacity-0 translate-y-6 transition-all duration-500 ease-out delay-300"
+                        x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                        :class="{ 'opacity-100 !translate-y-0': shown }"
+                        data-aos="fade-up" data-aos-delay="500">
+                        <div class="bg-primary-accent text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg relative">
+                            <div class="absolute inset-0 bg-primary-accent rounded-full animate-ping opacity-20"></div>
+                            3
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-text-primary">
+                            <span class="lang-pt">Arrasa Com Estilo</span>
+                            <span class="lang-en">Shine & Show Off</span>
+                        </h3>
+                        <p class="text-text-secondary">
+                            <span class="lang-pt">Recolhe os teus ténis renovados, prontos para dar nas vistas novamente nas ruas de Lisboa!</span>
+                            <span class="lang-en">Pick up your revived kicks, ready to turn heads again on the streets of Lisbon!</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-16" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="bg-white p-6 rounded-xl shadow-lg inline-block max-w-2xl">
+                        <p class="text-lg text-text-secondary italic mb-4">
+                            <span class="lang-pt">O prazo normal de entrega é de 10 dias úteis. Precisas mais rápido? Temos opções de urgência disponíveis:</span>
+                            <span class="lang-en">Standard turnaround time is 10 business days. Need it faster? We have rush options available:</span>
+                        </p>
+                        <div class="grid grid-cols-3 gap-3 text-sm">
+                            <div class="bg-background-medium p-3 rounded-lg">
+                                <span class="font-medium">5 dias</span>
+                                <span class="block text-primary-accent">+5€</span>
+                            </div>
+                            <div class="bg-background-medium p-3 rounded-lg">
+                                <span class="font-medium">48 horas</span>
+                                <span class="block text-primary-accent">+10€</span>
+                            </div>
+                            <div class="bg-background-medium p-3 rounded-lg">
+                                <span class="font-medium">24 horas</span>
+                                <span class="block text-primary-accent">+20€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-16 md:py-24 px-6 bg-background-light">
+            <div class="container mx-auto">
+                <div 
+                    class="opacity-0 translate-y-4 transition-all duration-700 ease-out"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                    :class="{ 'opacity-100 !translate-y-0': shown }">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 md:mb-16 text-text-primary">
+                        <span class="lang-pt">Preços Transparentes</span>
+                        <span class="lang-en">Transparent Pricing</span>
+                    </h2>
+                </div>
+                <div 
+                    class="max-w-2xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-xl opacity-0 scale-95 transition-all duration-500 ease-out delay-200"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                    :class="{ 'opacity-100 !scale-100': shown }">
+                    <ul class="space-y-5">
+                        <li class="flex justify-between items-center border-b border-border-ui pb-4">
+                            <div>
+                                <span class="text-lg text-text-primary font-medium">
+                                    <span class="lang-pt">Limpeza Standard</span>
+                                    <span class="lang-en">Standard Clean</span>
+                                </span>
+                                <p class="text-sm text-text-secondary mt-1">
+                                    <span class="lang-pt">Exterior, Solas, Atacadores</span>
+                                    <span class="lang-en">Exterior, Sole, Laces</span>
+                                </p>
+                            </div>
+                            <span class="text-lg font-semibold text-primary-accent">25€</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-border-ui pb-4">
+                            <div>
+                                <span class="text-lg text-text-primary font-medium">
+                                    <span class="lang-pt">Limpeza Extra</span>
+                                    <span class="lang-en">Extra Clean</span>
+                                </span>
+                                <p class="text-sm text-text-secondary mt-1">
+                                    <span class="lang-pt">+ Interior, Palmilhas, Higienização, Pintura Parcial</span>
+                                    <span class="lang-en">+ Interior, Insoles, Sanitation, Partial Painting</span>
+                                </p>
+                            </div>
+                            <span class="text-lg font-semibold text-primary-accent">30€</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-border-ui pb-4">
+                            <div>
+                                <span class="text-lg text-text-primary font-medium">
+                                    <span class="lang-pt">Limpeza Premium</span>
+                                    <span class="lang-en">Premium Clean</span>
+                                </span>
+                                <p class="text-sm text-text-secondary mt-1">
+                                    <span class="lang-pt">+ Pintura Completa e Restauração</span>
+                                    <span class="lang-en">+ Full Painting and Restoration</span>
+                                </p>
+                            </div>
+                            <span class="text-lg font-semibold text-primary-accent">45€</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8 pt-4 border-t border-border-ui">
+                        <h3 class="text-lg font-semibold text-text-primary mb-3">
+                            <span class="lang-pt">Taxas Adicionais</span>
+                            <span class="lang-en">Additional Fees</span>
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="text-base font-medium text-text-primary">
+                                    <span class="lang-pt">Materiais</span>
+                                    <span class="lang-en">Materials</span>
+                                </h4>
+                                <p class="text-sm text-text-secondary">
+                                    <span class="lang-pt">Camurça/Nubuck:</span>
+                                    <span class="lang-en">Suede/Nubuck:</span>
+                                    +10€
+                                </p>
+                                <p class="text-sm text-text-secondary">
+                                    <span class="lang-pt">Branqueamento de Solas:</span>
+                                    <span class="lang-en">Sole Whitening:</span>
+                                    +5€
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-medium text-text-primary">
+                                    <span class="lang-pt">Urgência</span>
+                                    <span class="lang-en">Urgency</span>
+                                </h4>
+                                <p class="text-sm text-text-secondary">
+                                    <span class="lang-pt">5 Dias Úteis:</span>
+                                    <span class="lang-en">5 Business Days:</span>
+                                    +5€
+                                </p>
+                                <p class="text-sm text-text-secondary">
+                                    <span class="lang-pt">48 Horas:</span>
+                                    <span class="lang-en">48 Hours:</span>
+                                    +10€
+                                </p>
+                                <p class="text-sm text-text-secondary">
+                                    <span class="lang-pt">24 Horas:</span>
+                                    <span class="lang-en">24 Hours:</span>
+                                    +20€
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-text-secondary mt-6 text-center">
+                        <span class="lang-pt">Prazo normal de entrega: 10 dias úteis.</span>
+                        <span class="lang-en">Standard service time: 10 business days.</span>
+                    </p>
+                </div>
+                 <div 
+                    class="text-center mt-12 opacity-0 translate-y-4 transition-all duration-700 ease-out delay-400"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                    :class="{ 'opacity-100 !translate-y-0': shown }">
+                    <a href="src/contact.html"
+                       tabindex="0"
+                       aria-label="Contact us for a custom quote"
+                       class="bg-primary-accent text-cta-text font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-primary-accent-hover transition-all duration-300 ease-in-out text-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
+                       <span class="lang-pt">Obter Orçamento Personalizado</span>
+                       <span class="lang-en">Get Custom Quote</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="visit-us" class="py-16 md:py-24 px-6 bg-background-medium">
+            <div class="container mx-auto">
+                <div 
+                    class="opacity-0 translate-y-4 transition-all duration-700 ease-out"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                    :class="{ 'opacity-100 !translate-y-0': shown }">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-text-primary">
+                        <span class="lang-pt">Visite-nos</span>
+                        <span class="lang-en">Visit Us</span>
+                    </h2>
+                    <p class="text-center text-text-secondary text-lg mb-12 max-w-2xl mx-auto">
+                        <span class="lang-pt">Estamos localizados numa área central de Lisboa, com fácil acesso por transportes públicos.</span>
+                        <span class="lang-en">We're located in a central area of Lisbon, easily accessible by public transport.</span>
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <div class="bg-white p-8 md:p-10 rounded-xl shadow-lg">
+                            <h3 class="text-xl font-semibold mb-5 text-text-primary">
+                                <span class="lang-pt">Horário de Funcionamento</span>
+                                <span class="lang-en">Opening Hours</span>
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between border-b border-border-ui pb-2">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Segunda-feira</span>
+                                        <span class="lang-en">Monday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">
+                                        <span class="lang-pt">Fechado</span>
+                                        <span class="lang-en">Closed</span>
+                                    </span>
+                                </div>
+                                <div class="flex justify-between border-b border-border-ui pb-2">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Terça a Sábado</span>
+                                        <span class="lang-en">Tuesday to Saturday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                </div>
+                                <div class="flex justify-between border-b border-border-ui pb-2">
+                                    <span class="text-text-secondary">
+                                        <span class="lang-pt">Domingo</span>
+                                        <span class="lang-en">Sunday</span>
+                                    </span>
+                                    <span class="font-medium text-text-primary">
+                                        <span class="lang-pt">Fechado</span>
+                                        <span class="lang-en">Closed</span>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-xl font-semibold mt-8 mb-5 text-text-primary">
+                                <span class="lang-pt">Endereço</span>
+                                <span class="lang-en">Address</span>
+                            </h3>
+                            <p class="text-text-secondary mb-1">Avenida das Forças Armadas 51</p>
+                            <p class="text-text-secondary mb-4">1600-121 Lisboa</p>
+                            
+                            <h3 class="text-xl font-semibold mt-8 mb-5 text-text-primary">
+                                <span class="lang-pt">Contacto</span>
+                                <span class="lang-en">Contact</span>
+                            </h3>
+                            <p class="text-text-secondary mb-1">
+                                <span class="lang-pt">Telefone:</span>
+                                <span class="lang-en">Phone:</span> 
+                                <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a>
+                            </p>
+                            <p class="text-text-secondary">Email: <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <div class="bg-gray-200 h-80 md:h-96 rounded-xl overflow-hidden shadow-lg relative">
+                            <!-- Placeholder for map - In production, this would be replaced with a real map integration -->
+                            <div class="absolute inset-0 bg-primary-accent bg-opacity-5"></div>
+                            <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary-accent mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <p class="text-text-secondary text-center max-w-xs px-4">
+                                    <span class="lang-pt">Avenida das Forças Armadas 51, 1600-121 Lisboa</span>
+                                    <span class="lang-en">Avenida das Forças Armadas 51, 1600-121 Lisbon</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" target="_blank"
+                               tabindex="0"
+                               aria-label="Get directions on Google Maps"
+                               class="inline-block bg-primary-accent text-cta-text font-medium py-2 px-6 rounded-lg shadow-md hover:bg-primary-accent-hover transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
+                                <span class="lang-pt">Abrir no Google Maps</span>
+                                <span class="lang-en">Open in Google Maps</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-24 px-6 bg-background-light">
+            <div class="container mx-auto">
+                <div 
+                    class="opacity-0 translate-y-4 transition-all duration-700 ease-out"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                    :class="{ 'opacity-100 !translate-y-0': shown }">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-text-primary">
+                        <span class="lang-pt">Pronto para Renovar o Seu Calçado?</span>
+                        <span class="lang-en">Ready to Revive Your Shoes?</span>
+                    </h2>
+                </div>
+                <div 
+                    class="max-w-lg mx-auto bg-white p-8 md:p-10 rounded-xl shadow-xl opacity-0 scale-95 transition-all duration-500 ease-out delay-200"
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                    :class="{ 'opacity-100 !scale-100': shown }">
+                    <form action="#" method="POST">
+                        <div class="mb-5">
+                            <label for="name" class="block mb-2 text-sm font-medium text-text-primary">Full Name</label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-2.5 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                   aria-label="Your full name" placeholder="e.g. Alex Walker">
+                        </div>
+                        <div class="mb-5">
+                            <label for="email" class="block mb-2 text-sm font-medium text-text-primary">Email Address</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-2.5 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                   aria-label="Your email address" placeholder="e.g. alex.walker@example.com">
+                        </div>
+                        <div class="mb-5">
+                            <label for="shoe_type" class="block mb-2 text-sm font-medium text-text-primary">Shoe Type &amp; Service</label>
+                            <input type="text" id="shoe_type" name="shoe_type"
+                                   class="w-full px-4 py-2.5 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                   aria-label="Type of shoes and service needed" placeholder="e.g. Sneakers, Deep Clean">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block mb-2 text-sm font-medium text-text-primary">Message</label>
+                            <textarea id="message" name="message" rows="4" required
+                                      class="w-full px-4 py-2.5 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
+                                      aria-label="Your message or inquiry" placeholder="Tell us about your shoes..."></textarea>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                    tabindex="0"
+                                    aria-label="Send your message to Solve."
+                                    class="w-full bg-primary-accent hover:bg-primary-accent-hover text-cta-text font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-10 text-center">
+                        <p class="text-text-secondary">Or visit our store:</p>
+                        <p class="text-text-primary font-medium mt-2">Avenida das Forças Armadas 51, 1600-121 Lisboa</p>
+                        <p class="text-text-primary font-medium">Tuesday to Saturday, 10:30am - 7:00pm</p>
+                        <p class="text-text-primary font-medium mt-4">Email: <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a></p>
+                        <p class="text-text-primary font-medium">Phone: <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <button class="theme-btn theme-default active" data-theme="default" aria-label="Default theme"></button>
+        <button class="theme-btn theme-blue" data-theme="blue" aria-label="Blue theme"></button>
+        <button class="theme-btn theme-purple" data-theme="purple" aria-label="Purple theme"></button>
+        <button class="theme-btn theme-red" data-theme="red" aria-label="Red theme"></button>
+        <button class="theme-btn theme-dark" data-theme="dark" aria-label="Dark theme"></button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-background-dark text-text-inverse py-10 px-6">
+        <div class="container mx-auto">
+            <!-- Instagram Gallery -->
+            <div class="mb-12" data-aos="fade-up">
+                <h3 class="text-2xl font-bold mb-8 text-center">
+                    <span class="lang-pt">Segue-nos no Instagram</span>
+                    <span class="lang-en">Follow Us on Instagram</span>
+                </h3>
+                
+                <!-- Instagram Slider -->
+                <div class="insta-slider">
+                    <div class="swiper-container insta-swiper">
+                        <div class="swiper-wrapper">
+                            <!-- Instagram Image 1 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Clean sneakers" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <!-- Instagram Image 2 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Shoe cleaning process" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <!-- Instagram Image 3 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Before and after cleaning" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <!-- Instagram Image 4 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Sneaker restoration" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <!-- Instagram Image 5 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Sneaker cleaning products" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <!-- Instagram Image 6 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Shop interior" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <!-- Instagram Image 7 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1521093470119-a3acdc43374a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Clean sneakers" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <!-- Instagram Image 8 -->
+                            <div class="swiper-slide">
+                                <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="block w-full h-full">
+                                    <div class="relative aspect-square bg-gray-200 overflow-hidden w-full h-full">
+                                        <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHNuZWFrZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Sneaker white restoration" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-30 transition-opacity flex items-center justify-center">
+                                            <i class="fab fa-instagram text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-6">
+                    <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"
+                       class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover-scale">
+                        <i class="fab fa-instagram text-lg"></i>
+                        <span class="font-medium">@kolabclean</span>
+                    </a>
+                </div>
+            </div>
+            
+            <a href="#home" class="inline-block mb-4 hover-scale" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                    .solve-logo-text-footer { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text-footer fill-text-inverse">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text-footer fill-primary-accent">.</text>
+                    <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="fill-primary-accent opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 mb-8 text-left">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Localização</span>
+                        <span class="lang-en">Location</span>
+                    </h3>
+                    <p class="text-text-secondary">Avenida das Forças Armadas 51</p>
+                    <p class="text-text-secondary">1600-121 Lisboa</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Horário</span>
+                        <span class="lang-en">Hours</span>
+                    </h3>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Terça a Sábado</span>
+                        <span class="lang-en">Tuesday to Saturday</span>
+                    </p>
+                    <p class="text-text-secondary">10:30 - 19:00</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Contacto</span>
+                        <span class="lang-en">Contact</span>
+                    </h3>
+                    <p class="text-text-secondary">Email: <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a></p>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Telefone:</span>
+                        <span class="lang-en">Phone:</span>
+                        <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a>
+                    </p>
+                    
+                    <div class="flex mt-4">
+                        <a href="https://www.instagram.com/kolabclean?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon mr-2" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon mr-2" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 flex flex-wrap justify-between items-center">
+                <p class="text-sm text-text-secondary">&copy; <span id="currentYear"></span> Solve. All rights reserved.</p>
+                <p class="text-xs mt-2 text-text-secondary opacity-75">Lovingly crafted with Tailwind CSS & Alpine.js</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Make sure Alpine.js and its plugins are properly initialized
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS animations
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+            
+            // Initialize Swiper slider for Instagram
+            const instaSwiper = new Swiper('.insta-swiper', {
+                slidesPerView: 'auto',
+                spaceBetween: 15,
+                grabCursor: true,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                speed: 800,
+                effect: 'slide',
+                breakpoints: {
+                    320: {
+                        slidesPerView: 2,
+                    },
+                    640: {
+                        slidesPerView: 3,
+                    },
+                    768: {
+                        slidesPerView: 4,
+                    },
+                    1024: {
+                        slidesPerView: 5,
+                    },
+                }
+            });
+            
+            // Theme selector functionality
+            const themeButtons = document.querySelectorAll('.theme-btn');
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const theme = btn.getAttribute('data-theme');
+                    document.documentElement.setAttribute('data-theme', theme);
+                    
+                    // Update active state
+                    themeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Update RGB values for gradients
+                    updateRGBValues(theme);
+                });
+            });
+            
+            // Function to update RGB values for gradients based on theme
+            function updateRGBValues(theme) {
+                let primaryRGB, primaryHoverRGB;
+                
+                switch(theme) {
+                    case 'blue':
+                        primaryRGB = '59, 130, 246';
+                        primaryHoverRGB = '37, 99, 235';
+                        break;
+                    case 'purple':
+                        primaryRGB = '139, 92, 246';
+                        primaryHoverRGB = '124, 58, 237';
+                        break;
+                    case 'red':
+                        primaryRGB = '239, 68, 68';
+                        primaryHoverRGB = '220, 38, 38';
+                        break;
+                    case 'dark':
+                        primaryRGB = '16, 185, 129';
+                        primaryHoverRGB = '5, 150, 105';
+                        break;
+                    default: // default theme
+                        primaryRGB = '0, 169, 157';
+                        primaryHoverRGB = '0, 142, 132';
+                }
+                
+                document.documentElement.style.setProperty('--primary-accent-rgb', primaryRGB);
+                document.documentElement.style.setProperty('--primary-accent-hover-rgb', primaryHoverRGB);
+            }
+            
+            // Handle the current year display for copyright
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) yearElement.textContent = new Date().getFullYear();
+            
+            // Handle smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }, this.closest('.md\\:hidden[x-show]') ? 50 : 0);
+                    }
+                });
+            });
+            
+            // Get user language preference
+            const userLang = navigator.language || navigator.userLanguage;
+            // Set default language based on user's browser if it's Portuguese
+            if (userLang.startsWith('pt') && document.documentElement.getAttribute('data-lang') !== 'pt') {
+                document.documentElement.setAttribute('data-lang', 'pt');
+            }
+            
+            // Add parallax effect to video background on scroll
+            const videoSection = document.querySelector('#home');
+            if (videoSection) {
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.scrollY;
+                    const videoBg = videoSection.querySelector('.video-bg');
+                    if (videoBg && scrollPosition < window.innerHeight) {
+                        videoBg.style.transform = `translateX(-50%) translateY(calc(-50% + ${scrollPosition * 0.1}px))`;
+                    }
+                });
+            }
+            
+            // Set initial RGB values
+            updateRGBValues(document.documentElement.getAttribute('data-theme') || 'default');
+        });
+        
+        // Explicitly register Alpine.js Intersect plugin
+        document.addEventListener('alpine:init', () => {
+            // Try multiple ways to get the Intersect plugin
+            if (window.AlpineIntersect) {
+                window.Alpine.plugin(window.AlpineIntersect);
+            } else if (window.Alpine && window.Alpine.directive) {
+                // If the plugin is already loaded but not registered, register the intersect directive manually
+                window.Alpine.directive('intersect', (el, { value, expression, modifiers }, { evaluateLater, cleanup }) => {
+                    const evaluate = evaluateLater(expression);
+                    
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            // If the element is visible
+                            if (modifiers.includes('once')) {
+                                if (entry.isIntersecting) {
+                                    evaluate();
+                                    observer.disconnect();
+                                }
+                            } else {
+                                evaluate(() => {}, { scope: { entry } });
+                            }
+                        });
+                    }, {
+                        threshold: modifiers.includes('threshold.0.3') ? 0.3 : 0.2,
+                        root: modifiers.includes('parent') ? el.parentElement : null,
+                    });
+                    
+                    observer.observe(el);
+                    
+                    cleanup(() => observer.disconnect());
+                });
+            }
+        });
+        
+        // Handle keydown events for elements with tabindex=0
+        const handleKeydownForTabindexGlobal = (event) => {
+             if ((event.key === 'Enter' || event.key === ' ') && event.target.hasAttribute('tabindex') && event.target.getAttribute('tabindex') === '0') {
+                const nonInteractiveTags = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'];
+                if (!nonInteractiveTags.includes(event.target.tagName) && !event.target.isContentEditable) {
+                    event.preventDefault();
+                    event.target.click();
+                }
+            }
+        };
+        document.addEventListener('keydown', handleKeydownForTabindexGlobal);
+    </script>
+
+</body>
+</html> 

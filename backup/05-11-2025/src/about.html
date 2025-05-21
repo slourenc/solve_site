@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre | About - Solve.</title>
+    <link href="../styles.css" rel="stylesheet">
+    <!-- Alpine.js Core - Must be loaded before plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js Intersect Plugin -->
+    <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        :root {
+            /* Light theme (default) */
+            --primary-accent: #00A99D;
+            --primary-accent-hover: #008e84;
+            --primary-accent-rgb: 0, 169, 157;
+            --primary-accent-hover-rgb: 0, 142, 132;
+            --primary-light: #e6f7f6;
+            --text-primary: #2a2a31;
+            --text-secondary: #64748b;
+            --text-inverse: #ffffff;
+            --background-light: #f8fafc;
+            --background-medium: #f0f4f8;
+            --background-dark: #1f2937;
+            --border-ui: #e2e8f0;
+            --accent-yellow: #FFD700;
+        }
+        
+        /* Dark theme */
+        html[data-theme="dark"] {
+            --primary-accent: #00C4B3;
+            --primary-accent-hover: #00A99D;
+            --primary-accent-rgb: 0, 196, 179;
+            --primary-accent-hover-rgb: 0, 169, 157;
+            --primary-light: #111827;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --background-light: #1f2937;
+            --background-medium: #111827;
+            --background-dark: #030712;
+            --border-ui: #374151;
+            --accent-yellow: #fbbf24;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: var(--background-light);
+            color: var(--text-primary);
+        }
+        
+        /* Apply dark mode to key components */
+        html[data-theme="dark"] .bg-white {
+            background-color: #1f2937 !important;
+        }
+        
+        html[data-theme="dark"] .shadow-lg,
+        html[data-theme="dark"] .shadow-md,
+        html[data-theme="dark"] .shadow-xl {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        html[data-theme="dark"] .border-border-ui,
+        html[data-theme="dark"] .border {
+            border-color: var(--border-ui) !important;
+        }
+        
+        /* More pronounced focus for accessibility */
+        *:focus-visible {
+            outline: 3px solid var(--primary-accent) !important;
+            outline-offset: 2px !important;
+        }
+        /* Language toggle styles */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+        .lang-btn {
+            padding: 0.25rem 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .lang-btn.active {
+            background-color: var(--primary-accent);
+            color: white;
+        }
+        .lang-btn:not(.active) {
+            background-color: transparent;
+            color: var(--text-secondary);
+        }
+        [data-lang="pt"] .lang-en,
+        [data-lang="en"] .lang-pt {
+            display: none;
+        }
+        
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary-accent);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Header styling */
+        .header-bg {
+            background-color: var(--background-light);
+            border-bottom: 1px solid var(--border-ui);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .mobile-menu-bg {
+            background-color: var(--background-light);
+            border-color: var(--border-ui);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Improved contrast for mission/values box */
+        .mission-box {
+            background-color: rgba(var(--primary-accent-rgb), 0.1);
+            border-color: rgba(var(--primary-accent-rgb), 0.2);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        html[data-theme="dark"] .mission-box {
+            background-color: rgba(var(--primary-accent-rgb), 0.15);
+            border-color: rgba(var(--primary-accent-rgb), 0.3);
+        }
+
+        /* Team member cards */
+        .team-card {
+            background-color: var(--background-light);
+            border: 1px solid var(--border-ui);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .team-card-image {
+            background-color: rgba(var(--primary-accent-rgb), 0.1);
+            transition: background-color 0.3s ease;
+        }
+        
+        html[data-theme="dark"] .team-card-image {
+            background-color: rgba(var(--primary-accent-rgb), 0.15);
+        }
+        
+        /* Text colors */
+        .text-color-primary {
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+        
+        .text-color-secondary {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        
+        .text-color-accent {
+            color: var(--primary-accent);
+            transition: color 0.3s ease;
+        }
+        
+        /* Background styles */
+        .bg-color-medium {
+            background-color: var(--background-medium);
+            border-color: var(--border-ui);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Border style */
+        .border-accent {
+            border-color: rgba(var(--primary-accent-rgb), 0.2);
+            transition: border-color 0.3s ease;
+        }
+
+        /* Additional section styling */
+        .section-accent {
+            background-color: var(--primary-accent);
+            color: var(--text-inverse);
+            transition: background-color 0.3s ease;
+        }
+        
+        .section-story {
+            background-color: var(--background-light);
+            transition: background-color 0.3s ease;
+        }
+        
+        .text-story-heading {
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+        
+        .text-story-content {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        /* Dynamic Logo SVG styling */
+        .logo-text-main {
+            fill: var(--text-primary);
+            transition: fill 0.3s ease;
+        }
+        
+        .logo-text-accent {
+            fill: var(--primary-accent);
+            transition: fill 0.3s ease;
+        }
+        
+        .logo-icon {
+            fill: var(--primary-accent);
+            transition: fill 0.3s ease;
+        }
+        
+        /* Footer styling */
+        .footer-bg {
+            background-color: var(--background-dark);
+            color: var(--text-inverse);
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Header -->
+    <header x-data="{ mobileMenuOpen: false }" class="shadow-md sticky top-0 z-50 header-bg">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html#home" class="flex items-center" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 sm:h-9 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .solve-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text logo-text-main">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text logo-text-accent">.</text>
+                    <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="../index.html#home" class="hover:text-primary-accent transition-colors duration-300 font-medium" style="color: var(--text-primary);" aria-label="Go to Home section">
+                    <span class="lang-pt">Início</span>
+                    <span class="lang-en">Home</span>
+                </a>
+                <a href="../index.html#services" class="hover:text-primary-accent transition-colors duration-300 font-medium" style="color: var(--text-primary);" aria-label="Go to Services section">
+                    <span class="lang-pt">Serviços</span>
+                    <span class="lang-en">Services</span>
+                </a>
+                <a href="../index.html#pricing" class="hover:text-primary-accent transition-colors duration-300 font-medium" style="color: var(--text-primary);" aria-label="Go to Pricing section">
+                    <span class="lang-pt">Preços</span>
+                    <span class="lang-en">Pricing</span>
+                </a>
+                <a href="./about.html" class="text-primary-accent font-medium" aria-label="Go to About section">
+                    <span class="lang-pt">Sobre</span>
+                    <span class="lang-en">About</span>
+                </a>
+                <a href="./contact.html" class="hover:text-primary-accent transition-colors duration-300 font-medium" style="color: var(--text-primary);" aria-label="Go to Contact page">
+                    <span class="lang-pt">Contacto</span>
+                    <span class="lang-en">Contact</span>
+                </a>
+                <a href="../index.html#visit-us" class="hover:text-primary-accent transition-colors duration-300 font-medium" style="color: var(--text-primary);" aria-label="Go to Location section">
+                    <span class="lang-pt">Localização</span>
+                    <span class="lang-en">Location</span>
+                </a>
+                <div class="lang-toggle">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+                <div class="dark-mode-toggle ml-4" title="Toggle Dark Mode">
+                    <label class="toggle-switch">
+                        <input type="checkbox" @click="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <div class="lang-toggle mr-3">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+                <div class="dark-mode-toggle mr-3" title="Toggle Dark Mode">
+                    <label class="toggle-switch">
+                        <input type="checkbox" @click="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false" :aria-expanded="mobileMenuOpen.toString()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden shadow-xl absolute w-full border-t mobile-menu-bg" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 transform -translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-2">
+            <a href="../index.html#home" @click="mobileMenuOpen = false" class="block px-6 py-3 hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" style="color: var(--text-primary);" aria-label="Go to Home section">
+                <span class="lang-pt">Início</span>
+                <span class="lang-en">Home</span>
+            </a>
+            <a href="../index.html#services" @click="mobileMenuOpen = false" class="block px-6 py-3 hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" style="color: var(--text-primary);" aria-label="Go to Services section">
+                <span class="lang-pt">Serviços</span>
+                <span class="lang-en">Services</span>
+            </a>
+            <a href="../index.html#pricing" @click="mobileMenuOpen = false" class="block px-6 py-3 hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" style="color: var(--text-primary);" aria-label="Go to Pricing section">
+                <span class="lang-pt">Preços</span>
+                <span class="lang-en">Pricing</span>
+            </a>
+            <a href="./about.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-primary-accent font-medium" aria-label="Go to About section">
+                <span class="lang-pt">Sobre</span>
+                <span class="lang-en">About</span>
+            </a>
+            <a href="./contact.html" @click="mobileMenuOpen = false" class="block px-6 py-3 hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" style="color: var(--text-primary);" aria-label="Go to Contact page">
+                <span class="lang-pt">Contacto</span>
+                <span class="lang-en">Contact</span>
+            </a>
+            <a href="../index.html#visit-us" @click="mobileMenuOpen = false" class="block px-6 py-3 hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" style="color: var(--text-primary);" aria-label="Go to Location section">
+                <span class="lang-pt">Localização</span>
+                <span class="lang-en">Location</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main x-data>
+        <!-- About Hero Section -->
+        <section class="py-16 md:py-20 px-6 text-center section-accent">
+            <div class="container mx-auto">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                    <span class="lang-pt">Sobre a Solve.</span>
+                    <span class="lang-en">About Solve.</span>
+                </h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto font-light">
+                    <span class="lang-pt">A história por trás da nossa paixão por calçado.</span>
+                    <span class="lang-en">The story behind our passion for footwear.</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- About Story Section -->
+        <section class="py-16 md:py-24 px-6 section-story">
+            <div class="container mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center max-w-5xl mx-auto">
+                    <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-story-heading">
+                            <span class="lang-pt">A Nossa História</span>
+                            <span class="lang-en">Our Story</span>
+                        </h2>
+                        <div class="space-y-4 text-story-content">
+                            <p class="lang-pt">
+                                A Solve. nasceu da paixão por calçado e do desejo de oferecer um serviço de limpeza e restauro de qualidade premium em Lisboa. Fundada em 2023, a nossa empresa tem como objetivo prolongar a vida útil dos seus ténis e sapatos favoritos.
+                            </p>
+                            <p class="lang-pt">
+                                Começámos como um pequeno serviço para amigos e familiares, mas rapidamente ganhámos reputação pela nossa atenção meticulosa aos detalhes e pelo compromisso com a excelência. Hoje, orgulhamo-nos de ser um dos principais especialistas em limpeza de calçado em Lisboa.
+                            </p>
+                            <p class="lang-en">
+                                Solve. was born from a passion for footwear and the desire to offer premium quality cleaning and restoration services in Lisbon. Founded in 2023, our company aims to extend the lifespan of your favorite sneakers and shoes.
+                            </p>
+                            <p class="lang-en">
+                                We started as a small service for friends and family, but quickly gained a reputation for our meticulous attention to detail and commitment to excellence. Today, we're proud to be one of the leading sneaker cleaning specialists in Lisbon.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <div class="rounded-xl p-8 sm:p-10 border mission-box">
+                            <h3 class="text-xl font-semibold mb-5 text-color-accent">
+                                <span class="lang-pt">A Nossa Missão</span>
+                                <span class="lang-en">Our Mission</span>
+                            </h3>
+                            <div class="text-color-primary">
+                                <p class="mb-3 lang-pt">
+                                    Proporcionar uma experiência premium de limpeza e restauro de calçado, prolongando a vida útil dos seus ténis e sapatos preferidos.
+                                </p>
+                                <p class="mb-3 lang-pt">
+                                    Promover práticas sustentáveis, ajudando os clientes a manter os seus itens por mais tempo em vez de substituí-los.
+                                </p>
+                                <p class="mb-3 lang-en">
+                                    To provide a premium shoe cleaning and restoration experience, extending the life of your favorite sneakers and shoes.
+                                </p>
+                                <p class="mb-3 lang-en">
+                                    To promote sustainable practices by helping customers maintain their items longer rather than replacing them.
+                                </p>
+                            </div>
+                            <div class="mt-6 pt-6 border-t border-accent">
+                                <h3 class="text-xl font-semibold mb-3 text-color-accent">
+                                    <span class="lang-pt">Os Nossos Valores</span>
+                                    <span class="lang-en">Our Values</span>
+                                </h3>
+                                <ul class="list-disc pl-5 text-color-primary">
+                                    <li class="mb-2 lang-pt">Qualidade sem compromissos</li>
+                                    <li class="mb-2 lang-pt">Atenção ao detalhe</li>
+                                    <li class="mb-2 lang-pt">Transparência e honestidade</li>
+                                    <li class="mb-2 lang-pt">Sustentabilidade</li>
+                                    <li class="mb-2 lang-en">Uncompromising quality</li>
+                                    <li class="mb-2 lang-en">Attention to detail</li>
+                                    <li class="mb-2 lang-en">Transparency and honesty</li>
+                                    <li class="mb-2 lang-en">Sustainability</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet the Team Section -->
+        <section class="py-16 md:py-24 px-6" style="background-color: var(--background-medium);">
+            <div class="container mx-auto">
+                <div class="text-center mb-12 md:mb-16 opacity-0 translate-y-4 transition-all duration-700 ease-out"
+                     x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                     :class="{ 'opacity-100 !translate-y-0': shown }">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-text-primary">
+                        <span class="lang-pt">Conheça a Nossa Equipa</span>
+                        <span class="lang-en">Meet Our Team</span>
+                    </h2>
+                    <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+                        <span class="lang-pt">Somos apaixonados por sneakers e especialistas em dar nova vida ao seu calçado favorito.</span>
+                        <span class="lang-en">We're passionate about sneakers and experts at bringing new life to your favorite footwear.</span>
+                    </p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Team Member 1 -->
+                    <div class="rounded-xl shadow-lg overflow-hidden opacity-0 translate-y-4 transition-all duration-500 ease-out delay-100 team-card"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <div class="h-64 team-card-image">
+                            <!-- Placeholder for team member image -->
+                            <div class="w-full h-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-color-accent" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-color-primary">Miguel Costa</h3>
+                            <p class="text-sm mb-3 text-color-accent">
+                                <span class="lang-pt">Fundador & Especialista em Limpeza</span>
+                                <span class="lang-en">Founder & Cleaning Specialist</span>
+                            </p>
+                            <p class="text-color-secondary">
+                                <span class="lang-pt">Com mais de 5 anos de experiência em restauro de sneakers, Miguel transformou a sua paixão por calçado numa arte.</span>
+                                <span class="lang-en">With over 5 years of experience in sneaker restoration, Miguel turned his passion for footwear into an art form.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Team Member 2 -->
+                    <div class="rounded-xl shadow-lg overflow-hidden opacity-0 translate-y-4 transition-all duration-500 ease-out delay-200 team-card"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <div class="h-64 team-card-image">
+                            <!-- Placeholder for team member image -->
+                            <div class="w-full h-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-color-accent" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-color-primary">Ana Silva</h3>
+                            <p class="text-sm mb-3 text-color-accent">
+                                <span class="lang-pt">Especialista em Restauro</span>
+                                <span class="lang-en">Restoration Specialist</span>
+                            </p>
+                            <p class="text-color-secondary">
+                                <span class="lang-pt">Ana é mestre em técnicas de restauro e especialista em trabalhar com materiais delicados como camurça e pele.</span>
+                                <span class="lang-en">Ana is a master of restoration techniques and an expert in working with delicate materials like suede and leather.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Team Member 3 -->
+                    <div class="rounded-xl shadow-lg overflow-hidden opacity-0 translate-y-4 transition-all duration-500 ease-out delay-300 team-card"
+                         x-data="{ shown: false }" x-intersect.once.threshold.0.2="shown = true"
+                         :class="{ 'opacity-100 !translate-y-0': shown }">
+                        <div class="h-64 team-card-image">
+                            <!-- Placeholder for team member image -->
+                            <div class="w-full h-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-color-accent" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-color-primary">João Mendes</h3>
+                            <p class="text-sm mb-3 text-color-accent">
+                                <span class="lang-pt">Atendimento ao Cliente</span>
+                                <span class="lang-en">Customer Service</span>
+                            </p>
+                            <p class="text-color-secondary">
+                                <span class="lang-pt">João assegura que cada cliente recebe um serviço personalizado e mantém todos os detalhes organizados.</span>
+                                <span class="lang-en">João ensures every customer receives personalized service and keeps all the details organized.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 md:py-24 px-6 text-center section-accent">
+            <div class="container mx-auto max-w-3xl">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-6">
+                    <span class="lang-pt">Pronto para Renovar o Seu Calçado?</span>
+                    <span class="lang-en">Ready to Revive Your Shoes?</span>
+                </h2>
+                <p class="text-lg mb-8 opacity-90">
+                    <span class="lang-pt">Visite a nossa loja em Lisboa e descubra a diferença Solve.</span>
+                    <span class="lang-en">Visit our store in Lisbon and experience the Solve. difference.</span>
+                </p>
+                <a href="../index.html#visit-us" 
+                   tabindex="0"
+                   aria-label="Find our location"
+                   class="bg-white text-primary-accent font-bold py-3 px-8 sm:py-4 sm:px-10 rounded-lg shadow-lg hover:bg-background-light transition-all duration-300 ease-in-out text-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
+                    <span class="lang-pt">Encontrar-nos</span>
+                    <span class="lang-en">Find Us</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 px-6 text-center footer-bg">
+        <div class="container mx-auto">
+             <a href="../index.html" class="inline-block mb-4" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <style>
+                        .solve-logo-text-footer { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text-footer fill-text-inverse">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text-footer logo-text-accent">.</text>
+                     <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 mb-8 text-left">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Localização</span>
+                        <span class="lang-en">Location</span>
+                    </h3>
+                    <p class="text-text-secondary">Avenida das Forças Armadas 51</p>
+                    <p class="text-text-secondary">1600-121 Lisboa</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Horário</span>
+                        <span class="lang-en">Hours</span>
+                    </h3>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Terça a Sábado</span>
+                        <span class="lang-en">Tuesday to Saturday</span>
+                    </p>
+                    <p class="text-text-secondary">10:30 - 19:00</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Contacto</span>
+                        <span class="lang-en">Contact</span>
+                    </h3>
+                    <p class="text-text-secondary">Email: <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a></p>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Telefone:</span>
+                        <span class="lang-en">Phone:</span>
+                        <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a>
+                    </p>
+                </div>
+            </div>
+            <p class="text-sm text-text-secondary">&copy; <span id="currentYear"></span> Solve. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Make sure Alpine.js and its plugins are properly initialized
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle the current year display for copyright
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) yearElement.textContent = new Date().getFullYear();
+            
+            // Handle smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            setTimeout(() => {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }, this.closest('.md\\:hidden[x-show]') ? 50 : 0);
+                        }
+                    }
+                });
+            });
+            
+            // Properly update language toggle buttons
+            function updateLanguageButtonStates() {
+                const currentLang = document.documentElement.getAttribute('data-lang');
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if ((btn.textContent.trim() === 'PT' && currentLang === 'pt') ||
+                        (btn.textContent.trim() === 'EN' && currentLang === 'en')) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            // Add event listeners to language toggle buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.textContent.trim() === 'PT' ? 'pt' : 'en';
+                    document.documentElement.setAttribute('data-lang', lang);
+                    updateLanguageButtonStates();
+                });
+            });
+            
+            // Initialize correct active state for language buttons
+            updateLanguageButtonStates();
+            
+            // Dark mode toggle handling
+            const darkModeToggles = document.querySelectorAll('.dark-mode-toggle input[type="checkbox"]');
+            
+            // Set initial state based on saved preference or system preference
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                darkModeToggles.forEach(toggle => {
+                    toggle.checked = savedTheme === 'dark';
+                });
+            } else if (prefersDark) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                darkModeToggles.forEach(toggle => {
+                    toggle.checked = true;
+                });
+            }
+            
+            // Add event listeners to dark mode toggles
+            darkModeToggles.forEach(toggle => {
+                toggle.addEventListener('change', () => {
+                    const theme = toggle.checked ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    
+                    // Update all other toggles to match
+                    darkModeToggles.forEach(otherToggle => {
+                        if (otherToggle !== toggle) {
+                            otherToggle.checked = toggle.checked;
+                        }
+                    });
+                });
+            });
+            
+            // Initialize dark mode toggles based on current theme
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            darkModeToggles.forEach(toggle => {
+                toggle.checked = currentTheme === 'dark';
+            });
+        });
+        
+        // Explicitly register Alpine.js Intersect plugin
+        document.addEventListener('alpine:init', () => {
+            // Try multiple ways to get the Intersect plugin
+            if (window.AlpineIntersect) {
+                window.Alpine.plugin(window.AlpineIntersect);
+            } else if (window.Alpine && window.Alpine.directive) {
+                // If the plugin is already loaded but not registered, register the intersect directive manually
+                window.Alpine.directive('intersect', (el, { value, expression, modifiers }, { evaluateLater, cleanup }) => {
+                    const evaluate = evaluateLater(expression);
+                    
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            // If the element is visible
+                            if (modifiers.includes('once')) {
+                                if (entry.isIntersecting) {
+                                    evaluate();
+                                    observer.disconnect();
+                                }
+                            } else {
+                                evaluate(() => {}, { scope: { entry } });
+                            }
+                        });
+                    }, {
+                        threshold: modifiers.includes('threshold.0.3') ? 0.3 : 0.2,
+                        root: modifiers.includes('parent') ? el.parentElement : null,
+                    });
+                    
+                    observer.observe(el);
+                    
+                    cleanup(() => observer.disconnect());
+                });
+            }
+        });
+        
+        // Handle keydown events for elements with tabindex=0
+        const handleKeydownForTabindexGlobal = (event) => {
+             if ((event.key === 'Enter' || event.key === ' ') && event.target.hasAttribute('tabindex') && event.target.getAttribute('tabindex') === '0') {
+                const nonInteractiveTags = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'];
+                if (!nonInteractiveTags.includes(event.target.tagName) && !event.target.isContentEditable) {
+                    event.preventDefault();
+                    event.target.click();
+                }
+            }
+        };
+        document.addEventListener('keydown', handleKeydownForTabindexGlobal);
+    </script>
+</body>
+</html> 
