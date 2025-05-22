@@ -88,7 +88,7 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background-color: var(--primary-accent);
+            background-color: #3939ff;
             transition: width 0.3s ease;
         }
         
@@ -106,31 +106,35 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
+
+        /* Fix header on scroll */
+        .fixed-header {
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 100;
+        }
+        
+        /* Fix navigation item contrast */
+        .nav-item {
+            color: #2D3748;
+        }
+        
+        .nav-item:hover {
+            color: #3939ff;
+        }
+        
+        /* Smooth transition for all interactive elements */
+        a, button, .nav-item, .fancy-nav-item {
+            transition: all 0.3s ease;
+        }
     </style>
 
     <script>
         // Make sure Alpine.js and its plugins are properly initialized
         document.addEventListener('DOMContentLoaded', () => {
-            // Load saved theme from localStorage
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                
-                // Apply proper dark mode classes
-                if (savedTheme === 'dark') {
-                    document.body.classList.add('dark');
-                    document.documentElement.classList.add('dark');
-                    document.querySelectorAll('.logo-text-main').forEach(el => {
-                        el.setAttribute('fill', '#ffffff');
-                    });
-                } else {
-                    document.body.classList.remove('dark');
-                    document.documentElement.classList.remove('dark');
-                    document.querySelectorAll('.logo-text-main').forEach(el => {
-                        el.setAttribute('fill', '#2D3748');
-                    });
-                }
-            }
+            // Initialize language
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            setLanguage(savedLang);
             
             // Initialize AOS animations
             if (typeof AOS !== 'undefined') {
@@ -313,14 +317,23 @@
             });
         }
         
-        // Language toggle function
+        // Enhanced language toggle function
         function setLanguage(lang) {
             document.documentElement.setAttribute('data-lang', lang);
             localStorage.setItem('preferredLanguage', lang);
             
+            // Hide all language content first
+            document.querySelectorAll('.lang-pt, .lang-en').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Show only the selected language content
+            document.querySelectorAll('.lang-' + lang).forEach(el => {
+                el.classList.remove('hidden');
+            });
+            
             // Update button states
-            const buttons = document.querySelectorAll('.lang-btn');
-            buttons.forEach(btn => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
                 if ((btn.textContent.trim() === 'PT' && lang === 'pt') || 
                     (btn.textContent.trim() === 'EN' && lang === 'en')) {
                     btn.classList.add('active');
@@ -372,7 +385,7 @@
     </div>
 
     <!-- Header -->
-    <header id="home" x-data="{ mobileMenuOpen: false }" class="shadow-md sticky top-0 z-50 header-bg">
+    <header id="home" x-data="{ mobileMenuOpen: false }" class="shadow-md sticky top-0 z-50 header-bg fixed-header">
         <div class="container mx-auto px-6 py-4">
             <nav class="flex justify-between items-center">
                 <a href="../index.html#home" class="flex items-center" aria-label="Solve. Home">
