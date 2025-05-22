@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-lang="en">
+<html lang="pt" data-theme="light" data-lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://player.vimeo.com; media-src 'self' https://player.vimeo.com; frame-src 'self' https://www.google.com https://www.instagram.com https://player.vimeo.com;">
-    <title>About | Sobre - Solve.</title>
-    <meta name="description" content="Learn about Solve - premium shoe cleaning services in Lisbon. Our story, mission and values.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://player.vimeo.com https://storage.googleapis.com; media-src 'self' https://player.vimeo.com https://storage.googleapis.com; frame-src 'self' https://www.google.com https://www.instagram.com https://player.vimeo.com;">
+    <title>Sobre - Solve.</title>
+    <meta name="description" content="Conheça a Solve - serviços premium de limpeza de calçado em Lisboa. Nossa história, missão e valores.">
     
     <!-- Favicon -->
     <link rel="icon" href="../logos/favicon.png" type="image/png">
@@ -30,7 +30,7 @@
     <link href="../browser-fixes.css" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      
     <!-- Custom Styles -->
     <link rel="stylesheet" href="../styles.css">
@@ -38,45 +38,11 @@
     <style>
         html { 
             scroll-behavior: smooth; 
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            text-size-adjust: 100%;
         }
         /* More pronounced focus for accessibility */
         *:focus-visible {
-            outline: 3px solid #00A99D !important; /* Using primary-accent */
+            outline: 3px solid #3939ff !important; /* Using primary-accent */
             outline-offset: 2px !important;
-        }
-        /* Language toggle styles */
-        .lang-toggle {
-            display: flex;
-            align-items: center;
-            margin-left: 1rem;
-        }
-        .lang-btn {
-            padding: 0.25rem 0.5rem;
-            font-weight: 600;
-            font-size: 0.875rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        .lang-btn.active {
-            background-color: #00A99D;
-            color: white;
-        }
-        .lang-btn:not(.active) {
-            background-color: transparent;
-            color: #64748b;
-        }
-        [data-lang="pt"] .lang-en,
-        [data-lang="en"] .lang-pt {
-            display: none;
-        }
-        
-        /* Ensure theme transitions are smooth */
-        html {
-            transition: color 0.3s ease, background-color 0.3s ease;
         }
         
         /* Fix header contrast in both light and dark themes */
@@ -120,7 +86,7 @@
         
         /* Fix navigation item contrast */
         .nav-item {
-            color: #2D3748;
+            color: #111827;
         }
         
         .nav-item:hover {
@@ -162,33 +128,50 @@
             z-index: 0;
         }
         
-        /* Add style for language toggle */
-        [data-lang="pt"] .lang-en {
+        /* Fallback background for when video can't load */
+        .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3939ff, #2d2dcc);
+            z-index: 0;
             display: none;
         }
         
-        [data-lang="en"] .lang-pt {
-            display: none;
+        /* Header styling */
+        .header-bg {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        }
+
+        /* Fix nav links color */
+        .nav-link {
+            color: #111827;
+        }
+
+        .nav-link:hover {
+            color: #3939ff;
         }
     </style>
 
     <script>
-        // Make sure Alpine.js and its plugins are properly initialized
+        // Initialize AOS animations
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize language
-            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-            setLanguage(savedLang);
-            
-            // Initialize AOS animations
+            // Initialize AOS animations with fixed values for transition delays
             if (typeof AOS !== 'undefined') {
                 AOS.init({
                     duration: 800,
-                    easing: 'ease-in-out',
                     once: false,
-                    mirror: true,
+                    offset: 100,
+                    easing: 'ease-in-out',
+                    delay: 0,
                     anchorPlacement: 'top-bottom',
-                    startEvent: 'DOMContentLoaded',
-                    delay: 0
+                    useClassNames: false,
+                    disableMutationObserver: false,
+                    throttleDelay: 100
                 });
             }
             
@@ -196,18 +179,14 @@
             const navLinks = document.querySelectorAll('.fancy-nav-item');
             navLinks.forEach(link => {
                 link.addEventListener('mouseenter', () => {
-                    link.style.color = 'var(--primary-accent)';
+                    link.style.color = '#3939ff';
                 });
                 link.addEventListener('mouseleave', () => {
                     if (!link.classList.contains('active')) {
-                        link.style.color = 'var(--text-primary)';
+                        link.style.color = '#111827';
                     }
                 });
             });
-            
-            // Handle the current year display for copyright
-            const yearElement = document.getElementById('currentYear');
-            if (yearElement) yearElement.textContent = new Date().getFullYear();
             
             // Handle smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -217,149 +196,38 @@
                         const targetElement = document.querySelector(targetId);
                         if (targetElement) {
                             e.preventDefault();
-                            setTimeout(() => {
-                                window.scrollTo({
-                                    top: targetElement.offsetTop - 80, // Account for header height
-                                    behavior: 'smooth'
-                                });
-                            }, this.closest('.md\\:hidden[x-show]') ? 50 : 0);
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80, // Account for header height
+                                behavior: 'smooth'
+                            });
                         }
                     }
                 });
             });
             
-            // Initialize language button states
-            const currentLang = document.documentElement.getAttribute('data-lang');
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                if ((btn.textContent.trim() === 'PT' && currentLang === 'pt') ||
-                    (btn.textContent.trim() === 'EN' && currentLang === 'en')) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Handle video error
+            // Handle video error by showing fallback background
             const videoElement = document.querySelector('.video-bg');
-            if (videoElement) {
-                videoElement.addEventListener('error', () => {
-                    // Handle video error by applying a fallback background
-                    const container = document.querySelector('.video-bg-container');
-                    if (container) {
-                        container.style.backgroundColor = '#3939ff';
-                        videoElement.style.display = 'none';
-                    }
-                });
-            }
-        });
-        
-        // Explicitly register Alpine.js Intersect plugin
-        document.addEventListener('alpine:init', () => {
-            // Try multiple ways to get the Intersect plugin
-            if (window.AlpineIntersect) {
-                window.Alpine.plugin(window.AlpineIntersect);
-            } else if (window.Alpine && window.Alpine.directive) {
-                // If the plugin is already loaded but not registered, register the intersect directive manually
-                window.Alpine.directive('intersect', (el, { value, expression, modifiers }, { evaluateLater, cleanup }) => {
-                    const evaluate = evaluateLater(expression);
-                    
-                    const observer = new IntersectionObserver(entries => {
-                        entries.forEach(entry => {
-                            // If the element is visible
-                            if (modifiers.includes('once')) {
-                                if (entry.isIntersecting) {
-                                    evaluate();
-                                    observer.disconnect();
-                                }
-                            } else {
-                                evaluate(() => {}, { scope: { entry } });
-                            }
-                        });
-                    }, {
-                        threshold: modifiers.includes('threshold.0.3') ? 0.3 : 0.2,
-                        root: modifiers.includes('parent') ? el.parentElement : null,
-                    });
-                    
-                    observer.observe(el);
-                    
-                    cleanup(() => observer.disconnect());
-                });
-            }
-        });
-        
-        // Handle keydown events for elements with tabindex=0
-        const handleKeydownForTabindexGlobal = (event) => {
-             if ((event.key === 'Enter' || event.key === ' ') && event.target.hasAttribute('tabindex') && event.target.getAttribute('tabindex') === '0') {
-                const nonInteractiveTags = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'];
-                if (!nonInteractiveTags.includes(event.target.tagName) && !event.target.isContentEditable) {
-                    event.preventDefault();
-                    event.target.click();
-                }
-            }
-        };
-        document.addEventListener('keydown', handleKeydownForTabindexGlobal);
-    </script>
-    
-    <script>
-        // Language toggle function
-        function setLanguage(lang) {
-            document.documentElement.setAttribute('data-lang', lang);
-            localStorage.setItem('preferredLanguage', lang);
+            const fallbackBg = document.querySelector('.video-fallback');
             
-            // Update button states
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                if ((btn.textContent.trim() === 'PT' && lang === 'pt') || 
-                    (btn.textContent.trim() === 'EN' && lang === 'en')) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-        }
+            if (videoElement && fallbackBg) {
+                videoElement.addEventListener('error', () => {
+                    videoElement.style.display = 'none';
+                    fallbackBg.style.display = 'block';
+                });
+            }
+            
+            // Handle current year for footer
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        });
     </script>
 </head>
 <body class="bg-background-light text-text-primary font-sans antialiased">
 
-    <!-- Fixed Social Media Bar -->
-    <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-2 p-2 bg-white bg-opacity-80 backdrop-blur-sm rounded-l-lg shadow-lg transition-colors duration-300">
-        <a href="https://www.instagram.com/kolabclean/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
-            aria-label="Visit our Instagram"
-            tabindex="0"
-            title="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
-                <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
-            </svg>
-        </a>
-        <a href="#" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
-            aria-label="Visit our Facebook page"
-            tabindex="0"
-            title="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-            </svg>
-        </a>
-        <a href="https://wa.me/351910697252" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-green-600 to-green-400 text-white hover:scale-110 transition-all duration-300" 
-            aria-label="Contact us on WhatsApp"
-            tabindex="0"
-            title="WhatsApp">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-            </svg>
-        </a>
-    </div>
-
     <!-- Header -->
-    <header id="home" x-data="{ mobileMenuOpen: false }" class="shadow-md sticky top-0 z-50 header-bg fixed-header">
+    <header id="home" class="shadow-md sticky top-0 z-50 header-bg">
         <div class="container mx-auto px-6 py-4">
             <nav class="flex justify-between items-center">
                 <a href="../index.html#home" class="flex items-center" aria-label="Solve. Home">
@@ -367,77 +235,43 @@
                     <style>
                         .solve-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
                     </style>
-                        <!-- Removing the gray rectangle -->
-                        <text x="0" y="28" class="solve-logo-text logo-text-main">Solve</text>
-                        <text x="78" y="28" class="solve-logo-text logo-text-accent">.</text>
-                        <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                        <text x="0" y="28" class="solve-logo-text logo-text-main" fill="#111827">Solve</text>
+                        <text x="78" y="28" class="solve-logo-text logo-text-accent" fill="#3939ff">.</text>
+                        <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" fill="#3939ff" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
                     </svg>
                 </a>
             
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-6 items-center">
-                    <a href="../index.html#home" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Home section">
-                        <span class="lang-pt">Início</span>
-                        <span class="lang-en">Home</span>
+                    <a href="../index.html#home" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Início">
+                        Início
                     </a>
-                    <a href="../index.html#services" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Services section">
-                        <span class="lang-pt">Serviços</span>
-                        <span class="lang-en">Services</span>
+                    <a href="../index.html#services" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Serviços">
+                        Serviços
                     </a>
-                    <a href="../index.html#how-it-works" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to How It Works section">
-                        <span class="lang-pt">Como Funciona</span>
-                        <span class="lang-en">How It Works</span>
+                    <a href="../index.html#how-it-works" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Como Funciona">
+                        Como Funciona
                     </a>
-                    <a href="../index.html#pricing" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Pricing section">
-                        <span class="lang-pt">Preços</span>
-                        <span class="lang-en">Pricing</span>
+                    <a href="../index.html#pricing" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Preços">
+                        Preços
                     </a>
-                    <a href="./about.html" class="nav-link text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to About section">
-                        <span class="lang-pt">Sobre</span>
-                        <span class="lang-en">About</span>
+                    <a href="#" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item active" aria-label="Ir para a seção Sobre">
+                        Sobre
                     </a>
-                    <a href="./contact.html" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Contact page">
-                        <span class="lang-pt">Contacto</span>
-                        <span class="lang-en">Contact</span>
+                    <a href="contact.html" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a página de Contacto">
+                        Contacto
                     </a>
-                    <a href="../index.html#visit-us" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Location section">
-                        <span class="lang-pt">Localização</span>
-                        <span class="lang-en">Location</span>
+                    <a href="../index.html#visit-us" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Localização">
+                        Localização
                     </a>
-                    <div class="lang-toggle ml-2">
-                        <button 
-                            onclick="setLanguage('pt')"
-                            class="lang-btn">
-                            PT
-                        </button>
-                        <span class="mx-1">|</span>
-                        <button 
-                            onclick="setLanguage('en')"
-                            class="lang-btn">
-                            EN
-                        </button>
-                    </div>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <div class="lang-toggle mr-3">
-                        <button 
-                            onclick="setLanguage('pt')"
-                            class="lang-btn">
-                            PT
-                        </button>
-                        <span class="mx-1">|</span>
-                        <button 
-                            onclick="setLanguage('en')"
-                            class="lang-btn">
-                            EN
-                        </button>
-                    </div>
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false" :aria-expanded="mobileMenuOpen.toString()">
+                    <button id="mobile-menu-button" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            <path class="mobile-menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path class="mobile-menu-icon-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
@@ -445,40 +279,27 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden shadow-lg absolute w-full border-t mobile-menu-bg" 
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 transform -translate-y-2"
-             x-transition:enter-end="opacity-100 transform translate-y-0"
-             x-transition:leave="transition ease-in duration-150"
-             x-transition:leave-start="opacity-100 transform translate-y-0"
-             x-transition:leave-end="opacity-0 transform -translate-y-2">
-            <a href="../index.html#home" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Home section">
-                <span class="lang-pt">Início</span>
-                <span class="lang-en">Home</span>
+        <div id="mobile-menu" class="md:hidden shadow-lg absolute w-full border-t mobile-menu-bg mobile-menu-closed transition-all duration-200">
+            <a href="../index.html#home" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Início">
+                Início
             </a>
-            <a href="../index.html#services" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Services section">
-                <span class="lang-pt">Serviços</span>
-                <span class="lang-en">Services</span>
+            <a href="../index.html#services" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Serviços">
+                Serviços
             </a>
-            <a href="../index.html#how-it-works" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to How It Works section">
-                <span class="lang-pt">Como Funciona</span>
-                <span class="lang-en">How It Works</span>
+            <a href="../index.html#how-it-works" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Como Funciona">
+                Como Funciona
             </a>
-            <a href="../index.html#pricing" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Pricing section">
-                <span class="lang-pt">Preços</span>
-                <span class="lang-en">Pricing</span>
+            <a href="../index.html#pricing" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Preços">
+                Preços
             </a>
-            <a href="./about.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-primary-accent" aria-label="Go to About section">
-                <span class="lang-pt">Sobre</span>
-                <span class="lang-en">About</span>
+            <a href="#" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Sobre">
+                Sobre
             </a>
-            <a href="./contact.html" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Contact page">
-                <span class="lang-pt">Contacto</span>
-                <span class="lang-en">Contact</span>
+            <a href="contact.html" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a página de Contacto">
+                Contacto
             </a>
-            <a href="../index.html#visit-us" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Location section">
-                <span class="lang-pt">Localização</span>
-                <span class="lang-en">Location</span>
+            <a href="../index.html#visit-us" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Localização">
+                Localização
             </a>
         </div>
     </header>
@@ -489,8 +310,10 @@
             <!-- Video Background with overlay -->
             <div class="video-bg-container">
                 <div class="video-overlay" style="background: linear-gradient(135deg, rgba(57, 57, 255, 0.95), rgba(32, 32, 224, 0.9))"></div>
+                <div class="video-fallback"></div>
                 <video autoplay muted loop playsinline class="video-bg">
-                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
+                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                    <!-- Fallback to a Google-hosted sample video -->
                 </video>
             </div>
 
@@ -505,12 +328,10 @@
                         <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" fill="#FFD700" class="opacity-75 transform rotate-12" transform-origin="106 18.5"/>
                     </svg>
                     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-white" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        <span class="lang-pt">Sobre Nós</span>
-                        <span class="lang-en">About Us</span>
+                        Sobre Nós
                     </h1>
                     <p class="text-lg md:text-xl max-w-2xl mx-auto font-light text-white opacity-90" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                        <span class="lang-pt">Conheça a equipa que está a revolucionar o cuidado dos ténis em Lisboa</span>
-                        <span class="lang-en">Meet the team revolutionizing sneaker care in Lisbon</span>
+                        Conheça a equipa que está a revolucionar o cuidado dos ténis em Lisboa
                     </p>
                 </div>
             </div>
@@ -522,13 +343,11 @@
                 <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
                     <span class="text-primary-accent font-semibold text-sm uppercase tracking-wider px-4 py-1 rounded-full bg-primary-accent/10 inline-block">NOSSA HISTÓRIA</span>
                     <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary ">
-                        <span class="lang-pt">Como Tudo <span class="text-primary-accent">Começou</span></span>
-                        <span class="lang-en">How It All <span class="text-primary-accent">Started</span></span>
+                        Como Tudo Começou
                     </h2>
                     <div class="w-20 h-1 bg-gradient-to-r from-primary-accent to-blue-400 mx-auto mb-6 rounded-full"></div>
                     <p class="text-text-secondary  text-lg max-w-2xl mx-auto">
-                        <span class="lang-pt">De uma paixão por sneakers para uma empresa de sucesso em Lisboa.</span>
-                        <span class="lang-en">From a passion for sneakers to a successful business in Lisbon.</span>
+                        De uma paixão por sneakers para uma empresa de sucesso em Lisboa.
                     </p>
                 </div>
 
@@ -546,12 +365,10 @@
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
                                         <div class="p-4 text-white">
                                             <h3 class="text-lg font-bold">
-                                                <span class="lang-pt">A nossa loja</span>
-                                                <span class="lang-en">Our store</span>
+                                                A nossa loja
                                             </h3>
                                             <p class="text-sm">
-                                                <span class="lang-pt">Avenida das Forças Armadas, Lisboa</span>
-                                                <span class="lang-en">Avenida das Forças Armadas, Lisbon</span>
+                                                Avenida das Forças Armadas, Lisboa
                                             </p>
                                         </div>
                                     </div>
@@ -559,21 +376,17 @@
                             </div>
                             <div class="md:col-span-3">
                                 <h3 class="text-xl font-bold mb-4 text-primary-accent">
-                                    <span class="lang-pt">2025: O Início</span>
-                                    <span class="lang-en">2025: The Beginning</span>
+                                    2025: O Início
                                 </h3>
                                 <div class="space-y-4 text-text-primary ">
                                     <p>
-                                        <span class="lang-pt">A Solve começou com uma simples paixão por ténis limpos e bem cuidados. Fundada por Bruno Gouveia em 2025, um entusiasta de sneakers que transformou sua paixão num negócio dedicado a oferecer serviços de limpeza e restauro de calçado premium em Lisboa.</span>
-                                        <span class="lang-en">Solve began with a simple passion for clean, well-maintained sneakers. Founded by Bruno Gouveia in 2025, a sneaker enthusiast who transformed his passion into a business dedicated to offering premium shoe cleaning and restoration services in Lisbon.</span>
+                                        A Solve começou com uma simples paixão por ténis limpos e bem cuidados. Fundada por Bruno Gouveia em 2025, um entusiasta de sneakers que transformou sua paixão num negócio dedicado a oferecer serviços de limpeza e restauro de calçado premium em Lisboa.
                                     </p>
                                     <p>
-                                        <span class="lang-pt">A empresa nasceu da percepção de que havia uma necessidade por serviços especializados de qualidade para cuidar de calçado de valor, tanto sentimental como financeiro.</span>
-                                        <span class="lang-en">The company was born from the realization that there was a need for quality specialized services to care for valuable footwear, both sentimental and financial.</span>
+                                        A empresa nasceu da percepção de que havia uma necessidade por serviços especializados de qualidade para cuidar de calçado de valor, tanto sentimental como financeiro.
                                     </p>
                                     <p>
-                                        <span class="lang-pt">O que começou como um pequeno serviço tornou-se rapidamente num destino de referência para os entusiastas de sneakers em Lisboa, com uma reputação de excelência e atenção ao detalhe.</span>
-                                        <span class="lang-en">What started as a small service quickly became a go-to destination for sneaker enthusiasts in Lisbon, with a reputation for excellence and attention to detail.</span>
+                                        O que começou como um pequeno serviço tornou-se rapidamente num destino de referência para os entusiastas de sneakers em Lisboa, com uma reputação de excelência e atenção ao detalhe.
                                     </p>
                                 </div>
                             </div>
@@ -585,29 +398,21 @@
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="bg-white  rounded-xl p-8 shadow-xl border-t-4 border-primary-accent" data-aos="fade-right" data-aos-delay="100">
                                 <h3 class="text-xl font-bold mb-5 text-primary-accent">
-                                    <span class="lang-pt">A Nossa Missão</span>
-                                    <span class="lang-en">Our Mission</span>
+                                    A Nossa Missão
                                 </h3>
                                 <div class="space-y-4 text-text-primary ">
-                                    <p class="lang-pt">
+                                    <p>
                                         Proporcionar uma experiência premium de limpeza e restauro de calçado, prolongando a vida útil dos seus ténis e sapatos preferidos.
                                     </p>
-                                    <p class="lang-pt">
+                                    <p>
                                         Promover práticas sustentáveis, ajudando os clientes a manter os seus itens por mais tempo em vez de substituí-los.
-                                    </p>
-                                    <p class="lang-en">
-                                        To provide a premium shoe cleaning and restoration experience, extending the life of your favorite sneakers and shoes.
-                                    </p>
-                                    <p class="lang-en">
-                                        To promote sustainable practices by helping customers maintain their items longer rather than replacing them.
                                     </p>
                                 </div>
                             </div>
                             
                             <div class="bg-white  rounded-xl p-8 shadow-xl border-t-4 border-cyan-500" data-aos="fade-left" data-aos-delay="200">
                                 <h3 class="text-xl font-bold mb-5 text-cyan-600">
-                                    <span class="lang-pt">Os Nossos Valores</span>
-                                    <span class="lang-en">Our Values</span>
+                                    Os Nossos Valores
                                 </h3>
                                 <ul class="space-y-3 text-text-primary ">
                                     <li class="flex items-center">
@@ -616,8 +421,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <span class="lang-pt">Qualidade sem compromissos</span>
-                                        <span class="lang-en">Uncompromising quality</span>
+                                        <span>Qualidade sem compromissos</span>
                                     </li>
                                     <li class="flex items-center">
                                         <div class="bg-cyan-100  p-2 rounded-full mr-3">
@@ -625,8 +429,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <span class="lang-pt">Atenção ao detalhe</span>
-                                        <span class="lang-en">Attention to detail</span>
+                                        <span>Atenção ao detalhe</span>
                                     </li>
                                     <li class="flex items-center">
                                         <div class="bg-cyan-100  p-2 rounded-full mr-3">
@@ -634,8 +437,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <span class="lang-pt">Transparência e honestidade</span>
-                                        <span class="lang-en">Transparency and honesty</span>
+                                        <span>Transparência e honestidade</span>
                                     </li>
                                     <li class="flex items-center">
                                         <div class="bg-cyan-100  p-2 rounded-full mr-3">
@@ -643,8 +445,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <span class="lang-pt">Sustentabilidade</span>
-                                        <span class="lang-en">Sustainability</span>
+                                        <span>Sustentabilidade</span>
                                     </li>
                                 </ul>
                             </div>
@@ -657,13 +458,11 @@
                             <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
                                 <span class="text-purple-600 font-semibold text-sm uppercase tracking-wider px-4 py-1 rounded-full bg-purple-100  inline-block">EQUIPA</span>
                                 <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary ">
-                                    <span class="lang-pt">Conheça o <span class="text-purple-600">Fundador</span></span>
-                                    <span class="lang-en">Meet the <span class="text-purple-600">Founder</span></span>
+                                    Conheça o Fundador
                                 </h2>
                                 <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-400 mx-auto mb-6 rounded-full"></div>
                                 <p class="text-text-secondary  text-lg max-w-2xl mx-auto">
-                                    <span class="lang-pt">Apaixonado por sneakers e especialista em dar nova vida ao seu calçado favorito.</span>
-                                    <span class="lang-en">Passionate about sneakers and expert at bringing new life to your favorite footwear.</span>
+                                    Apaixonado por sneakers e especialista em dar nova vida ao seu calçado favorito.
                                 </p>
                             </div>
                             
@@ -679,12 +478,10 @@
                                     <div class="p-8">
                                         <h3 class="text-xl font-bold text-text-primary ">Bruno Gouveia</h3>
                                         <p class="text-sm mb-4 text-purple-600">
-                                            <span class="lang-pt">Fundador, CEO & Especialista em Restauro</span>
-                                            <span class="lang-en">Founder, CEO & Restoration Specialist</span>
+                                            Fundador, CEO & Especialista em Restauro
                                         </p>
                                         <p class="text-text-secondary  mb-6">
-                                            <span class="lang-pt">Bruno traz anos de experiência em restauro de sneakers, transformando a sua paixão por calçado numa arte. Como CEO e gerente da loja, ele supervisiona pessoalmente cada projeto para garantir resultados impecáveis.</span>
-                                            <span class="lang-en">Bruno brings years of experience in sneaker restoration, turning his passion for footwear into an art form. As CEO and store manager, he personally oversees each project to ensure impeccable results.</span>
+                                            Bruno traz anos de experiência em restauro de sneakers, transformando a sua paixão por calçado numa arte. Como CEO e gerente da loja, ele supervisiona pessoalmente cada projeto para garantir resultados impecáveis.
                                         </p>
                                         <div class="flex space-x-3">
                                             <a href="https://www.instagram.com/kolabclean/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" aria-label="Bruno's Instagram">
@@ -708,27 +505,23 @@
                     <section class="py-16 md:py-24 text-center bg-gradient-to-r from-primary-accent to-cyan-500 text-white rounded-xl my-20" data-aos="fade-up">
                         <div class="container mx-auto max-w-3xl px-6">
                             <h2 class="text-3xl sm:text-4xl font-bold mb-6">
-                                <span class="lang-pt">Pronto para Renovar o Seu Calçado?</span>
-                                <span class="lang-en">Ready to Revive Your Shoes?</span>
+                                Pronto para Renovar o Seu Calçado?
                             </h2>
                             <p class="text-lg mb-8 opacity-90">
-                                <span class="lang-pt">Visite a nossa loja em Lisboa e descubra a diferença Solve.</span>
-                                <span class="lang-en">Visit our store in Lisbon and experience the Solve. difference.</span>
+                                Visite a nossa loja em Lisboa e descubra a diferença Solve.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                                 <a href="../index.html#visit-us" 
                                 tabindex="0"
                                 aria-label="Find our location"
                                 class="bg-white text-primary-accent font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300 ease-in-out text-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
-                                    <span class="lang-pt">Encontrar-nos</span>
-                                    <span class="lang-en">Find Us</span>
+                                    Encontrar-nos
                                 </a>
-                                <a href="./contact.html" 
+                                <a href="contact.html" 
                                 tabindex="0"
                                 aria-label="Contact us"
                                 class="border-2 border-white bg-transparent text-white font-bold py-3 px-8 rounded-lg hover:bg-white/10 transition-all duration-300 ease-in-out text-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
-                                    <span class="lang-pt">Contactar</span>
-                                    <span class="lang-en">Contact Us</span>
+                                    Contactar
                                 </a>
                             </div>
                         </div>
@@ -759,8 +552,7 @@
                         </svg>
                     </a>
                     <p class="text-gray-300 mt-4 max-w-md">
-                        <span class="lang-pt">Dando vida nova aos seus ténis favoritos desde 2020. Especialistas em limpeza e restauração de calçado.</span>
-                        <span class="lang-en">Giving new life to your favorite kicks since 2020. Experts in shoe cleaning and restoration.</span>
+                        Dando vida nova aos seus ténis favoritos desde 2020. Especialistas em limpeza e restauração de calçado.
                     </p>
                 </div>
                 
@@ -800,36 +592,30 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            <span class="lang-pt">Localização</span>
-                            <span class="lang-en">Location</span>
+                            Localização
                         </h3>
                         <p class="text-gray-300">Avenida das Forças Armadas 51</p>
                         <p class="text-gray-300">1600-121 Lisboa</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            <span class="lang-pt">Horário</span>
-                            <span class="lang-en">Hours</span>
+                            Horário
                         </h3>
                         <p class="text-gray-300">
-                            <span class="lang-pt">Terça a Sábado</span>
-                            <span class="lang-en">Tuesday to Saturday</span>
+                            Terça a Sábado
                         </p>
                         <p class="text-gray-300">10:30 - 19:00</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            <span class="lang-pt">Contacto</span>
-                            <span class="lang-en">Contact</span>
+                            Contacto
                         </h3>
                         <p class="text-gray-300">
-                            <span class="lang-pt">Email:</span>
-                            <span class="lang-en">Email:</span>
+                            Email:
                             <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a>
                         </p>
                         <p class="text-gray-300 mt-1">
-                            <span class="lang-pt">Telefone:</span>
-                            <span class="lang-en">Phone:</span>
+                            Telefone:
                             <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a>
                         </p>
                     </div>
@@ -837,19 +623,16 @@
             </div>
             
             <div class="border-t border-gray-700 pt-6 flex flex-wrap justify-between items-center">
-                <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> Solve. All rights reserved.</p>
+                <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> Solve. Todos os direitos reservados.</p>
                 <div class="flex items-center space-x-4 mt-4 md:mt-0">
                     <a href="../index.html#home" class="text-gray-400 hover:text-white text-sm transition-colors">
-                        <span class="lang-pt">Início</span>
-                        <span class="lang-en">Home</span>
+                        Início
                     </a>
                     <a href="../index.html#services" class="text-gray-400 hover:text-white text-sm transition-colors">
-                        <span class="lang-pt">Serviços</span>
-                        <span class="lang-en">Services</span>
+                        Serviços
                     </a>
                     <a href="contact.html" class="text-gray-400 hover:text-white text-sm transition-colors">
-                        <span class="lang-pt">Contacto</span>
-                        <span class="lang-en">Contact</span>
+                        Contacto
                     </a>
                 </div>
             </div>

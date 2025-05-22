@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto | Contact - Solve.</title>
-    <meta name="description" content="Get in touch with Solve - premium shoe cleaning services in Lisbon. Contact us for appointments and inquiries.">
+    <title>Contacto - Solve.</title>
+    <meta name="description" content="Entre em contacto com a Solve - serviços premium de limpeza de calçado em Lisboa. Contacte-nos para marcações e questões.">
     <link rel="icon" href="../logos/favicon.png" type="image/png">
     
     <!-- Tailwind CSS -->
@@ -32,45 +32,11 @@
     <style>
         html { 
             scroll-behavior: smooth; 
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            text-size-adjust: 100%;
         }
         /* More pronounced focus for accessibility */
         *:focus-visible {
-            outline: 3px solid #00A99D !important; /* Using primary-accent */
+            outline: 3px solid #3939ff !important; /* Using primary-accent */
             outline-offset: 2px !important;
-        }
-        /* Language toggle styles */
-        .lang-toggle {
-            display: flex;
-            align-items: center;
-            margin-left: 1rem;
-        }
-        .lang-btn {
-            padding: 0.25rem 0.5rem;
-            font-weight: 600;
-            font-size: 0.875rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        .lang-btn.active {
-            background-color: #00A99D;
-            color: white;
-        }
-        .lang-btn:not(.active) {
-            background-color: transparent;
-            color: #64748b;
-        }
-        [data-lang="pt"] .lang-en,
-        [data-lang="en"] .lang-pt {
-            display: none;
-        }
-        
-        /* Ensure theme transitions are smooth */
-        html {
-            transition: color 0.3s ease, background-color 0.3s ease;
         }
         
         /* Fix header contrast in both light and dark themes */
@@ -86,99 +52,115 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background-color: var(--primary-accent);
+            background-color: #3939ff;
             transition: width 0.3s ease;
         }
         
         .fancy-nav-item:hover:after {
             width: 100%;
         }
+        
+        /* Ensure theme transitions are smooth */
+        html {
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        
+        /* Header styling */
+        .header-bg {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        }
+
+        /* Fix nav links color */
+        .nav-link {
+            color: #111827;
+        }
+
+        .nav-link:hover {
+            color: #3939ff;
+        }
+        
+        /* Video background styles */
+        .video-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        /* Fallback background for when video can't load */
+        .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3939ff, #2d2dcc);
+            z-index: 0;
+            display: none;
+        }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load saved theme from localStorage
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                
-                // Apply proper dark mode classes
-                if (savedTheme === 'dark') {
-                    document.body.classList.add('dark');
-                    document.documentElement.classList.add('dark');
-                    document.querySelectorAll('.logo-text-main').forEach(el => {
-                        el.setAttribute('fill', '#ffffff');
-                    });
-                } else {
-                    document.body.classList.remove('dark');
-                    document.documentElement.classList.remove('dark');
-                    document.querySelectorAll('.logo-text-main').forEach(el => {
-                        el.setAttribute('fill', '#2D3748');
-                    });
-                }
+            // Initialize AOS animations with fixed values for transition delays
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: false,
+                    offset: 100,
+                    easing: 'ease-in-out',
+                    delay: 0,
+                    anchorPlacement: 'top-bottom',
+                    useClassNames: false,
+                    disableMutationObserver: false,
+                    throttleDelay: 100
+                });
             }
             
-            // Load saved language
-            const savedLang = localStorage.getItem('preferredLanguage');
-            if (savedLang) {
-                document.documentElement.setAttribute('data-lang', savedLang);
+            // Handle video error by showing fallback background
+            const videoElement = document.querySelector('.video-bg');
+            const fallbackBg = document.querySelector('.video-fallback');
+            
+            if (videoElement && fallbackBg) {
+                videoElement.addEventListener('error', () => {
+                    videoElement.style.display = 'none';
+                    fallbackBg.style.display = 'block';
+                });
             }
             
-            // Initialize Alpine.js behavior for contact form
-            // ... existing code ...
+            // Handle current year for footer
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
         });
-        
-        // Theme toggling function
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Add or remove dark class on body (important for dark mode)
-            if (newTheme === 'dark') {
-                document.body.classList.add('dark');
-                document.documentElement.classList.add('dark');
-                // Fix logo text color in dark mode
-                document.querySelectorAll('.logo-text-main').forEach(el => {
-                    el.setAttribute('fill', '#ffffff');
-                });
-            } else {
-                document.body.classList.remove('dark');
-                document.documentElement.classList.remove('dark');
-                // Reset logo text color in light mode
-                document.querySelectorAll('.logo-text-main').forEach(el => {
-                    el.setAttribute('fill', '#2D3748');
-                });
-            }
-            
-            // Update all toggles
-            const toggles = document.querySelectorAll('.dark-mode-toggle input[type="checkbox"]');
-            toggles.forEach(toggle => {
-                toggle.checked = newTheme === 'dark';
-            });
-        }
-        
-        // Language toggle function
-        function setLanguage(lang) {
-            document.documentElement.setAttribute('data-lang', lang);
-            localStorage.setItem('preferredLanguage', lang);
-            
-            // Update button states
-            const buttons = document.querySelectorAll('.lang-btn');
-            buttons.forEach(btn => {
-                if ((btn.textContent.trim() === 'PT' && lang === 'pt') || 
-                    (btn.textContent.trim() === 'EN' && lang === 'en')) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-        }
     </script>
 </head>
-<body class="bg-background-light text-text-primary font-sans antialiased dark:bg-background-dark dark:text-text-inverse">
+<body class="bg-background-light text-text-primary font-sans antialiased">
 
     <!-- Header -->
     <header id="home" x-data="{ mobileMenuOpen: false }" class="shadow-md sticky top-0 z-50 header-bg">
@@ -189,85 +171,39 @@
                     <style>
                         .solve-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
                     </style>
-                        <!-- Removing the gray rectangle -->
-                        <text x="0" y="28" class="solve-logo-text logo-text-main">Solve</text>
-                        <text x="78" y="28" class="solve-logo-text logo-text-accent">.</text>
-                        <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                        <text x="0" y="28" class="solve-logo-text logo-text-main" fill="#111827">Solve</text>
+                        <text x="78" y="28" class="solve-logo-text logo-text-accent" fill="#3939ff">.</text>
+                        <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" fill="#3939ff" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
                 </svg>
             </a>
             
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-6 items-center">
-                    <a href="../index.html#home" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Home section">
-                    <span class="lang-pt">Início</span>
-                    <span class="lang-en">Home</span>
+                <a href="../index.html#home" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Início">
+                    Início
                 </a>
-                    <a href="../index.html#services" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Services section">
-                    <span class="lang-pt">Serviços</span>
-                    <span class="lang-en">Services</span>
+                <a href="../index.html#services" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Serviços">
+                    Serviços
                 </a>
-                    <a href="../index.html#how-it-works" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to How It Works section">
-                    <span class="lang-pt">Como Funciona</span>
-                    <span class="lang-en">How It Works</span>
+                <a href="../index.html#how-it-works" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Como Funciona">
+                    Como Funciona
                 </a>
-                    <a href="../index.html#pricing" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Pricing section">
-                    <span class="lang-pt">Preços</span>
-                    <span class="lang-en">Pricing</span>
+                <a href="../index.html#pricing" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Preços">
+                    Preços
                 </a>
-                    <a href="./about.html" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to About section">
-                    <span class="lang-pt">Sobre</span>
-                    <span class="lang-en">About</span>
+                <a href="./about.html" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Sobre">
+                    Sobre
                 </a>
-                    <a href="./contact.html" class="nav-link text-primary-accent fancy-nav-item" aria-label="Go to Contact page">
-                    <span class="lang-pt">Contacto</span>
-                    <span class="lang-en">Contact</span>
+                <a href="./contact.html" class="nav-link text-primary-accent fancy-nav-item" aria-label="Ir para a página de Contacto">
+                    Contacto
                 </a>
-                    <a href="../index.html#visit-us" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Go to Location section">
-                    <span class="lang-pt">Localização</span>
-                    <span class="lang-en">Location</span>
+                <a href="../index.html#visit-us" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Localização">
+                    Localização
                 </a>
-                <div class="lang-toggle ml-2">
-                    <button 
-                            onclick="setLanguage('pt')"
-                        class="lang-btn">
-                        PT
-                    </button>
-                    <span class="mx-1">|</span>
-                    <button 
-                            onclick="setLanguage('en')"
-                        class="lang-btn">
-                        EN
-                    </button>
-                </div>
-                <div class="dark-mode-toggle ml-4" title="Toggle Dark Mode">
-                    <label class="toggle-switch">
-                            <input type="checkbox" onclick="toggleTheme()">
-                        <span class="toggle-slider"></span>
-                    </label>
-                </div>
             </div>
 
             <!-- Mobile Menu Button -->
             <div class="md:hidden flex items-center">
-                <div class="lang-toggle mr-3">
-                    <button 
-                            onclick="setLanguage('pt')"
-                        class="lang-btn">
-                        PT
-                    </button>
-                    <span class="mx-1">|</span>
-                    <button 
-                            onclick="setLanguage('en')"
-                        class="lang-btn">
-                        EN
-                    </button>
-                </div>
-                <div class="dark-mode-toggle mr-3" title="Toggle Dark Mode">
-                    <label class="toggle-switch">
-                            <input type="checkbox" onclick="toggleTheme()">
-                        <span class="toggle-slider"></span>
-                    </label>
-                </div>
                 <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false" :aria-expanded="mobileMenuOpen.toString()">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -286,33 +222,26 @@
              x-transition:leave="transition ease-in duration-150"
              x-transition:leave-start="opacity-100 transform translate-y-0"
              x-transition:leave-end="opacity-0 transform -translate-y-2">
-            <a href="../index.html#home" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Home section">
-                <span class="lang-pt">Início</span>
-                <span class="lang-en">Home</span>
+            <a href="../index.html#home" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Início">
+                Início
             </a>
-            <a href="../index.html#services" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Services section">
-                <span class="lang-pt">Serviços</span>
-                <span class="lang-en">Services</span>
+            <a href="../index.html#services" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Serviços">
+                Serviços
             </a>
-            <a href="../index.html#how-it-works" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to How It Works section">
-                <span class="lang-pt">Como Funciona</span>
-                <span class="lang-en">How It Works</span>
+            <a href="../index.html#how-it-works" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Como Funciona">
+                Como Funciona
             </a>
-            <a href="../index.html#pricing" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Pricing section">
-                <span class="lang-pt">Preços</span>
-                <span class="lang-en">Pricing</span>
+            <a href="../index.html#pricing" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Preços">
+                Preços
             </a>
-            <a href="./about.html" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to About section">
-                <span class="lang-pt">Sobre</span>
-                <span class="lang-en">About</span>
+            <a href="./about.html" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Sobre">
+                Sobre
             </a>
-            <a href="./contact.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-primary-accent" aria-label="Go to Contact page">
-                <span class="lang-pt">Contacto</span>
-                <span class="lang-en">Contact</span>
+            <a href="./contact.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-primary-accent" aria-label="Ir para a página de Contacto">
+                Contacto
             </a>
-            <a href="../index.html#visit-us" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Go to Location section">
-                <span class="lang-pt">Localização</span>
-                <span class="lang-en">Location</span>
+            <a href="../index.html#visit-us" @click="mobileMenuOpen = false" class="block px-6 py-3 nav-link hover:bg-background-medium hover:text-primary-accent transition-colors duration-200" aria-label="Ir para a seção Localização">
+                Localização
             </a>
         </div>
     </header>
@@ -320,12 +249,12 @@
     <!-- Main Content -->
     <main x-data>
         <!-- Fixed Social Media Bar -->
-        <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-2 p-2 bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-80 backdrop-blur-sm rounded-l-lg shadow-lg transition-colors duration-300">
+        <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-2 p-2 bg-white bg-opacity-80 backdrop-blur-sm rounded-l-lg shadow-lg transition-colors duration-300">
             <a href="https://www.instagram.com/kolabclean/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
-                aria-label="Visit our Instagram"
+                aria-label="Visite o nosso Instagram"
                 title="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
@@ -336,7 +265,7 @@
                 target="_blank" 
                 rel="noopener noreferrer" 
                 class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
-                aria-label="Visit our Facebook page"
+                aria-label="Visite a nossa página do Facebook"
                 title="Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
@@ -346,17 +275,17 @@
                 target="_blank" 
                 rel="noopener noreferrer" 
                 class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-green-600 to-green-400 text-white hover:scale-110 transition-all duration-300" 
-                aria-label="Contact us on WhatsApp"
+                aria-label="Contacte-nos pelo WhatsApp"
                 title="WhatsApp">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                 </svg>
             </a>
-            <span class="w-10 h-1 bg-gray-200 dark:bg-gray-600 rounded-full transition-colors duration-300"></span>
+            <span class="w-10 h-1 bg-gray-200 rounded-full transition-colors duration-300"></span>
             <a href="tel:+351910697252" 
                 class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-primary-accent to-cyan-500 text-white hover:scale-110 transition-all duration-300" 
-                aria-label="Call us"
-                title="Call us">
+                aria-label="Ligue-nos"
+                title="Ligue-nos">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                 </svg>
@@ -365,11 +294,13 @@
 
         <!-- Contact Hero Section -->
         <section class="bg-primary-accent text-text-inverse py-16 md:py-20 px-6 text-center relative overflow-hidden">
-            <!-- Video Background with overlay -->
+            <!-- Video Background -->
             <div class="video-bg-container">
-                <div class="video-overlay" style="background: linear-gradient(135deg, rgba(0, 169, 157, 0.95), rgba(0, 142, 132, 0.9))"></div>
+                <div class="video-overlay" style="background: linear-gradient(135deg, rgba(57, 57, 255, 0.95), rgba(32, 32, 224, 0.9))"></div>
+                <div class="video-fallback"></div>
                 <video autoplay muted loop playsinline class="video-bg">
-                    <source src="https://player.vimeo.com/external/370331493.hd.mp4?s=e744441e6c9b699d43a0feefeaa5da3875250ec7&profile_id=175" type="video/mp4">
+                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                    <!-- Fallback to a Google-hosted sample video -->
                 </video>
             </div>
 
@@ -384,12 +315,10 @@
                         <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" fill="#FFD700" class="opacity-75 transform rotate-12" transform-origin="106 18.5"/>
                     </svg>
                     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-white" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        <span class="lang-pt">Contacte-nos</span>
-                        <span class="lang-en">Contact Us</span>
+                        Contacte-nos
                     </h1>
                     <p class="text-lg md:text-xl max-w-2xl mx-auto font-light text-white opacity-90" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                        <span class="lang-pt">Tem perguntas? Estamos aqui para ajudar e tornar os seus ténis como novos.</span>
-                        <span class="lang-en">Have questions? We're here to help and make your sneakers look brand new.</span>
+                        Tem perguntas? Estamos aqui para ajudar e tornar os seus ténis como novos.
                     </p>
                 </div>
             </div>
@@ -404,61 +333,54 @@
                          x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
                          :class="{ 'opacity-100 !translate-y-0': shown }">
                         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-text-primary">
-                            <span class="lang-pt">Envie-nos uma Mensagem</span>
-                            <span class="lang-en">Send Us a Message</span>
+                            Envie-nos uma Mensagem
                         </h2>
                         <form action="#" method="POST">
                             <div class="mb-5">
                                 <label for="name" class="block mb-2 text-sm font-medium text-text-primary">
-                                    <span class="lang-pt">Nome Completo</span>
-                                    <span class="lang-en">Full Name</span>
+                                    Nome Completo
                                 </label>
                                 <input type="text" id="name" name="name" required
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Your full name">
+                                       aria-label="Seu nome completo">
                             </div>
                             <div class="mb-5">
                                 <label for="email" class="block mb-2 text-sm font-medium text-text-primary">
-                                    <span class="lang-pt">Email</span>
-                                    <span class="lang-en">Email Address</span>
+                                    Email
                                 </label>
                                 <input type="email" id="email" name="email" required
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Your email address">
+                                       aria-label="Seu endereço de email">
                             </div>
                             <div class="mb-5">
                                 <label for="phone" class="block mb-2 text-sm font-medium text-text-primary">
-                                    <span class="lang-pt">Telefone</span>
-                                    <span class="lang-en">Phone Number</span>
+                                    Telefone
                                 </label>
                                 <input type="tel" id="phone" name="phone"
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Your phone number">
+                                       aria-label="Seu número de telefone">
                             </div>
                             <div class="mb-5">
                                 <label for="subject" class="block mb-2 text-sm font-medium text-text-primary">
-                                    <span class="lang-pt">Assunto</span>
-                                    <span class="lang-en">Subject</span>
+                                    Assunto
                                 </label>
                                 <input type="text" id="subject" name="subject" required
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Message subject">
+                                       aria-label="Assunto da mensagem">
                             </div>
                             <div class="mb-6">
                                 <label for="message" class="block mb-2 text-sm font-medium text-text-primary">
-                                    <span class="lang-pt">Mensagem</span>
-                                    <span class="lang-en">Message</span>
+                                    Mensagem
                                 </label>
                                 <textarea id="message" name="message" rows="5" required
                                           class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                          aria-label="Your message"></textarea>
+                                          aria-label="Sua mensagem"></textarea>
                             </div>
                             <div>
                                 <button type="submit"
                                         tabindex="0"
                                         class="w-full bg-primary-accent hover:bg-primary-accent-hover text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
-                                    <span class="lang-pt">Enviar Mensagem</span>
-                                    <span class="lang-en">Send Message</span>
+                                    Enviar Mensagem
                                 </button>
                             </div>
                         </form>
@@ -470,8 +392,7 @@
                          :class="{ 'opacity-100 !translate-y-0': shown }">
                         <div class="mb-12">
                             <h2 class="text-2xl md:text-3xl font-bold mb-6 text-text-primary">
-                                <span class="lang-pt">Informação de Contacto</span>
-                                <span class="lang-en">Contact Information</span>
+                                Informação de Contacto
                             </h2>
                             <div class="space-y-5">
                                 <div class="flex items-start">
@@ -483,14 +404,12 @@
                                     </div>
                                     <div>
                                         <h3 class="font-medium text-lg text-text-primary">
-                                            <span class="lang-pt">Localização</span>
-                                            <span class="lang-en">Location</span>
+                                            Localização
                                         </h3>
                                         <p class="text-text-secondary">Avenida das Forças Armadas 51</p>
                                         <p class="text-text-secondary">1600-121 Lisboa</p>
                                         <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" target="_blank" class="text-primary-accent hover:underline inline-block mt-1 text-sm">
-                                            <span class="lang-pt">Ver no Google Maps</span>
-                                            <span class="lang-en">View on Google Maps</span>
+                                            Ver no Google Maps
                                         </a>
                                     </div>
                                 </div>
@@ -502,8 +421,7 @@
                                     </div>
                                     <div>
                                         <h3 class="font-medium text-lg text-text-primary">
-                                            <span class="lang-pt">Telefone</span>
-                                            <span class="lang-en">Phone</span>
+                                            Telefone
                                         </h3>
                                         <p class="text-text-secondary">
                                             <a href="tel:+351910697252" class="hover:text-primary-accent">+351 910 697 252</a>
@@ -528,63 +446,53 @@
                         
                         <div class="bg-background-medium p-8 rounded-xl border border-border-ui">
                             <h2 class="text-xl font-bold mb-5 text-text-primary">
-                                <span class="lang-pt">Horário da Loja</span>
-                                <span class="lang-en">Store Hours</span>
+                                Horário da Loja
                             </h2>
                             <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        <span class="lang-pt">Segunda-feira</span>
-                                        <span class="lang-en">Monday</span>
+                                        Segunda-feira
                                     </span>
                                     <span class="font-medium text-text-primary">
-                                        <span class="lang-pt">Fechado</span>
-                                        <span class="lang-en">Closed</span>
+                                        Fechado
                                     </span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        <span class="lang-pt">Terça-feira</span>
-                                        <span class="lang-en">Tuesday</span>
+                                        Terça-feira
                                     </span>
                                     <span class="font-medium text-text-primary">10:30 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        <span class="lang-pt">Quarta-feira</span>
-                                        <span class="lang-en">Wednesday</span>
+                                        Quarta-feira
                                     </span>
                                     <span class="font-medium text-text-primary">10:30 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        <span class="lang-pt">Quinta-feira</span>
-                                        <span class="lang-en">Thursday</span>
+                                        Quinta-feira
                                     </span>
                                     <span class="font-medium text-text-primary">10:30 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        <span class="lang-pt">Sexta-feira</span>
-                                        <span class="lang-en">Friday</span>
+                                        Sexta-feira
                                     </span>
                                     <span class="font-medium text-text-primary">10:30 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        <span class="lang-pt">Sábado</span>
-                                        <span class="lang-en">Saturday</span>
+                                        Sábado
                                     </span>
                                     <span class="font-medium text-text-primary">10:30 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        <span class="lang-pt">Domingo</span>
-                                        <span class="lang-en">Sunday</span>
+                                        Domingo
                                     </span>
                                     <span class="font-medium text-text-primary">
-                                        <span class="lang-pt">Fechado</span>
-                                        <span class="lang-en">Closed</span>
+                                        Fechado
                                     </span>
                                 </div>
                             </div>
@@ -594,46 +502,159 @@
             </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section class="py-16 md:py-24 bg-gray-50 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4 text-text-primary">
+                        Perguntas Frequentes
+                    </h2>
+                    <p class="text-text-secondary max-w-2xl mx-auto">
+                        Respostas para as perguntas mais comuns sobre os nossos serviços de limpeza e restauro de calçado.
+                    </p>
+                </div>
+                
+                <div class="space-y-6" x-data="{ openQuestion: null }">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <button @click="openQuestion = openQuestion === 1 ? null : 1" 
+                                class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
+                                :aria-expanded="openQuestion === 1">
+                            <span>Quanto tempo demora o processo de limpeza?</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 1}" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="openQuestion === 1" 
+                                x-transition:enter="transition ease-out duration-200" 
+                                x-transition:enter-start="opacity-0 transform -translate-y-2" 
+                                x-transition:enter-end="opacity-100 transform translate-y-0" 
+                                x-transition:leave="transition ease-in duration-200" 
+                                x-transition:leave-start="opacity-100 transform translate-y-0" 
+                                x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                class="px-6 pb-4 text-text-secondary">
+                            <p>
+                                Para a maioria dos serviços de limpeza básica, o processo demora entre 3 a 5 dias úteis. Para serviços premium ou restaurações mais complexas, pode levar até 7 dias úteis. Oferecemos opções de entrega prioritária para alguns serviços com um custo adicional.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                        <button @click="openQuestion = openQuestion === 2 ? null : 2" 
+                                class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
+                                :aria-expanded="openQuestion === 2">
+                            <span>Quais os métodos de pagamento aceites?</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 2}" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="openQuestion === 2" 
+                                x-transition:enter="transition ease-out duration-200" 
+                                x-transition:enter-start="opacity-0 transform -translate-y-2" 
+                                x-transition:enter-end="opacity-100 transform translate-y-0" 
+                                x-transition:leave="transition ease-in duration-200" 
+                                x-transition:leave-start="opacity-100 transform translate-y-0" 
+                                x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                class="px-6 pb-4 text-text-secondary">
+                            <p>
+                                Aceitamos dinheiro, cartões de débito e crédito (Visa, Mastercard), transferência bancária e MB Way. O pagamento é efetuado no momento da entrega do serviço concluído.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                        <button @click="openQuestion = openQuestion === 3 ? null : 3" 
+                                class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
+                                :aria-expanded="openQuestion === 3">
+                            <span>Como posso preparar os meus ténis antes de os entregar?</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 3}" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="openQuestion === 3" 
+                                x-transition:enter="transition ease-out duration-200" 
+                                x-transition:enter-start="opacity-0 transform -translate-y-2" 
+                                x-transition:enter-end="opacity-100 transform translate-y-0" 
+                                x-transition:leave="transition ease-in duration-200" 
+                                x-transition:leave-start="opacity-100 transform translate-y-0" 
+                                x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                class="px-6 pb-4 text-text-secondary">
+                            <p>
+                                Não é necessária nenhuma preparação especial. Recomendamos apenas que remova quaisquer objetos soltos ou conteúdos dos sapatos. Nós cuidamos de remover os atacadores, limpar toda a sujidade e preparar adequadamente o calçado para o processo de limpeza.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                        <button @click="openQuestion = openQuestion === 4 ? null : 4" 
+                                class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
+                                :aria-expanded="openQuestion === 4">
+                            <span>Oferecem serviços de entrega ou recolha?</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 4}" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="openQuestion === 4" 
+                                x-transition:enter="transition ease-out duration-200" 
+                                x-transition:enter-start="opacity-0 transform -translate-y-2" 
+                                x-transition:enter-end="opacity-100 transform translate-y-0" 
+                                x-transition:leave="transition ease-in duration-200" 
+                                x-transition:leave-start="opacity-100 transform translate-y-0" 
+                                x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                class="px-6 pb-4 text-text-secondary">
+                            <p>
+                                Sim, oferecemos serviços de recolha e entrega em Lisboa com um custo adicional que varia consoante a localização. Contacte-nos para mais informações sobre disponibilidade na sua área e para agendar uma recolha.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10" data-aos="fade-up" data-aos-delay="500">
+                    <p class="text-text-secondary mb-4">
+                        Ainda tem perguntas? Contacte-nos diretamente.
+                    </p>
+                    <a href="tel:+351910697252" class="text-primary-accent hover:underline font-medium">
+                        +351 910 697 252
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Map Section -->
-        <section class="py-16 md:py-24 px-6 bg-background-medium dark:bg-background-dark">
+        <section class="py-16 md:py-24 px-6">
             <div class="container mx-auto max-w-6xl">
-                <h2 class="text-2xl md:text-3xl font-bold mb-10 text-text-primary dark:text-text-inverse text-center" data-aos="fade-up" data-aos-duration="800">
-                    <span class="lang-pt">Como Nos Encontrar</span>
-                    <span class="lang-en">How to Find Us</span>
+                <h2 class="text-2xl md:text-3xl font-bold mb-10 text-text-primary text-center" data-aos="fade-up" data-aos-duration="800">
+                    Como Nos Encontrar
                 </h2>
                 <div class="rounded-xl overflow-hidden shadow-xl h-96 opacity-0 scale-95 transition-all duration-700 ease-out"
-                     x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
-                     :class="{ 'opacity-100 !scale-100': shown }">
-                    <!-- Google Maps Iframe -->
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3110.7668319022968!2d-9.154297223256418!3d38.74720597176835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1932e23ed9e219%3A0x61864e07d1222c06!2sAv.%20das%20For%C3%A7as%20Armadas%2051%2C%201600-121%20Lisboa%2C%20Portugal!5e0!3m2!1sen!2sus!4v1715553380981!5m2!1sen!2sus" 
+                    x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
+                    :class="{ 'opacity-100 !scale-100': shown }">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.2501965119!2d-9.149221423968507!3d38.74076295952692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1933a3d5ec02a7%3A0x861e8d9a96181ed8!2sAv.%20das%20For%C3%A7as%20Armadas%2051%2C%201600-121%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1687429210360!5m2!1spt-PT!2spt" 
                         width="100%" 
                         height="100%" 
                         style="border:0;" 
                         allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade"
-                        title="Google Maps showing Solve. store location"
-                        class="w-full h-full"
-                        aria-label="Interactive map showing the location of Solve. store">
-                    </iframe>
+                        title="Localização da loja Solve"
+                        aria-label="Mapa da localização da loja Solve em Lisboa"></iframe>
                 </div>
                 <div class="mt-8 text-center" data-aos="fade-up" data-aos-delay="200">
-                    <p class="text-text-secondary dark:text-gray-300 max-w-2xl mx-auto mb-6">
-                        <span class="lang-pt">
-                            A nossa loja está localizada na Avenida das Forças Armadas 51, perto do Campo Pequeno. 
-                            Temos fácil acesso por transportes públicos e estacionamento disponível nas proximidades.
-                        </span>
-                        <span class="lang-en">
-                            Our store is located at Avenida das Forças Armadas 51, near Campo Pequeno.
-                            We are easily accessible by public transport and parking is available nearby.
-                        </span>
+                    <p class="text-text-secondary max-w-2xl mx-auto mb-6">
+                        A nossa loja está localizada na Avenida das Forças Armadas 51, perto do Campo Pequeno. 
+                        Temos fácil acesso por transportes públicos e estacionamento disponível nas proximidades.
                     </p>
                     <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" 
-                       target="_blank"
-                       class="inline-block bg-primary-accent text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-primary-accent-hover transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
-                        <span class="lang-pt">Abrir no Google Maps</span>
-                        <span class="lang-en">Open in Google Maps</span>
+                      target="_blank"
+                      class="inline-block bg-primary-accent text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-primary-accent-hover transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
+                        Abrir no Google Maps
                     </a>
                 </div>
             </div>
@@ -661,8 +682,7 @@
                         </svg>
                     </a>
                     <p class="text-gray-300 mt-4 max-w-md">
-                        <span class="lang-pt">Dando vida nova aos seus ténis favoritos desde 2020. Especialistas em limpeza e restauração de calçado.</span>
-                        <span class="lang-en">Giving new life to your favorite kicks since 2020. Experts in shoe cleaning and restoration.</span>
+                        Dando vida nova aos seus ténis favoritos desde 2020. Especialistas em limpeza e restauração de calçado.
                     </p>
                 </div>
                 
@@ -671,7 +691,7 @@
                         target="_blank" 
                         rel="noopener noreferrer" 
                         class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
-                        aria-label="Visit our Instagram">
+                        aria-label="Visite o nosso Instagram">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
                             <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
@@ -681,7 +701,7 @@
                         target="_blank" 
                         rel="noopener noreferrer" 
                         class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
-                        aria-label="Visit our Facebook page">
+                        aria-label="Visite a nossa página do Facebook">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
                         </svg>
@@ -690,7 +710,7 @@
                         target="_blank" 
                         rel="noopener noreferrer" 
                         class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-green-600 to-green-400 text-white hover:scale-110 transition-all duration-300" 
-                        aria-label="Contact us on WhatsApp">
+                        aria-label="Contacte-nos pelo WhatsApp">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                         </svg>
@@ -699,39 +719,33 @@
             </div>
             
             <div class="mb-12 text-left">
-                <div class="grid grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            <span class="lang-pt">Localização</span>
-                            <span class="lang-en">Location</span>
+                            Localização
                         </h3>
                         <p class="text-gray-300">Avenida das Forças Armadas 51</p>
                         <p class="text-gray-300">1600-121 Lisboa</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            <span class="lang-pt">Horário</span>
-                            <span class="lang-en">Hours</span>
+                            Horário
                         </h3>
                         <p class="text-gray-300">
-                            <span class="lang-pt">Terça a Sábado</span>
-                            <span class="lang-en">Tuesday to Saturday</span>
+                            Terça a Sábado
                         </p>
                         <p class="text-gray-300">10:30 - 19:00</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            <span class="lang-pt">Contacto</span>
-                            <span class="lang-en">Contact</span>
+                            Contacto
                         </h3>
                         <p class="text-gray-300">
-                            <span class="lang-pt">Email:</span>
-                            <span class="lang-en">Email:</span>
+                            Email:
                             <a href="mailto:cleaning@solve.com" class="text-primary-accent hover:underline">cleaning@solve.com</a>
                         </p>
                         <p class="text-gray-300 mt-1">
-                            <span class="lang-pt">Telefone:</span>
-                            <span class="lang-en">Phone:</span>
+                            Telefone:
                             <a href="tel:+351910697252" class="text-primary-accent hover:underline">+351 910 697 252</a>
                         </p>
                     </div>
@@ -742,16 +756,13 @@
                 <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> Solve. All rights reserved.</p>
                 <div class="flex items-center space-x-4 mt-4 md:mt-0">
                     <a href="../index.html#home" class="text-gray-400 hover:text-white text-sm transition-colors">
-                        <span class="lang-pt">Início</span>
-                        <span class="lang-en">Home</span>
+                        Início
                     </a>
                     <a href="../index.html#services" class="text-gray-400 hover:text-white text-sm transition-colors">
-                        <span class="lang-pt">Serviços</span>
-                        <span class="lang-en">Services</span>
+                        Serviços
                     </a>
                     <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">
-                        <span class="lang-pt">Contacto</span>
-                        <span class="lang-en">Contact</span>
+                        Contacto
                     </a>
                 </div>
             </div>
@@ -759,116 +770,27 @@
     </footer>
 
     <script>
-        // Make sure Alpine.js and its plugins are properly initialized
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize AOS animations
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 800,
-                    easing: 'ease-in-out',
-                    once: false,
-                    mirror: true,
-                    anchorPlacement: 'top-bottom',
-                    startEvent: 'DOMContentLoaded',
-                    delay: 0
-                });
-            }
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
             
-            // Handle the current year display for copyright
-            const yearElement = document.getElementById('currentYear');
-            if (yearElement) yearElement.textContent = new Date().getFullYear();
+            // Initialize mobile menu functionality
+            const mobileMenuButton = document.querySelector('#mobile-menu-button');
+            const mobileMenu = document.querySelector('#mobile-menu');
+            const mobileMenuOpen = document.querySelector('.mobile-menu-icon-open');
+            const mobileMenuClose = document.querySelector('.mobile-menu-icon-close');
             
-            // Handle smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId.startsWith('#')) {
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            e.preventDefault();
-                            setTimeout(() => {
-                                targetElement.scrollIntoView({ behavior: 'smooth' });
-                            }, this.closest('.md\\:hidden[x-show]') ? 50 : 0);
-                        }
-                    }
-                });
-            });
-            
-            // Set up language toggle functionality
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                const lang = btn.textContent.trim() === 'PT' ? 'pt' : 'en';
-                if (document.documentElement.getAttribute('data-lang') === lang) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Set dark mode toggle state based on current theme
-            const darkModeToggles = document.querySelectorAll('.dark-mode-toggle input[type="checkbox"]');
-            const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || 'light';
-            
-            darkModeToggles.forEach(toggle => {
-                toggle.checked = currentTheme === 'dark';
-            });
-            
-            // Handle video background fallback
-            const videoElement = document.querySelector('.video-bg');
-            if (videoElement) {
-                videoElement.addEventListener('error', () => {
-                    // Handle video error by applying a fallback background
-                    const container = document.querySelector('.video-bg-container');
-                    if (container) {
-                        container.style.backgroundColor = '#00A99D';
-                        videoElement.style.display = 'none';
-                    }
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('mobile-menu-closed');
+                    mobileMenuOpen.classList.toggle('hidden');
+                    mobileMenuClose.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 
+                        mobileMenuButton.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+                    );
                 });
             }
         });
-        
-        // Explicitly register Alpine.js Intersect plugin
-        document.addEventListener('alpine:init', () => {
-            // Try multiple ways to get the Intersect plugin
-            if (window.AlpineIntersect) {
-                window.Alpine.plugin(window.AlpineIntersect);
-            } else if (window.Alpine && window.Alpine.directive) {
-                // If the plugin is already loaded but not registered, register the intersect directive manually
-                window.Alpine.directive('intersect', (el, { value, expression, modifiers }, { evaluateLater, cleanup }) => {
-                    const evaluate = evaluateLater(expression);
-                    
-                    const observer = new IntersectionObserver(entries => {
-                        entries.forEach(entry => {
-                            // If the element is visible
-                            if (modifiers.includes('once')) {
-                                if (entry.isIntersecting) {
-                                    evaluate();
-                                    observer.disconnect();
-                                }
-                            } else {
-                                evaluate(() => {}, { scope: { entry } });
-                            }
-                        });
-                    }, {
-                        threshold: modifiers.includes('threshold.0.3') ? 0.3 : 0.2,
-                        root: modifiers.includes('parent') ? el.parentElement : null,
-                    });
-                    
-                    observer.observe(el);
-                    
-                    cleanup(() => observer.disconnect());
-                });
-            }
-        });
-        
-        // Handle keydown events for elements with tabindex=0
-        const handleKeydownForTabindexGlobal = (event) => {
-             if ((event.key === 'Enter' || event.key === ' ') && event.target.hasAttribute('tabindex') && event.target.getAttribute('tabindex') === '0') {
-                const nonInteractiveTags = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'];
-                if (!nonInteractiveTags.includes(event.target.tagName) && !event.target.isContentEditable) {
-                    event.preventDefault();
-                    event.target.click();
-                }
-            }
-        };
-        document.addEventListener('keydown', handleKeydownForTabindexGlobal);
     </script>
 </body>
 </html> 
