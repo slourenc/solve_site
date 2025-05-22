@@ -1,17 +1,15 @@
 /* Browser compatibility fixes */
 
-/* Fix for text-size-adjust error */
+/* Fix for text size adjust */
 html {
-  /* Using only the standard property since the vendor prefixes are causing errors */
-  text-size-adjust: 100%;
+  /* Only use the webkit prefix since standard property is causing errors */
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Fix for font smoothing error */
 body {
   -webkit-font-smoothing: antialiased;
-  /* Removing -moz-osx-font-smoothing since it's causing errors */
-  /* Using only standard properties for broader compatibility */
-  font-smoothing: antialiased;
+  /* Remove non-standard font-smoothing property */
 }
 
 /* Additional browser compatibility fixes */

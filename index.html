@@ -291,6 +291,25 @@
             });
         }
     </script>
+    
+    <!-- CSS fixes for common browser compatibility issues -->
+    <style>
+        /* Override problematic CSS properties that cause console errors */
+        .antialiased {
+            -webkit-font-smoothing: antialiased;
+            /* Remove -moz-osx-font-smoothing that causes errors */
+        }
+        
+        html {
+            -webkit-text-size-adjust: 100%;
+            /* Remove text-size-adjust that causes errors */
+        }
+        
+        /* Fix for transition delays in AOS animations */
+        [data-aos] {
+            transition-delay: 0s !important;
+        }
+    </style>
 </head>
 <body class="bg-background-light text-text-primary font-sans antialiased dark:bg-background-dark dark:text-text-inverse">
 
