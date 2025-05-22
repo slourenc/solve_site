@@ -1,0 +1,29 @@
+/* Browser compatibility fixes */
+
+/* Fix for text-size-adjust error */
+html {
+  text-size-adjust: 100%;
+}
+
+/* Fix for font smoothing error */
+body {
+  font-smoothing: antialiased;
+}
+
+/* Additional browser compatibility fixes */
+.user-select-none {
+  user-select: none;
+}
+
+.appearance-none {
+  appearance: none;
+}
+
+.smooth-scrolling {
+  scroll-behavior: smooth;
+}
+
+/* Ensure transitions work across browsers */
+.transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+} 

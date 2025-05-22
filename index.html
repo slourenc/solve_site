@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self'; media-src 'self' https://storage.googleapis.com https://player.vimeo.com; frame-src 'self' https://www.google.com https://www.instagram.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com https://player.vimeo.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://player.vimeo.com; media-src 'self' https://storage.googleapis.com https://player.vimeo.com; frame-src 'self' https://www.google.com https://www.instagram.com https://player.vimeo.com;">
     <title>Solve. | Premium Shoe Cleaning Services in Lisbon</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-    <link rel="stylesheet" href="aos-custom.css">
+    <link rel="stylesheet" href="aos-fix.css">
+    <link rel="stylesheet" href="browser-fixes.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" defer></script>
+    <!-- Order matters: Intersect plugin must be loaded before Alpine.js core -->
     <script src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.11.1/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
     <style>
@@ -248,7 +250,7 @@
             <div class="video-bg-container">
                 <div class="video-overlay" style="background: linear-gradient(45deg, rgba(57, 57, 255, 0.95), rgba(32, 32, 224, 0.9))"></div>
                 <video autoplay muted loop playsinline class="video-bg">
-                    <source src="https://player.vimeo.com/progressive_redirect/playback/473875510/rendition/720p/file.mp4?loc=external&signature=3d2fd23ccf6434be5996fcfd9c0b5602bd00afd87ecf9ab655bf3ff89fc883fd" type="video/mp4">
+                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
                 </video>
             </div>
             
