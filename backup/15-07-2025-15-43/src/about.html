@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light" data-lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://player.vimeo.com https://storage.googleapis.com; media-src 'self' https://player.vimeo.com https://storage.googleapis.com; frame-src 'self' https://www.google.com https://www.instagram.com https://player.vimeo.com;">
+    <title>Sobre - Solve.</title>
+    <meta name="description" content="Conheça a Solve - serviços premium de limpeza de calçado em Lisboa. Nossa história, missão e valores.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../logos/favicon.png" type="image/png">
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Alpine JS Intersect Plugin - Must be loaded BEFORE Alpine core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.13.0/dist/cdn.min.js"></script>
+    
+    <!-- Alpine JS Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
+    
+    <!-- AOS Animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- AOS Fix for transition-delay errors -->
+    <link href="../aos-fix.css" rel="stylesheet">
+    
+    <!-- Browser compatibility fixes -->
+    <link href="../browser-fixes.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        html { 
+            scroll-behavior: smooth; 
+        }
+        /* More pronounced focus for accessibility */
+        *:focus-visible {
+            outline: 3px solid #3939ff !important; /* Using primary-accent */
+            outline-offset: 2px !important;
+        }
+        
+        /* Fix header contrast in both light and dark themes */
+        .fancy-nav-item {
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .fancy-nav-item:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #3939ff;
+            transition: width 0.3s ease;
+        }
+        
+        .fancy-nav-item:hover:after {
+            width: 100%;
+        }
+        
+        /* More animation enhancements */
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Fix header on scroll */
+        .fixed-header {
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 100;
+        }
+        
+        /* Fix navigation item contrast */
+        .nav-item {
+            color: #111827;
+        }
+        
+        .nav-item:hover {
+            color: #3939ff;
+        }
+        
+        /* Smooth transition for all interactive elements */
+        a, button, .nav-item, .fancy-nav-item {
+            transition: all 0.3s ease;
+        }
+        
+        /* Video background styles */
+        .video-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        /* Fallback background for when video can't load */
+        .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3939ff, #2d2dcc);
+            z-index: 0;
+            display: none;
+        }
+        
+        /* Header styling */
+        .header-bg {
+            background: linear-gradient(135deg, #3939ff 0%, #2d2dcc 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(57, 57, 255, 0.15);
+        }
+
+        /* Fix nav links color */
+        .nav-link {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #FFD700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Mobile menu background */
+        .mobile-menu-bg {
+            background: linear-gradient(135deg, #3939ff 0%, #2d2dcc 100%);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+
+    <script>
+        // Initialize AOS animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS animations with fixed values for transition delays
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: false,
+                    offset: 100,
+                    easing: 'ease-in-out',
+                    delay: 0,
+                    anchorPlacement: 'top-bottom',
+                    useClassNames: false,
+                    disableMutationObserver: false,
+                    throttleDelay: 100
+                });
+            }
+            
+            // Set up all navigation link hover effects
+            const navLinks = document.querySelectorAll('.fancy-nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.color = '#3939ff';
+                });
+                link.addEventListener('mouseleave', () => {
+                    if (!link.classList.contains('active')) {
+                        link.style.color = '#111827';
+                    }
+                });
+            });
+            
+            // Handle smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80, // Account for header height
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Handle video error by showing fallback background
+            const videoElement = document.querySelector('.video-bg');
+            const fallbackBg = document.querySelector('.video-fallback');
+            
+            if (videoElement && fallbackBg) {
+                videoElement.addEventListener('error', () => {
+                    videoElement.style.display = 'none';
+                    fallbackBg.style.display = 'block';
+                });
+            }
+            
+            // Handle current year for footer
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</head>
+<body class="bg-background-light text-text-primary font-gotham antialiased">
+
+    <!-- Header -->
+    <header id="home" class="shadow-md sticky top-0 z-50 header-bg">
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex justify-between items-center">
+                <a href="../index.html#home" class="flex items-center" aria-label="Solve. Home">
+                    <svg aria-hidden="true" focusable="false" class="h-8 sm:h-9 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .solve-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                        <text x="0" y="28" class="solve-logo-text logo-text-main" fill="#ffffff">Solve</text>
+                        <text x="78" y="28" class="solve-logo-text logo-text-accent" fill="#FFD700">.</text>
+                        <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" fill="#FFD700" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                    </svg>
+                </a>
+            
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="../index.html#home" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Início">
+                        Início
+                    </a>
+                    <a href="../index.html#services" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Serviços">
+                        Serviços
+                    </a>
+                    <a href="../index.html#how-it-works" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Como Funciona">
+                        Como Funciona
+                    </a>
+                    <a href="../index.html#pricing" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Preços">
+                        Preços
+                    </a>
+                    <a href="#" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item active" aria-label="Ir para a seção Sobre">
+                        Sobre
+                    </a>
+                    <a href="contact.html" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a página de Contacto">
+                        Contacto
+                    </a>
+                    <a href="../index.html#visit-us" class="nav-link hover:text-primary-accent transition-colors duration-300 fancy-nav-item" aria-label="Ir para a seção Localização">
+                        Localização
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-white hover:text-accent-yellow focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path class="mobile-menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path class="mobile-menu-icon-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden shadow-lg absolute w-full border-t mobile-menu-bg mobile-menu-closed transition-all duration-200">
+            <a href="../index.html#home" class="block px-6 py-3 nav-link hover:bg-white hover:bg-opacity-10 hover:text-accent-yellow transition-colors duration-200" aria-label="Ir para a seção Início">
+                Início
+            </a>
+            <a href="../index.html#services" class="block px-6 py-3 nav-link hover:bg-white hover:bg-opacity-10 hover:text-accent-yellow transition-colors duration-200" aria-label="Ir para a seção Serviços">
+                Serviços
+            </a>
+            <a href="../index.html#how-it-works" class="block px-6 py-3 nav-link hover:bg-white hover:bg-opacity-10 hover:text-accent-yellow transition-colors duration-200" aria-label="Ir para a seção Como Funciona">
+                Como Funciona
+            </a>
+            <a href="../index.html#pricing" class="block px-6 py-3 nav-link hover:bg-white hover:bg-opacity-10 hover:text-accent-yellow transition-colors duration-200" aria-label="Ir para a seção Preços">
+                Preços
+            </a>
+            <a href="#" class="block px-6 py-3 nav-link hover:bg-white hover:bg-opacity-10 hover:text-accent-yellow transition-colors duration-200" aria-label="Ir para a seção Sobre">
+                Sobre
+            </a>
+            <a href="contact.html" class="block px-6 py-3 nav-link hover:bg-white hover:bg-opacity-10 hover:text-accent-yellow transition-colors duration-200" aria-label="Ir para a página de Contacto">
+                Contacto
+            </a>
+            <a href="../index.html#visit-us" class="block px-6 py-3 nav-link hover:bg-white hover:bg-opacity-10 hover:text-accent-yellow transition-colors duration-200" aria-label="Ir para a seção Localização">
+                Localização
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Fixed Social Media Bar -->
+        <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-2 p-2 bg-white bg-opacity-80 backdrop-blur-sm rounded-l-lg shadow-lg transition-colors duration-300">
+            <a href="https://www.instagram.com/solve.lisboa/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
+                aria-label="Visite o nosso Instagram"
+                title="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                    <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
+                </svg>
+            </a>
+            <a href="#" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
+                aria-label="Visite a nossa página do TikTok"
+                title="TikTok">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                </svg>
+            </a>
+            <a href="https://wa.me/351960468818" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-green-600 to-green-400 text-white hover:scale-110 transition-all duration-300" 
+                aria-label="Contacte-nos pelo WhatsApp"
+                title="WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- About Hero Section -->
+        <section class="bg-primary-accent text-text-inverse py-16 md:py-20 px-6 text-center relative overflow-hidden">
+            <!-- Video Background with overlay -->
+            <div class="video-bg-container">
+                <div class="video-overlay" style="background: linear-gradient(135deg, rgba(57, 57, 255, 0.95), rgba(32, 32, 224, 0.9))"></div>
+                <div class="video-fallback"></div>
+                <video autoplay muted loop playsinline class="video-bg">
+                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                    <!-- Fallback to a Google-hosted sample video -->
+                </video>
+            </div>
+
+            <div class="container mx-auto relative z-10">
+                <div data-aos="fade-up" data-aos-duration="1000">
+                    <svg aria-hidden="true" focusable="false" class="h-16 w-auto mx-auto mb-6" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <style>
+                            .solve-hero-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                        </style>
+                        <text x="0" y="28" class="solve-hero-logo-text" fill="white">Solve</text>
+                        <text x="78" y="28" class="solve-hero-logo-text" fill="#FFD700">.</text>
+                        <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" fill="#FFD700" class="opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                    </svg>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-white" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        Sobre Nós
+                    </h1>
+                    <p class="text-lg md:text-xl max-w-2xl mx-auto font-light text-white opacity-90" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                        Conheça a equipa que está a revolucionar o cuidado dos ténis em Lisboa
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section class="py-20 md:py-28 px-6 bg-gradient-to-br from-background-light to-blue-50   ">
+            <div class="container mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+                    <span class="text-primary-accent font-semibold text-sm uppercase tracking-wider px-4 py-1 rounded-full bg-primary-accent/10 inline-block">NOSSA HISTÓRIA</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary ">
+                        Como Tudo Começou
+                    </h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-primary-accent to-blue-400 mx-auto mb-6 rounded-full"></div>
+                    <p class="text-text-secondary  text-lg max-w-2xl mx-auto">
+                        De uma paixão por sneakers para uma empresa de sucesso em Lisboa.
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white  rounded-2xl p-8 md:p-10 shadow-xl overflow-hidden relative" data-aos="fade-up" data-aos-delay="200">
+                        <!-- Decorative accent elements -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-300 to-transparent rounded-bl-full opacity-20 z-0 "></div>
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-primary-accent to-transparent rounded-tr-full opacity-20 z-0 "></div>
+                        
+                        <div class="grid md:grid-cols-5 gap-8 relative z-10">
+                            <div class="md:col-span-2">
+                                <div class="rounded-xl overflow-hidden shadow-lg relative h-full">
+                                    <img src="https://images.unsplash.com/photo-1525092029632-cb75fe5dd776?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNuZWFrZXJzJTIwc3RvcmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60" 
+                                         alt="Solve Store Opening Day" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
+                                        <div class="p-4 text-white">
+                                            <h3 class="text-lg font-bold">
+                                                A nossa loja
+                                            </h3>
+                                            <p class="text-sm">
+                                                Avenida das Forças Armadas, Lisboa
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h3 class="text-xl font-bold mb-4 text-primary-accent">
+                                    2025: O Início
+                                </h3>
+                                <div class="space-y-4 text-text-primary ">
+                                    <p>
+                                        A Solve começou com uma simples paixão por ténis limpos e bem cuidados. Fundada por Bruno Gouveia em 2025, um entusiasta de sneakers que transformou sua paixão num negócio dedicado a oferecer serviços de limpeza e restauro de calçado premium em Lisboa.
+                                    </p>
+                                    <p>
+                                        A empresa nasceu da percepção de que havia uma necessidade por serviços especializados de qualidade para cuidar de calçado de valor, tanto sentimental como financeiro.
+                                    </p>
+                                    <p>
+                                        O que começou como um pequeno serviço tornou-se rapidamente num destino de referência para os entusiastas de sneakers em Lisboa, com uma reputação de excelência e atenção ao detalhe.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mission and Values Section -->
+                    <section class="py-16 md:py-20">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-white  rounded-xl p-8 shadow-xl border-t-4 border-primary-accent" data-aos="fade-right" data-aos-delay="100">
+                                <h3 class="text-xl font-bold mb-5 text-primary-accent">
+                                    A Nossa Missão
+                                </h3>
+                                <div class="space-y-4 text-text-primary ">
+                                    <p>
+                                        Proporcionar uma experiência premium de limpeza e restauro de calçado, prolongando a vida útil dos seus ténis e sapatos preferidos.
+                                    </p>
+                                    <p>
+                                        Promover práticas sustentáveis, ajudando os clientes a manter os seus itens por mais tempo em vez de substituí-los.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white  rounded-xl p-8 shadow-xl border-t-4 border-cyan-500" data-aos="fade-left" data-aos-delay="200">
+                                <h3 class="text-xl font-bold mb-5 text-cyan-600">
+                                    Os Nossos Valores
+                                </h3>
+                                <ul class="space-y-3 text-text-primary ">
+                                    <li class="flex items-center">
+                                        <div class="bg-cyan-100  p-2 rounded-full mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                        <span>Qualidade sem compromissos</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="bg-cyan-100  p-2 rounded-full mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                        <span>Atenção ao detalhe</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="bg-cyan-100  p-2 rounded-full mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                        <span>Transparência e honestidade</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <div class="bg-cyan-100  p-2 rounded-full mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                        <span>Sustentabilidade</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Meet the Founder Section -->
+                    <section class="py-16 md:py-24 px-6 bg-gradient-to-br from-background-light to-purple-50    -mx-6 rounded-xl">
+                        <div class="container mx-auto">
+                            <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+                                <span class="text-purple-600 font-semibold text-sm uppercase tracking-wider px-4 py-1 rounded-full bg-purple-100  inline-block">EQUIPA</span>
+                                <h2 class="text-3xl sm:text-4xl font-bold mt-3 mb-6 text-text-primary ">
+                                    Conheça o Fundador
+                                </h2>
+                                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-400 mx-auto mb-6 rounded-full"></div>
+                                <p class="text-text-secondary  text-lg max-w-2xl mx-auto">
+                                    Apaixonado por sneakers e especialista em dar nova vida ao seu calçado favorito.
+                                </p>
+                            </div>
+                            
+                            <div class="max-w-2xl mx-auto bg-white  rounded-xl overflow-hidden shadow-xl" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="grid md:grid-cols-2">
+                                    <div class="bg-gradient-to-br from-purple-100 to-blue-50   p-6 flex items-center justify-center">
+                                        <div class="w-48 h-48 rounded-full bg-white  shadow-lg flex items-center justify-center overflow-hidden">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-purple-300 " viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="p-8">
+                                        <h3 class="text-xl font-bold text-text-primary ">Bruno Gouveia</h3>
+                                        <p class="text-sm mb-4 text-purple-600">
+                                            Fundador, CEO & Especialista em Restauro
+                                        </p>
+                                        <p class="text-text-secondary  mb-6">
+                                            Bruno traz anos de experiência em restauro de sneakers, transformando a sua paixão por calçado numa arte. Como CEO e gerente da loja, ele supervisiona pessoalmente cada projeto para garantir resultados impecáveis.
+                                        </p>
+                                        <div class="flex space-x-3">
+                                            <a href="https://www.instagram.com/solve.lisboa/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" aria-label="Bruno's Instagram">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                                                </svg>
+                                            </a>
+                                            <a href="mailto:bruno@solve.com" class="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-white hover:scale-110 transition-all duration-300" aria-label="Email Bruno">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CTA Section -->
+                    <section class="py-16 md:py-24 text-center bg-gradient-to-r from-primary-accent to-cyan-500 text-white rounded-xl my-20" data-aos="fade-up">
+                        <div class="container mx-auto max-w-3xl px-6">
+                            <h2 class="text-3xl sm:text-4xl font-bold mb-6">
+                                Pronto para Renovar o Seu Calçado?
+                            </h2>
+                            <p class="text-lg mb-8 opacity-90">
+                                Visite a nossa loja em Lisboa e descubra a diferença Solve.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a href="../index.html#visit-us" 
+                                tabindex="0"
+                                aria-label="Find our location"
+                                class="bg-white text-primary-accent font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transition-all duration-300 ease-in-out text-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
+                                    Encontrar-nos
+                                </a>
+                                <a href="contact.html" 
+                                tabindex="0"
+                                aria-label="Contact us"
+                                class="border-2 border-white bg-transparent text-white font-bold py-3 px-8 rounded-lg hover:bg-white/10 transition-all duration-300 ease-in-out text-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75">
+                                    Contactar
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+            <footer class="py-16 px-6 bg-gradient-to-br from-primary-accent to-blue-800 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-accent via-purple-500 to-blue-500"></div>
+        <div class="absolute top-10 right-10 w-32 h-32 bg-blue-500 rounded-full blur-3xl opacity-10"></div>
+        <div class="absolute bottom-10 left-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl opacity-10"></div>
+        
+        <div class="container mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="mb-8 md:mb-0">
+                    <a href="../index.html#home" class="inline-block" aria-label="Solve. Home">
+                        <svg aria-hidden="true" focusable="false" class="h-12 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .solve-logo-text-footer { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                            </style>
+                            <text x="0" y="28" class="solve-logo-text-footer" fill="white">Solve</text>
+                            <text x="78" y="28" class="solve-logo-text-footer" fill="#FFD700">.</text>
+                            <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" fill="#FFD700" class="opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                        </svg>
+                    </a>
+                    <p class="text-gray-300 mt-4 max-w-md">
+                        Dando vida nova aos seus ténis favoritos desde 2020. Especialistas em limpeza e restauração de calçado.
+                    </p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://www.instagram.com/solve.lisboa/" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white hover:scale-110 transition-all duration-300" 
+                        aria-label="Visit our Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                            <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
+                        </svg>
+                    </a>
+                    <a href="#" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
+                        aria-label="Visit our TikTok page">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/351960468818" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-green-600 to-green-400 text-white hover:scale-110 transition-all duration-300" 
+                        aria-label="Contact us on WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mb-12 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3 text-white">
+                            Localização
+                        </h3>
+                        <p class="text-gray-300">Avenida das Forças Armadas 51</p>
+                        <p class="text-gray-300">1600-121 Lisboa</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3 text-white">
+                            Horário
+                        </h3>
+                        <p class="text-gray-300">
+                            Terça a Sábado
+                        </p>
+                        <p class="text-gray-300">10:30 - 19:00</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3 text-white">
+                            Contacto
+                        </h3>
+                        <p class="text-gray-300">
+                            Email:
+                            <a href="mailto:geral@solve-lisboa.pt" class="text-primary-accent hover:underline">geral@solve-lisboa.pt</a>
+                        </p>
+                        <p class="text-gray-300 mt-1">
+                            Telefone:
+                            <a href="tel:+351960468818" class="text-primary-accent hover:underline">+351 960 468 818</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6 flex flex-wrap justify-between items-center">
+                <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> Solve. Todos os direitos reservados.</p>
+                <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    <a href="../index.html#home" class="text-gray-400 hover:text-white text-sm transition-colors">
+                        Início
+                    </a>
+                    <a href="../index.html#services" class="text-gray-400 hover:text-white text-sm transition-colors">
+                        Serviços
+                    </a>
+                    <a href="contact.html" class="text-gray-400 hover:text-white text-sm transition-colors">
+                        Contacto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
