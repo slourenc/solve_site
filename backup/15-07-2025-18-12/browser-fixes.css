@@ -1,0 +1,37 @@
+/* Browser compatibility fixes */
+
+/* Fix for text size adjust */
+html {
+  /* Only use the webkit prefix since standard property is causing errors */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Fix for font smoothing error */
+body {
+  -webkit-font-smoothing: antialiased;
+  /* Remove non-standard font-smoothing property */
+}
+
+/* Additional browser compatibility fixes */
+.user-select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.appearance-none {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.smooth-scrolling {
+  scroll-behavior: smooth;
+}
+
+/* Ensure transitions work across browsers */
+.transition {
+  -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+} 

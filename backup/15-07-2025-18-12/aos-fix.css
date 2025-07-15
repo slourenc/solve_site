@@ -1,0 +1,229 @@
+/* AOS CSS Fix - Resolves transition-delay parsing errors */
+
+/* Base AOS animations with fixed transition values */
+[data-aos] {
+  /* Using a combined transition property instead of individual properties */
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+/* Fix for problematic transition-delay values */
+[data-aos][data-aos-delay="50"] {
+  -webkit-transition: all 0.3s ease 0.05s;
+  transition: all 0.3s ease 0.05s;
+}
+
+[data-aos][data-aos-delay="100"] {
+  -webkit-transition: all 0.3s ease 0.1s;
+  transition: all 0.3s ease 0.1s;
+}
+
+[data-aos][data-aos-delay="150"] {
+  -webkit-transition: all 0.3s ease 0.15s;
+  transition: all 0.3s ease 0.15s;
+}
+
+[data-aos][data-aos-delay="200"] {
+  -webkit-transition: all 0.3s ease 0.2s;
+  transition: all 0.3s ease 0.2s;
+}
+
+[data-aos][data-aos-delay="250"] {
+  -webkit-transition: all 0.3s ease 0.25s;
+  transition: all 0.3s ease 0.25s;
+}
+
+[data-aos][data-aos-delay="300"] {
+  -webkit-transition: all 0.3s ease 0.3s;
+  transition: all 0.3s ease 0.3s;
+}
+
+[data-aos][data-aos-delay="350"] {
+  -webkit-transition: all 0.3s ease 0.35s;
+  transition: all 0.3s ease 0.35s;
+}
+
+[data-aos][data-aos-delay="400"] {
+  -webkit-transition: all 0.3s ease 0.4s;
+  transition: all 0.3s ease 0.4s;
+}
+
+[data-aos][data-aos-delay="450"] {
+  -webkit-transition: all 0.3s ease 0.45s;
+  transition: all 0.3s ease 0.45s;
+}
+
+[data-aos][data-aos-delay="500"] {
+  -webkit-transition: all 0.3s ease 0.5s;
+  transition: all 0.3s ease 0.5s;
+}
+
+[data-aos][data-aos-delay="550"] {
+  -webkit-transition: all 0.3s ease 0.55s;
+  transition: all 0.3s ease 0.55s;
+}
+
+[data-aos][data-aos-delay="600"] {
+  -webkit-transition: all 0.3s ease 0.6s;
+  transition: all 0.3s ease 0.6s;
+}
+
+[data-aos][data-aos-delay="650"] {
+  -webkit-transition: all 0.3s ease 0.65s;
+  transition: all 0.3s ease 0.65s;
+}
+
+[data-aos][data-aos-delay="700"] {
+  -webkit-transition: all 0.3s ease 0.7s;
+  transition: all 0.3s ease 0.7s;
+}
+
+[data-aos][data-aos-delay="750"] {
+  -webkit-transition: all 0.3s ease 0.75s;
+  transition: all 0.3s ease 0.75s;
+}
+
+[data-aos][data-aos-delay="800"] {
+  -webkit-transition: all 0.3s ease 0.8s;
+  transition: all 0.3s ease 0.8s;
+}
+
+[data-aos][data-aos-delay="850"] {
+  -webkit-transition: all 0.3s ease 0.85s;
+  transition: all 0.3s ease 0.85s;
+}
+
+[data-aos][data-aos-delay="900"] {
+  -webkit-transition: all 0.3s ease 0.9s;
+  transition: all 0.3s ease 0.9s;
+}
+
+[data-aos][data-aos-delay="950"] {
+  -webkit-transition: all 0.3s ease 0.95s;
+  transition: all 0.3s ease 0.95s;
+}
+
+[data-aos][data-aos-delay="1000"] {
+  -webkit-transition: all 0.3s ease 1s;
+  transition: all 0.3s ease 1s;
+}
+
+[data-aos][data-aos-delay="1050"] {
+  -webkit-transition: all 0.3s ease 1.05s;
+  transition: all 0.3s ease 1.05s;
+}
+
+[data-aos][data-aos-delay="1100"] {
+  -webkit-transition: all 0.3s ease 1.1s;
+  transition: all 0.3s ease 1.1s;
+}
+
+[data-aos][data-aos-delay="1150"] {
+  -webkit-transition: all 0.3s ease 1.15s;
+  transition: all 0.3s ease 1.15s;
+}
+
+[data-aos][data-aos-delay="1200"] {
+  -webkit-transition: all 0.3s ease 1.2s;
+  transition: all 0.3s ease 1.2s;
+}
+
+[data-aos][data-aos-delay="1250"] {
+  -webkit-transition: all 0.3s ease 1.25s;
+  transition: all 0.3s ease 1.25s;
+}
+
+[data-aos][data-aos-delay="1300"] {
+  -webkit-transition: all 0.3s ease 1.3s;
+  transition: all 0.3s ease 1.3s;
+}
+
+[data-aos][data-aos-delay="1350"] {
+  -webkit-transition: all 0.3s ease 1.35s;
+  transition: all 0.3s ease 1.35s;
+}
+
+[data-aos][data-aos-delay="1400"] {
+  -webkit-transition: all 0.3s ease 1.4s;
+  transition: all 0.3s ease 1.4s;
+}
+
+[data-aos][data-aos-delay="1450"] {
+  -webkit-transition: all 0.3s ease 1.45s;
+  transition: all 0.3s ease 1.45s;
+}
+
+[data-aos][data-aos-delay="1500"] {
+  -webkit-transition: all 0.3s ease 1.5s;
+  transition: all 0.3s ease 1.5s;
+}
+
+[data-aos][data-aos-delay="1550"] {
+  -webkit-transition: all 0.3s ease 1.55s;
+  transition: all 0.3s ease 1.55s;
+}
+
+[data-aos][data-aos-delay="1600"] {
+  -webkit-transition: all 0.3s ease 1.6s;
+  transition: all 0.3s ease 1.6s;
+}
+
+[data-aos][data-aos-delay="1650"] {
+  -webkit-transition: all 0.3s ease 1.65s;
+  transition: all 0.3s ease 1.65s;
+}
+
+[data-aos][data-aos-delay="1700"] {
+  -webkit-transition: all 0.3s ease 1.7s;
+  transition: all 0.3s ease 1.7s;
+}
+
+[data-aos][data-aos-delay="1750"] {
+  -webkit-transition: all 0.3s ease 1.75s;
+  transition: all 0.3s ease 1.75s;
+}
+
+[data-aos][data-aos-delay="1800"] {
+  -webkit-transition: all 0.3s ease 1.8s;
+  transition: all 0.3s ease 1.8s;
+}
+
+[data-aos][data-aos-delay="1850"] {
+  -webkit-transition: all 0.3s ease 1.85s;
+  transition: all 0.3s ease 1.85s;
+}
+
+[data-aos][data-aos-delay="1900"] {
+  -webkit-transition: all 0.3s ease 1.9s;
+  transition: all 0.3s ease 1.9s;
+}
+
+[data-aos][data-aos-delay="1950"] {
+  -webkit-transition: all 0.3s ease 1.95s;
+  transition: all 0.3s ease 1.95s;
+}
+
+[data-aos][data-aos-delay="2000"] {
+  -webkit-transition: all 0.3s ease 2s;
+  transition: all 0.3s ease 2s;
+}
+
+[data-aos][data-aos-delay="2500"] {
+  -webkit-transition: all 0.3s ease 2.5s;
+  transition: all 0.3s ease 2.5s;
+}
+
+[data-aos][data-aos-delay="3000"] {
+  -webkit-transition: all 0.3s ease 3s;
+  transition: all 0.3s ease 3s;
+}
+
+[data-aos][data-aos-delay="3500"] {
+  -webkit-transition: all 0.3s ease 3.5s;
+  transition: all 0.3s ease 3.5s;
+}
+
+[data-aos][data-aos-delay="4000"] {
+  -webkit-transition: all 0.3s ease 4s;
+  transition: all 0.3s ease 4s;
+} 

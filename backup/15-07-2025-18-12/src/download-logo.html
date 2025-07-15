@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Logo | Solve.</title>
+    <link href="../styles.css" rel="stylesheet">
+    <!-- Alpine.js Core - Must be loaded before plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js Intersect Plugin -->
+    <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        :root {
+            /* Light theme (default) */
+            --primary-accent: #00A99D;
+            --primary-accent-hover: #008e84;
+            --primary-accent-rgb: 0, 169, 157;
+            --primary-accent-hover-rgb: 0, 142, 132;
+            --primary-light: #e6f7f6;
+            --text-primary: #2a2a31;
+            --text-secondary: #64748b;
+            --text-inverse: #ffffff;
+            --background-light: #f8fafc;
+            --background-medium: #f0f4f8;
+            --background-dark: #1f2937;
+            --border-ui: #e2e8f0;
+            --accent-yellow: #FFD700;
+        }
+        
+        /* Dark theme */
+        html[data-theme="dark"] {
+            --primary-accent: #00C4B3;
+            --primary-accent-hover: #00A99D;
+            --primary-accent-rgb: 0, 196, 179;
+            --primary-accent-hover-rgb: 0, 169, 157;
+            --primary-light: #111827;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --background-light: #1f2937;
+            --background-medium: #111827;
+            --background-dark: #030712;
+            --border-ui: #374151;
+            --accent-yellow: #fbbf24;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: var(--background-light);
+            color: var(--text-primary);
+        }
+        
+        /* Apply dark mode to key components */
+        html[data-theme="dark"] .bg-white {
+            background-color: #1f2937 !important;
+        }
+        
+        html[data-theme="dark"] .shadow-lg,
+        html[data-theme="dark"] .shadow-md,
+        html[data-theme="dark"] .shadow-xl {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        html[data-theme="dark"] .border-border-ui,
+        html[data-theme="dark"] .border {
+            border-color: var(--border-ui) !important;
+        }
+
+        /* Header styling */
+        .header-bg {
+            background-color: var(--background-light);
+            border-bottom: 1px solid var(--border-ui);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .mobile-menu-bg {
+            background-color: var(--background-light);
+            border-color: var(--border-ui);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Dynamic Logo SVG styling */
+        .logo-text-main {
+            fill: var(--text-primary);
+            transition: fill 0.3s ease;
+        }
+        
+        .logo-text-accent {
+            fill: var(--primary-accent);
+            transition: fill 0.3s ease;
+        }
+        
+        .logo-icon {
+            fill: var(--primary-accent);
+            transition: fill 0.3s ease;
+        }
+        
+        /* Footer styling */
+        .footer-bg {
+            background-color: var(--background-dark);
+            color: var(--text-inverse);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Download section styling */
+        .download-card {
+            background-color: var(--background-light);
+            border: 1px solid var(--border-ui);
+            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(var(--primary-accent-rgb), 0.15);
+        }
+        
+        .download-button {
+            background-color: var(--primary-accent);
+            color: var(--text-inverse);
+            transition: background-color 0.3s ease;
+        }
+        
+        .download-button:hover {
+            background-color: var(--primary-accent-hover);
+        }
+        
+        /* Language toggle styles */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+        .lang-btn {
+            padding: 0.25rem 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .lang-btn.active {
+            background-color: var(--primary-accent);
+            color: white;
+        }
+        .lang-btn:not(.active) {
+            background-color: transparent;
+            color: var(--text-secondary);
+        }
+        [data-lang="pt"] .lang-en,
+        [data-lang="en"] .lang-pt {
+            display: none;
+        }
+        
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary-accent);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        /* More pronounced focus for accessibility */
+        *:focus-visible {
+            outline: 3px solid var(--primary-accent) !important;
+            outline-offset: 2px !important;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Header -->
+    <header x-data="{ mobileMenuOpen: false }" class="shadow-md sticky top-0 z-50 header-bg">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html#home" class="flex items-center" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 sm:h-9 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .solve-logo-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text logo-text-main">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text logo-text-accent">.</text>
+                    <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="../index.html#home" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Home section">
+                    <span class="lang-pt">Início</span>
+                    <span class="lang-en">Home</span>
+                </a>
+                <a href="../index.html#services" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Services section">
+                    <span class="lang-pt">Serviços</span>
+                    <span class="lang-en">Services</span>
+                </a>
+                <a href="../index.html#pricing" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Pricing section">
+                    <span class="lang-pt">Preços</span>
+                    <span class="lang-en">Pricing</span>
+                </a>
+                <a href="./about.html" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to About section">
+                    <span class="lang-pt">Sobre</span>
+                    <span class="lang-en">About</span>
+                </a>
+                <a href="./contact.html" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Contact page">
+                    <span class="lang-pt">Contacto</span>
+                    <span class="lang-en">Contact</span>
+                </a>
+                <a href="../index.html#visit-us" class="text-text-primary hover:text-primary-accent transition-colors duration-300 font-medium" aria-label="Go to Location section">
+                    <span class="lang-pt">Localização</span>
+                    <span class="lang-en">Location</span>
+                </a>
+                <div class="lang-toggle">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+                <div class="dark-mode-toggle ml-4" title="Toggle Dark Mode">
+                    <label class="toggle-switch">
+                        <input type="checkbox" @click="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <div class="lang-toggle mr-3">
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'pt')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'pt' }">
+                        PT
+                    </button>
+                    <span class="mx-1">|</span>
+                    <button 
+                        @click="document.documentElement.setAttribute('data-lang', 'en')" 
+                        class="lang-btn" 
+                        :class="{ 'active': document.documentElement.getAttribute('data-lang') === 'en' }">
+                        EN
+                    </button>
+                </div>
+                <div class="dark-mode-toggle mr-3" title="Toggle Dark Mode">
+                    <label class="toggle-switch">
+                        <input type="checkbox" @click="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-text-primary hover:text-primary-accent focus:outline-none p-2" aria-label="Toggle mobile menu" aria-expanded="false" :aria-expanded="mobileMenuOpen.toString()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path :class="{'hidden': mobileMenuOpen, 'inline-flex': !mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path :class="{'hidden': !mobileMenuOpen, 'inline-flex': mobileMenuOpen }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden shadow-xl absolute w-full border-t mobile-menu-bg" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 transform -translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-2">
+            <a href="../index.html#home" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Home section">
+                <span class="lang-pt">Início</span>
+                <span class="lang-en">Home</span>
+            </a>
+            <a href="../index.html#services" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Services section">
+                <span class="lang-pt">Serviços</span>
+                <span class="lang-en">Services</span>
+            </a>
+            <a href="../index.html#pricing" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Pricing section">
+                <span class="lang-pt">Preços</span>
+                <span class="lang-en">Pricing</span>
+            </a>
+            <a href="./about.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to About section">
+                <span class="lang-pt">Sobre</span>
+                <span class="lang-en">About</span>
+            </a>
+            <a href="./contact.html" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Contact page">
+                <span class="lang-pt">Contacto</span>
+                <span class="lang-en">Contact</span>
+            </a>
+            <a href="../index.html#visit-us" @click="mobileMenuOpen = false" class="block px-6 py-3 text-text-primary hover:bg-background-medium hover:text-primary-accent transition-colors duration-200 font-medium" aria-label="Go to Location section">
+                <span class="lang-pt">Localização</span>
+                <span class="lang-en">Location</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="py-16 md:py-20 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-center">
+                    <span class="lang-pt">Download do Logotipo</span>
+                    <span class="lang-en">Logo Download</span>
+                </h1>
+                
+                <p class="text-lg text-text-secondary mb-12 text-center max-w-3xl mx-auto">
+                    <span class="lang-pt">Faça o download do logotipo da Solve. em diferentes formatos e tamanhos para utilização em materiais próprios.</span>
+                    <span class="lang-en">Download the Solve. logo in different formats and sizes for use in your own materials.</span>
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Light Logo Card -->
+                    <div class="download-card rounded-xl shadow-lg overflow-hidden">
+                        <div class="p-8 bg-white">
+                            <img src="../logos/solve-logo-light.png" alt="Solve Logo Light" class="w-full h-auto">
+                        </div>
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold mb-3 text-text-primary">
+                                <span class="lang-pt">Logo Versão Clara</span>
+                                <span class="lang-en">Light Logo Version</span>
+                            </h2>
+                            <p class="text-text-secondary mb-4">
+                                <span class="lang-pt">Ideal para fundos escuros ou coloridos.</span>
+                                <span class="lang-en">Perfect for dark or colored backgrounds.</span>
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="../logos/solve-logo-light.png" download class="download-button px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    PNG (400px)
+                                </a>
+                                <a href="../logos/solve-logo-light-small.png" download class="download-button px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    PNG (200px)
+                                </a>
+                                <a href="../solve-logo.svg" download class="download-button px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    SVG
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dark Logo Card -->
+                    <div class="download-card rounded-xl shadow-lg overflow-hidden">
+                        <div class="p-8 bg-background-dark">
+                            <img src="../logos/solve-logo-dark.png" alt="Solve Logo Dark" class="w-full h-auto">
+                        </div>
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold mb-3 text-text-primary">
+                                <span class="lang-pt">Logo Versão Escura</span>
+                                <span class="lang-en">Dark Logo Version</span>
+                            </h2>
+                            <p class="text-text-secondary mb-4">
+                                <span class="lang-pt">Ideal para fundos claros ou brancos.</span>
+                                <span class="lang-en">Perfect for light or white backgrounds.</span>
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="../logos/solve-logo-dark.png" download class="download-button px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    PNG (400px)
+                                </a>
+                                <a href="../logos/solve-logo-dark-small.png" download class="download-button px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    PNG (200px)
+                                </a>
+                                <a href="../solve-logo-dark.svg" download class="download-button px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    SVG
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Usage Guidelines -->
+                <div class="mt-16 pt-12 border-t border-border-ui">
+                    <h2 class="text-2xl font-bold mb-6 text-center">
+                        <span class="lang-pt">Diretrizes de Utilização</span>
+                        <span class="lang-en">Usage Guidelines</span>
+                    </h2>
+                    
+                    <div class="space-y-6 text-text-secondary">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-text-primary">
+                                <span class="lang-pt">Espaço Livre</span>
+                                <span class="lang-en">Clear Space</span>
+                            </h3>
+                            <p class="lang-pt">Mantenha sempre um espaço livre ao redor do logotipo equivalente à altura da letra "S" do logotipo.</p>
+                            <p class="lang-en">Always maintain clear space around the logo equivalent to the height of the letter "S" in the logo.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-text-primary">
+                                <span class="lang-pt">Tamanho Mínimo</span>
+                                <span class="lang-en">Minimum Size</span>
+                            </h3>
+                            <p class="lang-pt">Para garantir a legibilidade, não use o logotipo em tamanhos menores que 60px de largura para meios digitais ou 20mm para impressão.</p>
+                            <p class="lang-en">To ensure legibility, do not use the logo smaller than 60px wide for digital media or 20mm for print.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-text-primary">
+                                <span class="lang-pt">Modificações</span>
+                                <span class="lang-en">Modifications</span>
+                            </h3>
+                            <p class="lang-pt">Não distorça, recolore ou modifique o logotipo de qualquer forma. Use apenas as versões oficiais fornecidas nesta página.</p>
+                            <p class="lang-en">Do not distort, recolor, or modify the logo in any way. Only use the official versions provided on this page.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 px-6 text-center footer-bg">
+        <div class="container mx-auto">
+             <a href="../index.html" class="inline-block mb-4" aria-label="Solve. Home">
+                <svg aria-hidden="true" focusable="false" class="h-8 w-auto" viewBox="0 0 130 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <style>
+                        .solve-logo-text-footer { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+                    </style>
+                    <text x="0" y="28" class="solve-logo-text-footer fill-text-inverse">Solve</text>
+                    <text x="78" y="28" class="solve-logo-text-footer logo-text-accent">.</text>
+                     <path d="M100 12 Q102 10 104 12 L106 15 Q108 13 110 15 L112 18 Q110 20 112 22 L110 25 Q108 27 106 25 L104 22 Q102 24 100 22 L102 18 Q100 16 102 18 Z" class="logo-icon opacity-75 transform rotate-12" transform-origin="106 18.5"/>
+                </svg>
+            </a>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 mb-8 text-left">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Localização</span>
+                        <span class="lang-en">Location</span>
+                    </h3>
+                    <p class="text-text-secondary">Avenida das Forças Armadas 51</p>
+                    <p class="text-text-secondary">1600-121 Lisboa</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Horário</span>
+                        <span class="lang-en">Hours</span>
+                    </h3>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Terça a Sábado</span>
+                        <span class="lang-en">Tuesday to Saturday</span>
+                    </p>
+                    <p class="text-text-secondary">10:30 - 19:00</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        <span class="lang-pt">Contacto</span>
+                        <span class="lang-en">Contact</span>
+                    </h3>
+                    <p class="text-text-secondary">Email: <a href="mailto:geral@solve-lisboa.pt" class="text-primary-accent hover:underline">geral@solve-lisboa.pt</a></p>
+                    <p class="text-text-secondary">
+                        <span class="lang-pt">Telefone:</span>
+                        <span class="lang-en">Phone:</span>
+                        <a href="tel:+351960468818" class="text-primary-accent hover:underline">+351 960 468 818</a>
+                    </p>
+                </div>
+            </div>
+            <p class="text-sm text-text-secondary">&copy; <span id="currentYear"></span> Solve. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Make sure Alpine.js and its plugins are properly initialized
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle the current year display for copyright
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) yearElement.textContent = new Date().getFullYear();
+            
+            // Properly update language toggle buttons
+            function updateLanguageButtonStates() {
+                const currentLang = document.documentElement.getAttribute('data-lang');
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if ((btn.textContent.trim() === 'PT' && currentLang === 'pt') ||
+                        (btn.textContent.trim() === 'EN' && currentLang === 'en')) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            // Add event listeners to language toggle buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.textContent.trim() === 'PT' ? 'pt' : 'en';
+                    document.documentElement.setAttribute('data-lang', lang);
+                    updateLanguageButtonStates();
+                });
+            });
+            
+            // Initialize correct active state for language buttons
+            updateLanguageButtonStates();
+            
+            // Dark mode toggle handling
+            const darkModeToggles = document.querySelectorAll('.dark-mode-toggle input[type="checkbox"]');
+            
+            // Set initial state based on saved preference or system preference
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                darkModeToggles.forEach(toggle => {
+                    toggle.checked = savedTheme === 'dark';
+                });
+            } else if (prefersDark) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                darkModeToggles.forEach(toggle => {
+                    toggle.checked = true;
+                });
+            }
+            
+            // Add event listeners to dark mode toggles
+            darkModeToggles.forEach(toggle => {
+                toggle.addEventListener('change', () => {
+                    const theme = toggle.checked ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    
+                    // Update all other toggles to match
+                    darkModeToggles.forEach(otherToggle => {
+                        if (otherToggle !== toggle) {
+                            otherToggle.checked = toggle.checked;
+                        }
+                    });
+                });
+            });
+            
+            // Initialize dark mode toggles based on current theme
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            darkModeToggles.forEach(toggle => {
+                toggle.checked = currentTheme === 'dark';
+            });
+        });
+    </script>
+</body>
+</html> 
