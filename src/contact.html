@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Solve.</title>
-    <meta name="description" content="Entre em contacto com a Solve - serviços premium de limpeza de calçado em Lisboa. Contacte-nos para marcações e questões.">
+    <title>Contact - Solve.</title>
+    <meta name="description" content="Get in touch with Solve - premium shoe cleaning services in Lisbon. Contact us for bookings and questions.">
     <link rel="icon" href="../logos/logo_azul.png" type="image/png">
     
     <!-- Preconnect to critical domains -->
@@ -332,7 +332,7 @@
                     <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
                 </svg>
             </a>
-            <a href="#" 
+            <a href="https://www.tiktok.com/@solvelisboa" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 class="flex items-center justify-center w-12 h-12 bg-white shadow-md rounded-full text-gray-700 hover:text-black hover:shadow-lg transition-all duration-300" 
@@ -356,24 +356,23 @@
 
         <!-- Contact Hero Section -->
         <section class="bg-primary-accent text-text-inverse py-16 md:py-20 px-6 text-center relative overflow-hidden">
-            <!-- Video Background -->
-            <div class="video-bg-container">
-                <div class="video-overlay" style="background: linear-gradient(135deg, rgba(57, 57, 255, 0.95), rgba(32, 32, 224, 0.9))"></div>
-                <div class="video-fallback"></div>
-                <video autoplay muted loop playsinline class="video-bg">
-                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-                    <!-- Fallback to a Google-hosted sample video -->
-                </video>
+            <!-- Image Background -->
+            <div class="absolute inset-0">
+                <img src="../media/images/DSC09928.jpg" 
+                     alt="Background" 
+                     class="w-full h-full object-cover" 
+                     loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-blue-800/80 to-purple-900/85"></div>
             </div>
 
             <div class="container mx-auto relative z-10">
                 <div data-aos="fade-up" data-aos-duration="1000">
                     <img src="../logos/logo_branco.png" alt="Solve" class="h-16 w-auto mx-auto mb-6">
                     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-white" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                        Contacte-nos
+                        Contact Us
                     </h1>
                     <p class="text-lg md:text-xl max-w-2xl mx-auto font-light text-white opacity-90" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                        Tem perguntas? Estamos aqui para ajudar e tornar os seus ténis como novos.
+                        Have questions? We're here to help and make your sneakers look like new.
                     </p>
                 </div>
             </div>
@@ -388,16 +387,26 @@
                          x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
                          :class="{ 'opacity-100 !translate-y-0': shown }">
                         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-text-primary">
-                            Envie-nos uma Mensagem
+                            Send Us a Message
                         </h2>
-                        <form action="#" method="POST">
+                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                            <!-- Hidden field for Netlify spam protection -->
+                            <p style="display: none;">
+                                <label>
+                                    Don't fill this out if you're human: <input name="bot-field" />
+                                </label>
+                            </p>
+                            <!-- Hidden field to capture form name -->
+                            <input type="hidden" name="form-name" value="contact" />
+                            
                             <div class="mb-5">
                                 <label for="name" class="block mb-2 text-sm font-medium text-text-primary">
-                                    Nome Completo
+                                    Full Name
                                 </label>
                                 <input type="text" id="name" name="name" required
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Seu nome completo">
+                                       aria-label="Your full name"
+                                       placeholder="Enter your full name">
                             </div>
                             <div class="mb-5">
                                 <label for="email" class="block mb-2 text-sm font-medium text-text-primary">
@@ -405,37 +414,41 @@
                                 </label>
                                 <input type="email" id="email" name="email" required
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Seu endereço de email">
+                                       aria-label="Your email address"
+                                       placeholder="example@email.com">
                             </div>
                             <div class="mb-5">
                                 <label for="phone" class="block mb-2 text-sm font-medium text-text-primary">
-                                    Telefone
+                                    Phone
                                 </label>
                                 <input type="tel" id="phone" name="phone"
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Seu número de telefone">
+                                       aria-label="Your phone number"
+                                       placeholder="+351 XXX XXX XXX">
                             </div>
                             <div class="mb-5">
                                 <label for="subject" class="block mb-2 text-sm font-medium text-text-primary">
-                                    Assunto
+                                    Subject
                                 </label>
                                 <input type="text" id="subject" name="subject" required
                                        class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                       aria-label="Assunto da mensagem">
+                                       aria-label="Message subject"
+                                       placeholder="What is this message about?">
                             </div>
                             <div class="mb-6">
                                 <label for="message" class="block mb-2 text-sm font-medium text-text-primary">
-                                    Mensagem
+                                    Message
                                 </label>
                                 <textarea id="message" name="message" rows="5" required
                                           class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
-                                          aria-label="Sua mensagem"></textarea>
+                                          aria-label="Your message"
+                                          placeholder="Write your message here..."></textarea>
                             </div>
                             <div>
                                 <button type="submit"
                                         tabindex="0"
                                         class="w-full bg-primary-accent hover:bg-primary-accent-hover text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
-                                    Enviar Mensagem
+                                    Send Message
                                 </button>
                             </div>
                         </form>
@@ -447,7 +460,7 @@
                          :class="{ 'opacity-100 !translate-y-0': shown }">
                         <div class="mb-12">
                             <h2 class="text-2xl md:text-3xl font-bold mb-6 text-text-primary">
-                                Informação de Contacto
+                                Contact Information
                             </h2>
                             <div class="space-y-5">
                                 <div class="flex items-start">
@@ -459,12 +472,12 @@
                                     </div>
                                     <div>
                                         <h3 class="font-medium text-lg text-text-primary">
-                                            Localização
+                                            Location
                                         </h3>
                                         <p class="text-text-secondary">Avenida das Forças Armadas 51</p>
                                         <p class="text-text-secondary">1600-121 Lisboa</p>
                                         <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" target="_blank" class="text-primary-accent hover:underline inline-block mt-1 text-sm">
-                                            Ver no Google Maps
+                                            View on Google Maps
                                         </a>
                                     </div>
                                 </div>
@@ -476,7 +489,7 @@
                                     </div>
                                     <div>
                                         <h3 class="font-medium text-lg text-text-primary">
-                                            Telefone
+                                            Phone
                                         </h3>
                                         <p class="text-text-secondary">
                                             <a href="tel:+351960468818" class="hover:text-primary-accent">+351 960 468 818</a>
@@ -501,53 +514,53 @@
                         
                         <div class="bg-background-medium p-8 rounded-xl border border-border-ui">
                             <h2 class="text-xl font-bold mb-5 text-text-primary">
-                                Horário da Loja
+                                Store Hours
                             </h2>
                             <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        Segunda-feira
+                                        Monday
                                     </span>
                                     <span class="font-medium text-text-primary">
-                                        Fechado
+                                        Closed
                                     </span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        Terça-feira
+                                        Tuesday
                                     </span>
-                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                    <span class="font-medium text-text-primary">10:30 - 13:00 | 14:00 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        Quarta-feira
+                                        Wednesday
                                     </span>
-                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                    <span class="font-medium text-text-primary">10:30 - 13:00 | 14:00 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        Quinta-feira
+                                        Thursday
                                     </span>
-                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                    <span class="font-medium text-text-primary">10:30 - 13:00 | 14:00 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        Sexta-feira
+                                        Friday
                                     </span>
-                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                    <span class="font-medium text-text-primary">10:30 - 13:00 | 14:00 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        Sábado
+                                        Saturday
                                     </span>
-                                    <span class="font-medium text-text-primary">10:30 - 19:00</span>
+                                    <span class="font-medium text-text-primary">10:30 - 13:00 | 14:00 - 19:00</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-text-secondary">
-                                        Domingo
+                                        Sunday
                                     </span>
                                     <span class="font-medium text-text-primary">
-                                        Fechado
+                                        Closed
                                     </span>
                                 </div>
                             </div>
@@ -562,10 +575,10 @@
             <div class="container mx-auto max-w-4xl">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h2 class="text-2xl md:text-3xl font-bold mb-4 text-text-primary">
-                        Perguntas Frequentes
+                        Frequently Asked Questions
                     </h2>
                     <p class="text-text-secondary max-w-2xl mx-auto">
-                        Respostas para as perguntas mais comuns sobre os nossos serviços de limpeza e restauro de calçado.
+                        Answers to the most common questions about our shoe cleaning and restoration services.
                     </p>
                 </div>
                 
@@ -575,7 +588,7 @@
                         <button @click="openQuestion = openQuestion === 1 ? null : 1" 
                                 class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
                                 :aria-expanded="openQuestion === 1">
-                            <span>Quanto tempo demora o processo de limpeza?</span>
+                            <span>How long does the cleaning process take?</span>
                             <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 1}" 
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -590,7 +603,7 @@
                                 x-transition:leave-end="opacity-0 transform -translate-y-2"
                                 class="px-6 pb-4 text-text-secondary">
                             <p>
-                                Para a maioria dos serviços de limpeza básica, o processo demora entre 3 a 5 dias úteis. Para serviços premium ou restaurações mais complexas, pode levar até 7 dias úteis. Oferecemos opções de entrega prioritária para alguns serviços com um custo adicional.
+                                For most basic cleaning services, the process takes between 3 to 5 business days. For premium services or more complex restorations, it can take up to 7 business days. We offer priority delivery options for some services at an additional cost.
                             </p>
                         </div>
                     </div>
@@ -600,7 +613,7 @@
                         <button @click="openQuestion = openQuestion === 2 ? null : 2" 
                                 class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
                                 :aria-expanded="openQuestion === 2">
-                            <span>Quais os métodos de pagamento aceites?</span>
+                            <span>What payment methods do you accept?</span>
                             <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 2}" 
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -615,7 +628,7 @@
                                 x-transition:leave-end="opacity-0 transform -translate-y-2"
                                 class="px-6 pb-4 text-text-secondary">
                             <p>
-                                Aceitamos dinheiro, cartões de débito e crédito (Visa, Mastercard), transferência bancária e MB Way. O pagamento é efetuado no momento da entrega do serviço concluído.
+                                We accept cash, debit and credit cards (Visa, Mastercard), bank transfer, and MB Way. Payment is made upon delivery of the completed service.
                             </p>
                         </div>
                     </div>
@@ -625,7 +638,7 @@
                         <button @click="openQuestion = openQuestion === 3 ? null : 3" 
                                 class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
                                 :aria-expanded="openQuestion === 3">
-                            <span>Como posso preparar os meus ténis antes de os entregar?</span>
+                            <span>How should I prepare my sneakers before dropping them off?</span>
                             <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 3}" 
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -640,7 +653,7 @@
                                 x-transition:leave-end="opacity-0 transform -translate-y-2"
                                 class="px-6 pb-4 text-text-secondary">
                             <p>
-                                Não é necessária nenhuma preparação especial. Recomendamos apenas que remova quaisquer objetos soltos ou conteúdos dos sapatos. Nós cuidamos de remover os atacadores, limpar toda a sujidade e preparar adequadamente o calçado para o processo de limpeza.
+                                No special preparation is needed. We only recommend removing any loose items or contents from the shoes. We take care of removing laces, cleaning all dirt, and properly preparing the footwear for the cleaning process.
                             </p>
                         </div>
                     </div>
@@ -650,7 +663,7 @@
                         <button @click="openQuestion = openQuestion === 4 ? null : 4" 
                                 class="flex justify-between items-center w-full px-6 py-4 text-left font-medium text-text-primary hover:text-primary-accent focus:outline-none"
                                 :aria-expanded="openQuestion === 4">
-                            <span>Oferecem serviços de entrega ou recolha?</span>
+                            <span>Do you offer delivery or pickup services?</span>
                             <svg class="w-5 h-5 transform transition-transform duration-200" :class="{'rotate-180': openQuestion === 4}" 
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -665,7 +678,7 @@
                                 x-transition:leave-end="opacity-0 transform -translate-y-2"
                                 class="px-6 pb-4 text-text-secondary">
                             <p>
-                                Sim, oferecemos serviços de recolha e entrega em Lisboa com um custo adicional que varia consoante a localização. Contacte-nos para mais informações sobre disponibilidade na sua área e para agendar uma recolha.
+                                Yes, we offer pickup and delivery services in Lisbon for an additional cost that varies depending on location. Contact us for more information about availability in your area and to schedule a pickup.
                             </p>
                         </div>
                     </div>
@@ -673,7 +686,7 @@
                 
                 <div class="text-center mt-10" data-aos="fade-up" data-aos-delay="500">
                     <p class="text-text-secondary mb-4">
-                        Ainda tem perguntas? Contacte-nos diretamente.
+                        Still have questions? Contact us directly.
                     </p>
                     <a href="tel:+351960468818" class="text-primary-accent hover:underline font-medium">
                         +351 960 468 818
@@ -686,7 +699,7 @@
         <section class="py-16 md:py-24 px-6">
             <div class="container mx-auto max-w-6xl">
                 <h2 class="text-2xl md:text-3xl font-bold mb-10 text-text-primary text-center" data-aos="fade-up" data-aos-duration="800">
-                    Como Nos Encontrar
+                    How to Find Us
                 </h2>
                 <div class="rounded-xl overflow-hidden shadow-xl h-96 opacity-0 scale-95 transition-all duration-700 ease-out"
                     x-data="{ shown: false }" x-intersect.once.threshold.0.3="shown = true"
@@ -698,18 +711,18 @@
                         allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade"
-                        title="Localização da loja Solve"
-                        aria-label="Mapa da localização da loja Solve em Lisboa"></iframe>
+                                title="Solve store location"
+                        aria-label="Map showing Solve store location in Lisbon"></iframe>
                 </div>
                 <div class="mt-8 text-center" data-aos="fade-up" data-aos-delay="200">
                     <p class="text-text-secondary max-w-2xl mx-auto mb-6">
-                        A nossa loja está localizada na Avenida das Forças Armadas 51, perto do Campo Pequeno. 
-                        Temos fácil acesso por transportes públicos e estacionamento disponível nas proximidades.
+                        Our store is located at Avenida das Forças Armadas 51, near Campo Pequeno. 
+                        We have easy access by public transport and parking available nearby.
                     </p>
                     <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" 
                       target="_blank"
                       class="inline-block bg-primary-accent text-white font-medium py-2 px-6 rounded-lg shadow-md hover:bg-primary-accent-hover transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-opacity-75">
-                        Abrir no Google Maps
+                        Open in Google Maps
                     </a>
                 </div>
             </div>
@@ -730,7 +743,7 @@
                         <img src="../logos/logo_branco.png" alt="Solve" class="h-12 w-auto">
                     </a>
                     <p class="text-gray-300 mt-4 max-w-md">
-                        Dando vida nova aos seus ténis favoritos desde 2020. Especialistas em limpeza e restauração de calçado.
+                        Giving new life to your favorite sneakers since 2020. Experts in shoe cleaning and restoration.
                     </p>
                 </div>
                 
@@ -745,7 +758,7 @@
                             <path d="M12 6.865c-2.841 0-5.135 2.294-5.135 5.135s2.294 5.135 5.135 5.135 5.135-2.294 5.135-5.135-2.294-5.135-5.135-5.135zm0 8.468c-1.842 0-3.333-1.491-3.333-3.333s1.491-3.333 3.333-3.333 3.333 1.491 3.333 3.333-1.491 3.333-3.333 3.333zm6.538-8.671c0 .662-.537 1.199-1.199 1.199-.662 0-1.199-.537-1.199-1.199s.537-1.199 1.199-1.199c.662 0 1.199.537 1.199 1.199z"/>
                         </svg>
                     </a>
-                    <a href="#" 
+                    <a href="https://www.tiktok.com/@solvelisboa" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         class="w-12 h-12 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white hover:scale-110 transition-all duration-300" 
@@ -770,30 +783,30 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            Localização
+                            Location
                         </h3>
                         <p class="text-gray-300">Avenida das Forças Armadas 51</p>
                         <p class="text-gray-300">1600-121 Lisboa</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            Horário
+                            Hours
                         </h3>
                         <p class="text-gray-300">
-                            Terça a Sábado
+                            Tuesday to Saturday
                         </p>
-                        <p class="text-gray-300">10:30 - 19:00</p>
+                        <p class="text-gray-300">10:30 - 13:00 | 14:00 - 19:00</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold mb-3 text-white">
-                            Contacto
+                            Contact
                         </h3>
                         <p class="text-gray-300">
                             Email:
                             <a href="mailto:geral@solve-lisboa.pt" class="text-white hover:text-yellow-300 underline inline-block py-2 px-1 min-h-[48px] min-w-[48px]">geral@solve-lisboa.pt</a>
                         </p>
                         <p class="text-gray-300 mt-1">
-                            Telefone:
+                            Phone:
                             <a href="tel:+351960468818" class="text-white hover:text-yellow-300 underline inline-block py-2 px-1 min-h-[48px] min-w-[48px]">+351 960 468 818</a>
                         </p>
                     </div>
@@ -804,13 +817,13 @@
                 <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> Solve. Todos os direitos reservados.</p>
                 <div class="flex items-center space-x-4 mt-4 md:mt-0">
                     <a href="../index.html#home" class="text-gray-400 hover:text-white text-sm transition-colors py-2 px-3 min-h-[48px] min-w-[48px] inline-block">
-                        Início
+                        Home
                     </a>
                     <a href="../index.html#services" class="text-gray-400 hover:text-white text-sm transition-colors py-2 px-3 min-h-[48px] min-w-[48px] inline-block">
-                        Serviços
+                        Services
                     </a>
                     <a href="contact.html" class="text-gray-400 hover:text-white text-sm transition-colors py-2 px-3 min-h-[48px] min-w-[48px] inline-block">
-                        Contacto
+                        Contact
                     </a>
                 </div>
             </div>
