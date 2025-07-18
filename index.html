@@ -75,187 +75,92 @@
                 once: true,
                 offset: 100
             });
-            
-            // Simple email validation
-            const emailForm = document.getElementById('email-form');
-            const emailInput = document.getElementById('email');
-            const submitButton = document.getElementById('submit-btn');
-            
-            if (emailForm) {
-                emailForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const email = emailInput.value.trim();
-                    
-                    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                        // Show success message
-                        submitButton.innerHTML = '<i class="fas fa-check mr-2"></i>Thank you!';
-                        submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                        submitButton.classList.add('bg-green-600');
-                        emailInput.value = '';
-                        
-                        // Reset after 3 seconds
-                        setTimeout(() => {
-                            submitButton.innerHTML = '<i class="fas fa-bell mr-2"></i>Notify Me';
-                            submitButton.classList.remove('bg-green-600');
-                            submitButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
-                        }, 3000);
-                    } else {
-                        alert('Please enter a valid email address.');
-                    }
-                });
-            }
         });
     </script>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
     <!-- Main Container -->
-    <div class="min-h-screen flex items-center justify-center px-4 py-8">
+    <div class="min-h-screen flex items-center justify-center px-4 py-4">
         <div class="max-w-4xl mx-auto text-center">
             
             <!-- Logo Section -->
-            <div class="mb-12" data-aos="fade-down">
-                <div class="floating mb-6">
-                    <img src="logos/logo_azul.png" alt="Solve" class="h-20 md:h-24 w-auto mx-auto">
+            <div class="mb-6" data-aos="fade-down">
+                <div class="floating mb-4">
+                    <img src="logos/logo_azul.png" alt="Solve" class="h-16 md:h-20 w-auto mx-auto">
                 </div>
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-                    Solve<span class="text-blue-600">.</span>
-                </h1>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
             </div>
             
             <!-- Main Message -->
-            <div class="mb-12" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                    Something Amazing is Coming Soon
+            <div class="mb-8" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                    Coming Soon...
                 </h2>
-                <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                    We're working hard to bring you the ultimate premium shoe cleaning experience in Lisbon. 
-                    Get ready to give your sneakers the care they deserve with our expert restoration services.
-                </p>
-                
-                <!-- Progress Bar -->
-                <div class="max-w-md mx-auto mb-8">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm font-medium text-gray-700">Development Progress</span>
-                        <span class="text-sm font-medium text-blue-600">85%</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-3">
-                        <div class="progress-bar h-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-1000"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Features Preview -->
-            <div class="grid md:grid-cols-3 gap-8 mb-12" data-aos="fade-up" data-aos-delay="400">
-                <div class="bg-white rounded-xl shadow-lg p-6 progress-animation">
-                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-magic text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Expert Restoration</h3>
-                    <p class="text-gray-600">Professional cleaning techniques that bring your sneakers back to life.</p>
-                </div>
-                
-                <div class="bg-white rounded-xl shadow-lg p-6 progress-animation" style="animation-delay: 0.5s;">
-                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-leaf text-green-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Eco-Friendly</h3>
-                    <p class="text-gray-600">Sustainable cleaning products that are safe for you and the environment.</p>
-                </div>
-                
-                <div class="bg-white rounded-xl shadow-lg p-6 progress-animation" style="animation-delay: 1s;">
-                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-clock text-purple-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Quick Turnaround</h3>
-                    <p class="text-gray-600">Fast and efficient service to get your sneakers back to you quickly.</p>
-                </div>
-            </div>
-            
-            <!-- Newsletter Signup -->
-            <div class="bg-gradient-animated rounded-2xl p-8 mb-12 text-white" data-aos="fade-up" data-aos-delay="600">
-                <h3 class="text-2xl md:text-3xl font-bold mb-4">Be the First to Know</h3>
-                <p class="text-lg mb-6 opacity-90">
-                    Get notified when we launch and receive exclusive early-bird discounts!
-                </p>
-                
-                <form id="email-form" class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-                    <input type="email" 
-                           id="email" 
-                           placeholder="Enter your email address" 
-                           class="flex-1 px-4 py-3 rounded-lg text-gray-900 border-0 focus:ring-4 focus:ring-white/30 outline-none"
-                           required>
-                    <button type="submit" 
-                            id="submit-btn"
-                            class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300">
-                        <i class="fas fa-bell mr-2"></i>Notify Me
-                    </button>
-                </form>
             </div>
             
             <!-- Contact Information -->
-            <div class="grid md:grid-cols-2 gap-8 mb-12" data-aos="fade-up" data-aos-delay="800">
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h4 class="text-lg font-semibold text-gray-900 mb-4">
+            <div class="grid md:grid-cols-2 gap-6 mb-8" data-aos="fade-up" data-aos-delay="400">
+                <div class="bg-white rounded shadow-lg p-4">
+                    <h4 class="text-base font-semibold text-gray-900 mb-3">
                         <i class="fas fa-map-marker-alt text-blue-600 mr-2"></i>
                         Our Location
                     </h4>
-                    <p class="text-gray-600 mb-2">Avenida das Forças Armadas 51</p>
-                    <p class="text-gray-600 mb-4">1600-121 Lisboa, Portugal</p>
+                    <p class="text-gray-600 mb-1 text-sm">Avenida das Forças Armadas 51</p>
+                    <p class="text-gray-600 mb-3 text-sm">1600-121 Lisboa, Portugal</p>
                     <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" 
                        target="_blank" 
-                       class="text-blue-600 hover:text-blue-700 transition-colors">
+                       class="text-blue-600 hover:text-blue-700 transition-colors text-sm">
                         <i class="fas fa-external-link-alt mr-1"></i>View on Google Maps
                     </a>
                 </div>
                 
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h4 class="text-lg font-semibold text-gray-900 mb-4">
+                <div class="bg-white rounded shadow-lg p-4">
+                    <h4 class="text-base font-semibold text-gray-900 mb-3">
                         <i class="fas fa-phone text-green-600 mr-2"></i>
                         Get in Touch
                     </h4>
-                    <p class="text-gray-600 mb-2">
+                    <p class="text-gray-600 mb-1 text-sm">
                         <a href="tel:+351960468818" class="hover:text-blue-600 transition-colors">
                             +351 960 468 818
                         </a>
                     </p>
-                    <p class="text-gray-600 mb-4">
+                    <p class="text-gray-600 mb-3 text-sm">
                         <a href="mailto:geral@solve-lisboa.pt" class="hover:text-blue-600 transition-colors">
                             geral@solve-lisboa.pt
                         </a>
                     </p>
                     <a href="https://wa.me/351960468818" 
                        target="_blank" 
-                       class="inline-flex items-center text-green-600 hover:text-green-700 transition-colors">
+                       class="inline-flex items-center text-green-600 hover:text-green-700 transition-colors text-sm">
                         <i class="fab fa-whatsapp mr-2"></i>WhatsApp Us
                     </a>
                 </div>
             </div>
             
             <!-- Social Media -->
-            <div class="flex justify-center space-x-6 mb-8" data-aos="fade-up" data-aos-delay="1000">
+            <div class="flex justify-center space-x-4 mb-6" data-aos="fade-up" data-aos-delay="600">
                 <a href="https://www.instagram.com/solve.lisboa/" 
                    target="_blank" 
-                   class="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-500 text-white rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300">
-                    <i class="fab fa-instagram text-lg"></i>
+                   class="w-10 h-10 bg-gray-600 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-all duration-300">
+                    <i class="fab fa-instagram text-base"></i>
                 </a>
                 <a href="https://www.tiktok.com/@solvelisboa" 
                    target="_blank" 
-                   class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300">
-                    <i class="fab fa-tiktok text-lg"></i>
+                   class="w-10 h-10 bg-gray-600 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-all duration-300">
+                    <i class="fab fa-tiktok text-base"></i>
                 </a>
                 <a href="https://wa.me/351960468818" 
                    target="_blank" 
-                   class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300">
-                    <i class="fab fa-whatsapp text-lg"></i>
+                   class="w-10 h-10 bg-gray-600 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-all duration-300">
+                    <i class="fab fa-whatsapp text-base"></i>
                 </a>
             </div>
             
             <!-- Footer -->
-            <div class="text-center text-gray-500" data-aos="fade-up" data-aos-delay="1200">
-                <p class="mb-2">&copy; 2024 Solve. All rights reserved.</p>
-                <p class="text-sm">Giving new life to your favorite sneakers since 2020.</p>
+            <div class="text-center text-gray-500" data-aos="fade-up" data-aos-delay="800">
+                <p class="mb-1 text-sm">&copy; 2025 Solve. All rights reserved.</p>
+                <p class="text-xs">Giving new life to your favorite sneakers since 2025.</p>
             </div>
             
         </div>
