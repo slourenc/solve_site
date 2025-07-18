@@ -7,6 +7,15 @@
     <meta name="description" content="Get in touch with Solve - premium shoe cleaning services in Lisbon. Contact us for bookings and questions.">
     <link rel="icon" href="../logos/logo_azul.png" type="image/png">
     
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "sgwwdogwru");
+    </script>
+    
     <!-- Preconnect to critical domains -->
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -245,6 +254,79 @@
             if (yearElement) {
                 yearElement.textContent = new Date().getFullYear();
             }
+            
+            // Handle image upload preview
+            const imageInput = document.getElementById('images');
+            const imagePreview = document.getElementById('image-preview');
+            
+            if (imageInput) {
+                imageInput.addEventListener('change', function(e) {
+                    const files = Array.from(e.target.files);
+                    imagePreview.innerHTML = '';
+                    
+                    if (files.length === 0) {
+                        imagePreview.classList.add('hidden');
+                        return;
+                    }
+                    
+                    // Limit to 5 files
+                    const limitedFiles = files.slice(0, 5);
+                    if (files.length > 5) {
+                        alert('You can only upload up to 5 images. The first 5 images have been selected.');
+                        // Update the file input to only include the first 5 files
+                        const dt = new DataTransfer();
+                        limitedFiles.forEach(file => dt.items.add(file));
+                        imageInput.files = dt.files;
+                    }
+                    
+                    imagePreview.classList.remove('hidden');
+                    
+                    limitedFiles.forEach((file, index) => {
+                        // Check file size (10MB limit)
+                        if (file.size > 10 * 1024 * 1024) {
+                            alert(`File "${file.name}" is too large. Maximum size is 10MB.`);
+                            return;
+                        }
+                        
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const previewDiv = document.createElement('div');
+                            previewDiv.className = 'relative group';
+                            previewDiv.innerHTML = `
+                                <img src="${e.target.result}" 
+                                     alt="Preview ${index + 1}" 
+                                     class="w-full h-24 object-cover rounded-lg border border-gray-200">
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 rounded-lg flex items-center justify-center">
+                                    <button type="button" 
+                                            onclick="removeImage(${index})" 
+                                            class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-red-500 rounded-full p-1 hover:bg-red-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1 truncate">${file.name}</p>
+                            `;
+                            imagePreview.appendChild(previewDiv);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
+            }
+            
+            // Function to remove image preview (global scope)
+            window.removeImage = function(index) {
+                const imageInput = document.getElementById('images');
+                const files = Array.from(imageInput.files);
+                files.splice(index, 1);
+                
+                const dt = new DataTransfer();
+                files.forEach(file => dt.items.add(file));
+                imageInput.files = dt.files;
+                
+                // Trigger change event to refresh preview
+                imageInput.dispatchEvent(new Event('change'));
+            };
         });
     </script>
 </head>
@@ -362,16 +444,16 @@
                      alt="Background" 
                      class="w-full h-full object-cover" 
                      loading="lazy">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-blue-800/80 to-purple-900/85"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-blue-900/80 to-black/75"></div>
             </div>
 
             <div class="container mx-auto relative z-10">
                 <div data-aos="fade-up" data-aos-duration="1000">
                     <img src="../logos/logo_branco.png" alt="Solve" class="h-16 w-auto mx-auto mb-6">
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-white" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-white drop-shadow-2xl" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8)" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                         Contact Us
                     </h1>
-                    <p class="text-lg md:text-xl max-w-2xl mx-auto font-light text-white opacity-90" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                    <p class="text-lg md:text-xl max-w-2xl mx-auto font-light text-white drop-shadow-xl" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.7)" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
                         Have questions? We're here to help and make your sneakers look like new.
                     </p>
                 </div>
@@ -389,7 +471,7 @@
                         <h2 class="text-2xl md:text-3xl font-bold mb-6 text-text-primary">
                             Send Us a Message
                         </h2>
-                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" action="/src/success.html">
                             <!-- Hidden field for Netlify spam protection -->
                             <p style="display: none;">
                                 <label>
@@ -443,6 +525,21 @@
                                           class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 placeholder-text-secondary"
                                           aria-label="Your message"
                                           placeholder="Write your message here..."></textarea>
+                            </div>
+                            <div class="mb-6">
+                                <label for="images" class="block mb-2 text-sm font-medium text-text-primary">
+                                    Attach Images (Optional)
+                                </label>
+                                <div class="relative">
+                                    <input type="file" id="images" name="images" multiple accept="image/*"
+                                           class="w-full px-4 py-3 border border-border-ui rounded-lg text-text-primary focus:ring-primary-accent focus:border-primary-accent transition duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                           aria-label="Upload images of your sneakers">
+                                    <p class="mt-2 text-sm text-gray-600">
+                                        You can upload up to 5 images of your sneakers (max 10MB each). Supported formats: JPG, PNG, HEIC.
+                                    </p>
+                                </div>
+                                <!-- Image preview area -->
+                                <div id="image-preview" class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 hidden"></div>
                             </div>
                             <div>
                                 <button type="submit"
