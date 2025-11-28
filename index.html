@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-lang="en">
+<html lang="pt" data-theme="light" data-lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solve. | Coming Soon - Premium Shoe Cleaning in Lisbon</title>
-    <meta name="description" content="Solve is launching soon! Premium shoe cleaning services in Lisbon. Get ready to give your sneakers a new life with our expert cleaning techniques.">
-    <link rel="icon" href="logos/logo_azul.png" type="image/png">
-    
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
-    <!-- AOS Animations -->
-    <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com https://player.vimeo.com https://www.clarity.ms; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://player.vimeo.com; media-src 'self' https://storage.googleapis.com https://player.vimeo.com; frame-src 'self' https://www.google.com https://www.instagram.com https://player.vimeo.com;">
+    <title>SOLVE. | Limpeza Profissional de Calçado</title>
+    <meta name="description" content="Dê nova vida ao seu calçado e mude o Natal de uma criança. Doe o seu par usado na SOLVE. e receba um desconto de 5€ | Todos os Passos Contam">
+    <meta property="og:title" content="SOLVE. | Limpeza Profissional de Calçado">
+    <meta property="og:description" content="Doe o seu par na SOLVE., receba 5€ de desconto e apoie o Natal das crianças das instituições parceiras. Todos os passos contam.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solve.pt/campanha-natal">
+    <meta property="og:image" content="media/christmas/fundo@2x.png">
+    <meta name="keywords" content="limpeza de calçado Lisboa, SOLVE, campanha de Natal, doação de ténis, limpeza profissional de sapatilhas, desconto na limpeza, Todos os Passos Contam">
+
+    <!-- Preconnect to critical domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://storage.googleapis.com" crossorigin>
+
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -25,146 +27,563 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "sgwwdogwru");
     </script>
-    
+
+    <!-- Favicon -->
+    <link rel="icon" href="media/christmas/favicon.png" type="image/png">
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"></noscript>
+
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></noscript>
+
+    <!-- Gotham Alternative Font (Montserrat - closest to Gotham) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
     <style>
-        .progress-animation {
-            animation: progressPulse 3s ease-in-out infinite;
+        :root {
+            --solve-blue: #3939ff;
+            --solve-blue-dark: #2834d6;
+            --solve-white: #fffdf3;
+            --cta-shadow: rgba(24, 32, 104, 0.35);
+            --hero-gutter: clamp(1.25rem, 4vw, 3.75rem);
         }
-        
-        @keyframes progressPulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
         }
-        
-        .floating {
-            animation: floating 6s ease-in-out infinite;
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Gotham', 'Gotham Bold', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--solve-blue-dark);
+            color: var(--solve-white);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background-color: var(--solve-blue);
+            background-image: url('media/christmas/fundo@2x.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center top;
+            padding: clamp(1.5rem, 3vw, 2rem) var(--hero-gutter) clamp(3rem, 6vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            overflow: hidden;
         }
-        
-        .progress-bar {
-            width: 0%;
-            animation: progressBar 3s ease-out 1s forwards;
+
+        .hero__content {
+            width: min(720px, 100%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(2.5rem, 5vw, 3.5rem);
+            align-items: flex-start;
+            padding-top: clamp(1rem, 3vw, 2rem);
         }
-        
-        @keyframes progressBar {
-            0% { width: 0%; }
-            100% { width: 85%; }
+
+        .hero__text {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1.8rem, 3.5vw, 3.4rem);
+            align-items: flex-start;
         }
-        
-        .bg-gradient-animated {
-            background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #06b6d4, #10b981);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
+
+        .hero__headline {
+            margin: 0;
+            font-size: clamp(3.1rem, 7.5vw, 7rem);
+            line-height: 0.93;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 700;
         }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+
+        .hero__headline span {
+            display: block;
+            white-space: nowrap;
+        }
+
+        .hero__cta {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: clamp(1.1rem, 2.2vw, 1.6rem);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 0.95rem 3rem;
+            background: var(--solve-white);
+            color: var(--solve-blue);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 18px 32px var(--cta-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 26px 40px rgba(14, 22, 92, 0.45);
+        }
+
+        .info-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: flex-start;
+            margin-top: 0.2rem;
+        }
+
+        .info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(14, 20, 96, 0.35);
+            color: var(--solve-white);
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .info-badge__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: currentColor;
+            display: inline-block;
+        }
+
+        .hero__tree {
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .hero__tree img {
+            width: min(300px, 34vw);
+            max-width: 350px;
+            height: auto;
+            display: inline-block;
+            transform-origin: center top;
+            animation: treeDrift 8s ease-in-out infinite;
+        }
+
+        @keyframes treeDrift {
+            0% {
+                transform: translate(20%, -9%) scale(0.94);
+            }
+            50% {
+                transform: translate(23%, -10%) scale(1);
+            }
+            100% {
+                transform: translate(20%, -9%) scale(0.94);
+            }
+        }
+
+        .hero__solve {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: clamp(260px, 34vw, 540px);
+            transform: translateY(5%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero__solve-mobile {
+            display: none;
+            pointer-events: none;
+        }
+
+        .hero__footer {
+            position: absolute;
+            right: var(--hero-gutter);
+            bottom: clamp(0.5rem, 1vw, 1.25rem);
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 2.5vw, 2.5rem);
+            pointer-events: none;
+            z-index: 1;
+            padding-top: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        .hero__institutions {
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 2.5rem);
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .hero__institutions img {
+            height: clamp(28px, 3vw, 52px);
+            width: auto;
+            display: block;
+            animation: fadeInLogos 1.2s ease forwards;
+            opacity: 0;
+        }
+
+        .hero__institutions img:nth-child(1) { animation-delay: 0.2s; }
+        .hero__institutions img:nth-child(2) { animation-delay: 0.35s; }
+        .hero__institutions img:nth-child(3) { animation-delay: 0.5s; }
+        .hero__institutions img:nth-child(4) { animation-delay: 0.65s; }
+        .hero__institutions img:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes fadeInLogos {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .location-card--floating {
+            align-self: flex-end;
+        }
+
+        .social-dock {
+            position: absolute;
+            top: 50%;
+            right: clamp(1rem, 3vw, 2.5rem);
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            pointer-events: auto;
+            z-index: 2;
+            align-items: center;
+        }
+
+        .social-button {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(10, 14, 78, 0.65);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: var(--solve-white);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 10px 28px rgba(4, 8, 50, 0.45);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .social-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-4px);
+        }
+
+        .social-button__icon {
+            font-size: 1.2rem;
+        }
+
+        .icon-tiktok {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10%;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.65);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate3d(-30px, 110vh, 0) scale(0.65);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                padding-top: 10vh;
+                padding-bottom: 2vh;
+            }
+
+            .hero__content {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+                gap: 1.4rem;
+            }
+
+            .hero__headline {
+                font-size: clamp(2.4rem, 9vw, 3.6rem);
+            }
+
+            .hero__text {
+                align-items: center;
+                gap: clamp(1.6rem, 4.5vw, 2.4rem);
+            }
+
+            .hero__cta {
+                align-items: center;
+                width: 100%;
+            }
+
+            .cta-button {
+                margin: 0 auto;
+            }
+
+            .hero__tree {
+                display: none;
+            }
+
+            .hero__footer {
+                position: static;
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: auto;
+                width: 100%;
+                padding-bottom: 1.5rem;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero__institutions {
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+                width: 100%;
+                transform: translateX(8px);
+            }
+
+            .hero__institutions img {
+                flex: 0 0 auto;
+                max-width: none;
+            }
+
+            .hero__solve {
+                display: none;
+            }
+
+            .hero__solve-mobile {
+                display: block;
+                width: min(240px, 60vw);
+                margin: 1.2rem auto 0;
+                transform: translateX(8px);
+            }
+
+            .info-badges {
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+                gap: 0.5rem;
+            }
+
+            .info-badge {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .social-dock {
+                position: static;
+                top: auto;
+                right: auto;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 0.85rem;
+                margin: 1.2rem auto 0;
+                width: max-content;
+                z-index: 1;
+            }
+
+            .social-button {
+                width: 44px;
+                height: 44px;
+                margin-right: 0;
+            }
+
+            .social-button:hover {
+                background: rgba(10, 14, 78, 0.65);
+                transform: none;
+            }
+
+            .hero__solve-mobile {
+                display: block;
+                width: min(240px, 60vw);
+                margin: 1.2rem auto 0;
+            }
+
+            .hero__solve {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .social-dock {
+                position: absolute;
+                top: 50%;
+                right: clamp(1rem, 3vw, 2.5rem);
+                transform: translateY(-50%);
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-top: 0;
+                width: auto;
+            }
+
+            .social-button {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cta-button {
+                letter-spacing: 0.12em;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero__institutions img {
+                height: clamp(24px, 8vw, 36px);
+            }
         }
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                duration: 1000,
-                once: true,
-                offset: 100
-            });
-        });
-    </script>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    
-    <!-- Main Container -->
-    <div class="min-h-screen flex items-center justify-center px-4 py-4">
-        <div class="max-w-4xl mx-auto text-center">
-            
-            <!-- Logo Section -->
-            <div class="mb-6" data-aos="fade-down">
-                <div class="floating mb-4">
-                    <img src="logos/logo_azul.png" alt="Solve" class="h-16 md:h-20 w-auto mx-auto">
-                </div>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
-            </div>
-            
-            <!-- Main Message -->
-            <div class="mb-8" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="text-xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                    Coming Soon...
-                </h2>
-            </div>
-            
-            <!-- Contact Information -->
-            <div class="grid md:grid-cols-2 gap-6 mb-8" data-aos="fade-up" data-aos-delay="400">
-                <div class="bg-white rounded shadow-lg p-4">
-                    <h4 class="text-base font-semibold text-gray-900 mb-3">
-                        <i class="fas fa-map-marker-alt text-blue-600 mr-2"></i>
-                        Our Location
-                    </h4>
-                    <p class="text-gray-600 mb-1 text-sm">Avenida das Forças Armadas 51</p>
-                    <p class="text-gray-600 mb-3 text-sm">1600-121 Lisboa, Portugal</p>
-                    <a href="https://maps.google.com/?q=Avenida+das+Forças+Armadas+51,+1600-121+Lisboa" 
-                       target="_blank" 
-                       class="text-blue-600 hover:text-blue-700 transition-colors text-sm">
-                        <i class="fas fa-external-link-alt mr-1"></i>View on Google Maps
+<body class="antialiased text-base">
+    <section class="hero" role="banner" aria-label="Campanha de Natal Solve">
+        <template id="snowflake-template">
+            <span class="snowflake"></span>
+        </template>
+        <div class="hero__content">
+            <div class="hero__text">
+                <p class="hero__headline" aria-label="Todos os passos contam">
+                    <span>TODOS</span>
+                    <span>OS PASSOS</span>
+                    <span>CONTAM</span>
+                </p>
+                <div class="hero__cta">
+                    <a class="cta-button" href="media\christmas\Regulamento - Campanha de Natal 2025.pdf" target="_blank" rel="noopener noreferrer" aria-label="Consultar regulamento da campanha">
+                        Regulamento
                     </a>
-                </div>
-                
-                <div class="bg-white rounded shadow-lg p-4">
-                    <h4 class="text-base font-semibold text-gray-900 mb-3">
-                        <i class="fas fa-phone text-green-600 mr-2"></i>
-                        Get in Touch
-                    </h4>
-                    <p class="text-gray-600 mb-1 text-sm">
-                        <a href="tel:+351960468818" class="hover:text-blue-600 transition-colors">
-                            +351 960 468 818
+                    <div class="info-badges" aria-label="Informações rápidas">
+                        <a class="info-badge" href="https://maps.app.goo.gl/mZJ2oGayppfaMgfu8" target="_blank" rel="noopener noreferrer">
+                            <span class="info-badge__dot"></span>
+                            Avenida das Forças Armadas 51
                         </a>
-                    </p>
-                    <p class="text-gray-600 mb-3 text-sm">
-                        <a href="mailto:geral@solve-lisboa.pt" class="hover:text-blue-600 transition-colors">
+                        <span class="info-badge">
+                            <span class="info-badge__dot"></span>
+                            Seg-Sáb · 10h-19h
+                        </span>
+                        <a class="info-badge" href="mailto:geral@solve-lisboa.pt">
+                            <span class="info-badge__dot"></span>
                             geral@solve-lisboa.pt
                         </a>
-                    </p>
-                    <a href="https://wa.me/351960468818" 
-                       target="_blank" 
-                       class="inline-flex items-center text-green-600 hover:text-green-700 transition-colors text-sm">
-                        <i class="fab fa-whatsapp mr-2"></i>WhatsApp Us
-                    </a>
+                    </div>
+                    <div class="social-dock" aria-label="Redes sociais">
+                        <a class="social-button" href="https://wa.me/351960468818" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Solve">
+                            <i class="fa fa-whatsapp social-button__icon" aria-hidden="true"></i>
+                        </a>
+                        <a class="social-button" href="https://www.instagram.com/solve.lisboa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Solve">
+                            <i class="fa fa-instagram social-button__icon" aria-hidden="true"></i>
+                        </a>
+                        <a class="social-button" href="https://www.tiktok.com/@solvelisboa" target="_blank" rel="noopener noreferrer" aria-label="TikTok Solve">
+                            <svg class="icon-tiktok" viewBox="0 0 32 32" role="img" aria-hidden="true" focusable="false">
+                                <path d="M28 11.7c-2.6 0-5-0.8-7-2.4v11.1c0 5.2-4.2 9.6-9.3 9.8-5.4 0.3-9.9-3.9-10.2-9.3-0.3-5 3.5-9.4 8.5-10 1.2-0.2 2.4-0.1 3.5 0.2v4.4c-0.5-0.2-1-0.3-1.6-0.3-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5c2.4 0 4.3-1.9 4.5-4.2V2h5c0.5 3.6 3.4 6.4 6.9 6.8V11.7z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Social Media -->
-            <div class="flex justify-center space-x-4 mb-6" data-aos="fade-up" data-aos-delay="600">
-                <a href="https://www.instagram.com/solve.lisboa/" 
-                   target="_blank" 
-                   class="w-10 h-10 bg-gray-600 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-all duration-300">
-                    <i class="fab fa-instagram text-base"></i>
-                </a>
-                <a href="https://www.tiktok.com/@solvelisboa" 
-                   target="_blank" 
-                   class="w-10 h-10 bg-gray-600 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-all duration-300">
-                    <i class="fab fa-tiktok text-base"></i>
-                </a>
-                <a href="https://wa.me/351960468818" 
-                   target="_blank" 
-                   class="w-10 h-10 bg-gray-600 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-all duration-300">
-                    <i class="fab fa-whatsapp text-base"></i>
-                </a>
-            </div>
-            
-            <!-- Footer -->
-            <div class="text-center text-gray-500" data-aos="fade-up" data-aos-delay="800">
-                <p class="mb-1 text-sm">&copy; 2025 Solve. All rights reserved.</p>
-                <p class="text-xs">Giving new life to your favorite sneakers since 2025.</p>
-            </div>
-            
         </div>
-    </div>
-    
+
+        <div class="hero__tree" aria-hidden="true">
+            <img src="media/christmas/arvore@2x.png" alt="" loading="lazy">
+        </div>
+
+        <img class="hero__solve" src="media/christmas/logo cortado@2x.png" alt="Solve">
+
+        <div class="hero__footer" aria-label="Instituições parceiras">
+            <div class="hero__institutions">
+                <img src="media/christmas/logo%20candeia@2x.png" alt="Candeia">
+                <img src="media/christmas/logo%20casa%20dos%20rapazes@2x.png" alt="Casa dos Rapazes">
+                <img src="media/christmas/logo%20casa%20da%20estrela@2x.png" alt="Casa da Estrela">
+                <img src="media/christmas/logo%20centro%20educativo@2x.png" alt="Centro Educativo da Bela Vista">
+            </div>
+            <img class="hero__solve-mobile" src="media/christmas/logo@2x.png" alt="Solve">
+        </div>
+    </section>
+
+    <script>
+        (function initSnowfall() {
+            const hero = document.querySelector('.hero');
+            const template = document.getElementById('snowflake-template');
+            if (!hero || !template) return;
+
+            const flakes = 35;
+            for (let i = 0; i < flakes; i++) {
+                const flake = template.content.firstElementChild.cloneNode(true);
+                const delay = Math.random() * 8;
+                const duration = 12 + Math.random() * 18;
+                const size = 6 + Math.random() * 8;
+                const posX = Math.random() * 100;
+
+                flake.style.left = `${posX}%`;
+                flake.style.animationDuration = `${duration}s`;
+                flake.style.animationDelay = `${delay}s`;
+                flake.style.width = `${size}px`;
+                flake.style.height = `${size}px`;
+
+                hero.appendChild(flake);
+            }
+        })();
+    </script>
 </body>
-</html> 
+</html>
+
