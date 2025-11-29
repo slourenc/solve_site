@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com https://player.vimeo.com https://www.clarity.ms; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https://images.unsplash.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://player.vimeo.com; media-src 'self' https://storage.googleapis.com https://player.vimeo.com; frame-src 'self' https://www.google.com https://www.instagram.com https://player.vimeo.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.instagram.com https://storage.googleapis.com https://player.vimeo.com https://www.clarity.ms https://scripts.clarity.ms; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https://images.unsplash.com https://c.clarity.ms; font-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://player.vimeo.com; media-src 'self' https://storage.googleapis.com https://player.vimeo.com; frame-src 'self' https://www.google.com https://www.instagram.com https://player.vimeo.com;">
     <title>SOLVE. | Limpeza Profissional de Calçado</title>
     <meta name="description" content="Dê nova vida ao seu calçado e mude o Natal de uma criança. Doe o seu par usado na SOLVE. e receba um desconto de 5€ | Todos os Passos Contam">
     <meta property="og:title" content="SOLVE. | Limpeza Profissional de Calçado">
@@ -46,7 +46,101 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <style id="critical-css">
+        :root {
+            --solve-blue: #3939ff;
+            --solve-cream: #fffdf3;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Gotham', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--solve-blue);
+            color: var(--solve-cream);
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: var(--solve-blue);
+        }
+        .hero__content {
+            max-width: 1200px;
+            width: 100%;
+            align-self: center;
+            padding: clamp(1.5rem, 4vw, 3rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(2rem, 4vw, 3rem);
+        }
+        .hero__text {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1.6rem, 4.5vw, 2.4rem);
+            align-items: flex-start;
+        }
+        .hero__headline span {
+            display: block;
+            font-size: clamp(2.4rem, 9vw, 4rem);
+            line-height: 1.05;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .cta-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 3rem;
+            border-radius: 999px;
+            background: #fff;
+            color: var(--solve-blue);
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+        }
+        .info-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(10,14,78,0.35);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .social-dock {
+            display: flex;
+            gap: 0.85rem;
+            margin-top: 1.2rem;
+        }
+        .social-button {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(10,14,78,0.65);
+            border: 1px solid rgba(255,255,255,0.25);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        @media (max-width:1024px){
+            .hero__content{padding:clamp(1.5rem,6vw,3rem);}
+            .hero__text{align-items:center;}
+            .cta-button{margin:0 auto;}
+            .info-badges{flex-direction:column; width:100%; max-width:320px; margin:0 auto;}
+            .social-dock{justify-content:center; margin:1.2rem auto 0;}
+        }
+    </style>
+    <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
     <style>
         :root {
             --solve-blue: #3939ff;
